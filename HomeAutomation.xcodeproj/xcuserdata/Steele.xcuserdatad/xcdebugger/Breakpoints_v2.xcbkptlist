@@ -17,6 +17,38 @@
             endingLineNumber = "136"
             landmarkName = "httpGet(_:)"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeAutomation.DeviceTableViewController.(httpGet (HomeAutomation.DeviceTableViewController) -&gt; (Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.NSMutableURLRequest&gt;) -&gt; ()).(closure #1)"
+                  moduleName = "HomeAutomation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Steele/Documents/Xcode/Lighthouse/HomeAutomation/HomeAutomation/DeviceTableViewController.swift"
+                  timestampString = "477630646.113101"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "136"
+                  endingLineNumber = "136"
+                  offsetFromSymbolStart = "1156">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeAutomation.DeviceTableViewController.(httpGet (HomeAutomation.DeviceTableViewController) -&gt; (Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.NSMutableURLRequest&gt;) -&gt; ()).(closure #1)"
+                  moduleName = "HomeAutomation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Steele/Documents/Xcode/Lighthouse/HomeAutomation/HomeAutomation/DeviceTableViewController.swift"
+                  timestampString = "477630646.11328"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "136"
+                  endingLineNumber = "136"
+                  offsetFromSymbolStart = "1186">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
