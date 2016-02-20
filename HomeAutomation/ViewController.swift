@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, NSXMLParserDelegate, NSURLConnectionDelegate {
+class ViewController: UIViewController, NSXMLParserDelegate, NSURLSessionDelegate {
     
     
     
@@ -19,7 +19,6 @@ class ViewController: UIViewController, NSXMLParserDelegate, NSURLConnectionDele
     var element = NSString()
     var title1 = NSMutableString()
     var date = NSMutableString()
-    
     var elementValue: String?
     var success = false
     
@@ -28,11 +27,12 @@ class ViewController: UIViewController, NSXMLParserDelegate, NSURLConnectionDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         parser.delegate = self
         
-        
         refreshXML("")
+        httpGet(NSMutableURLRequest(URL: NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes")!))
+        
         
     }
     
@@ -40,8 +40,24 @@ class ViewController: UIViewController, NSXMLParserDelegate, NSURLConnectionDele
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
     
+    func httpGet(request: NSMutableURLRequest!) {
+        var configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        
+        var session = NSURLSession(configuration: configuration, delegate: self, delegateQueue:NSOperationQueue.mainQueue())
+        
+        var task = session.dataTaskWithRequest(request){
+            (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+            if error == nil {
+                var result = NSString(data: data!, encoding:
+                    NSASCIIStringEncoding)!
+                NSLog("result %@", result)
+                
+                
+            }
+        }
+        task.resume()
+    }
     
     //Mark: Delegate Functions
     
@@ -49,7 +65,7 @@ class ViewController: UIViewController, NSXMLParserDelegate, NSURLConnectionDele
         if elementName == "success" {
             elementValue = String()
         }
-
+        
     }
     
     
@@ -75,42 +91,45 @@ class ViewController: UIViewController, NSXMLParserDelegate, NSURLConnectionDele
     
     
     //connection delegate functions
-
     
-    func connection(connection: NSURLConnection, canAuthenticateAgainstProtectionSpace protectionSpace: NSURLProtectionSpace) -> Bool
-    {
-        return protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust
+    
+    //    func connection(connection: NSURLConnection, canAuthenticateAgainstProtectionSpace protectionSpace: NSURLProtectionSpace) -> Bool
+    //    {
+    //        return protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust
+    //    }
+    //
+    //    func connection(connection: NSURLConnection, didReceiveAuthenticationChallenge challenge: NSURLAuthenticationChallenge)
+    //    {
+    //        if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust
+    //        {
+    //            if challenge.protectionSpace.host == "69.165.175.141"
+    //            {
+    //                let credentials = NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!)
+    //                challenge.sender!.useCredential(credentials, forAuthenticationChallenge: challenge)
+    //            }
+    //        }
+    //
+    //        challenge.sender!.continueWithoutCredentialForAuthenticationChallenge(challenge)
+    //    }
+    
+    
+    
+    
+    func URLSession(session: NSURLSession, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
+        completionHandler(NSURLSessionAuthChallengeDisposition.UseCredential, NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!))
     }
-    
-    func connection(connection: NSURLConnection, didReceiveAuthenticationChallenge challenge: NSURLAuthenticationChallenge)
-    {
-        if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust
-        {
-            if challenge.protectionSpace.host == "69.165.175.141"
-            {
-                let credentials = NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!)
-                challenge.sender!.useCredential(credentials, forAuthenticationChallenge: challenge)
-            }
-        }
-        
-        challenge.sender!.continueWithoutCredentialForAuthenticationChallenge(challenge)
-    }
-    
-    
-//    func URLSession(session: NSURLSession, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential!) -> Void) {
-//        completionHandler(NSURLSessionAuthChallengeDisposition.UseCredential, NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!))
-//    }
     
     
     
     func refreshXML(command: String) {
+        
         let baseURL = "https://admin:paintball1@69.165.175.141/rest/nodes"
         
         var URLString = baseURL + command
         
         
-         let urlCommand = NSURL(string: URLString)
-
+        let urlCommand = NSURL(string: URLString)
+        
         let queue:NSOperationQueue = NSOperationQueue()
         
         
@@ -153,9 +172,12 @@ class ViewController: UIViewController, NSXMLParserDelegate, NSURLConnectionDele
     
     @IBAction func onButton(sender: AnyObject) {
         
-        let onString = "/18%20F3%20D%201/cmd/DFON"
-        
-        refreshXML(onString)
+        //let onString = "/18%20F3%20D%201/cmd/DFON"
+        //let onString = "/2B%2014%2084%201/cmd/DFON"
+        //httpGet(NSMutableURLRequest(URL: NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes/18%20F3%20D%201/cmd/DFON")!))
+        httpGet(NSMutableURLRequest(URL: NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes/2B%2014%2084%201/cmd/DFON")!))
+
+        //refreshXML(onString)
         
         
     }
@@ -163,10 +185,13 @@ class ViewController: UIViewController, NSXMLParserDelegate, NSURLConnectionDele
     
     @IBAction func offButton(sender: AnyObject) {
         
-        let offString = "/18%20F3%20D%201/cmd/DFOF"
+        //let offString = "/2B%2014%2084%201/cmd/DFOF"
+        //httpGet(NSMutableURLRequest(URL: NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes/18%20F3%20D%201/cmd/DFOF")!))
+         httpGet(NSMutableURLRequest(URL: NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes/2B%2014%2084%201/cmd/DFOF")!))
         
-      refreshXML(offString)
-
+        
+        //refreshXML(offString)
+        
         
         
     }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA21C5211C77E87300F41A83 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5201C77E87300F41A83 /* Node.swift */; };
+		DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */; };
 		DA912FE71C32F38A0082F91A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA912FE61C32F38A0082F91A /* AppDelegate.swift */; };
 		DA912FE91C32F38A0082F91A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA912FE81C32F38A0082F91A /* ViewController.swift */; };
 		DA912FEC1C32F38A0082F91A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA912FEA1C32F38A0082F91A /* Main.storyboard */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA21C5201C77E87300F41A83 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
 		DA912FE31C32F38A0082F91A /* HomeAutomation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeAutomation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA912FE61C32F38A0082F91A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA912FE81C32F38A0082F91A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,10 +103,12 @@
 			children = (
 				DA912FE61C32F38A0082F91A /* AppDelegate.swift */,
 				DA912FE81C32F38A0082F91A /* ViewController.swift */,
+				DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */,
 				DA912FEA1C32F38A0082F91A /* Main.storyboard */,
 				DA912FED1C32F38A0082F91A /* Assets.xcassets */,
 				DA912FEF1C32F38A0082F91A /* LaunchScreen.storyboard */,
 				DA912FF21C32F38A0082F91A /* Info.plist */,
+				DA21C5201C77E87300F41A83 /* Node.swift */,
 			);
 			path = HomeAutomation;
 			sourceTree = "<group>";
@@ -256,6 +262,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA21C5211C77E87300F41A83 /* Node.swift in Sources */,
+				DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */,
 				DA912FE91C32F38A0082F91A /* ViewController.swift in Sources */,
 				DA912FE71C32F38A0082F91A /* AppDelegate.swift in Sources */,
 			);
@@ -484,6 +492,7 @@
 				DA91300D1C32F38A0082F91A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DA91300E1C32F38A0082F91A /* Build configuration list for PBXNativeTarget "HomeAutomationTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +501,7 @@
 				DA9130101C32F38A0082F91A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DA9130111C32F38A0082F91A /* Build configuration list for PBXNativeTarget "HomeAutomationUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +510,7 @@
 				DA9130131C32F38A0082F91A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
