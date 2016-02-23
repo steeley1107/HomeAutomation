@@ -10,60 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeAutomation/DeviceTableViewController.swift"
-            timestampString = "477626963.46006"
+            timestampString = "477881015.428358"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "httpGet(_:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "HomeAutomation.DeviceTableViewController.(httpGet (HomeAutomation.DeviceTableViewController) -&gt; (Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.NSMutableURLRequest&gt;) -&gt; ()).(closure #1)"
-                  moduleName = "HomeAutomation"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Steele/Documents/Xcode/Lighthouse/HomeAutomation/HomeAutomation/DeviceTableViewController.swift"
-                  timestampString = "477630646.113101"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "136"
-                  endingLineNumber = "136"
-                  offsetFromSymbolStart = "1156">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "HomeAutomation.DeviceTableViewController.(httpGet (HomeAutomation.DeviceTableViewController) -&gt; (Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.NSMutableURLRequest&gt;) -&gt; ()).(closure #1)"
-                  moduleName = "HomeAutomation"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Steele/Documents/Xcode/Lighthouse/HomeAutomation/HomeAutomation/DeviceTableViewController.swift"
-                  timestampString = "477630646.11328"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "136"
-                  endingLineNumber = "136"
-                  offsetFromSymbolStart = "1186">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HomeAutomation/DeviceTableViewController.swift"
-            timestampString = "477627081.450495"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "httpGet(_:)"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
+            landmarkName = "parser(_:foundCharacters:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -74,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeAutomation/DeviceTableViewController.swift"
-            timestampString = "477628061.659418"
+            timestampString = "477881048.856227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>

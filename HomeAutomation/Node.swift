@@ -25,12 +25,13 @@ class Node: NSObject {
 //    <property id="ST" value=" " formatted=" " uom="on/off"/>
 //    </node>
     
-    var address: NSNumber = 0.0
+    var address: String = ""
     var name: String = ""
-    var type: NSNumber = 0.0
-    var enabled =  true
-    var deviceClass: Int = 0
-    var wattage: Int = 0
+    var type: String = ""
+    var enabled: String =  ""
+    var deviceClass: String = ""
+    var wattage: String = ""
+    var status: String = ""
 
     
 
