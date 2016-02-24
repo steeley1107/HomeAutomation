@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SWXMLHash
+import Foundation
 
 class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSURLSessionDelegate {
     
@@ -21,18 +23,20 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
     var success = false
     var node = Node()
     var nodes = [Node]()
-    var folders = NSMutableDictionary()
+    var folder = Folder()
+    var folders = [Folder]()
     var folderName = NSMutableString()
-
+    
+    var xml: XMLIndexer?
+    //var refreshControl:UIRefreshControl!
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //3parser.delegate = self
-        //beginParsing()
-        
         httpGet(NSMutableURLRequest(URL: NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes")!))
+        
         
         
         
@@ -145,6 +149,11 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
                 self.parser = NSXMLParser(data: data!)
                 self.parser.delegate = self
                 self.parser.parse()
+                
+                self.xml = SWXMLHash.parse(data!)
+                
+                self.getNodes()
+                print("swxml \(self.xml)")
                 self.tableView!.reloadData()
             }
         }
@@ -188,22 +197,6 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
             
             node = Node()
         }
-        
-        //find folders
-        if (elementName as NSString).isEqualToString("folder")
-        {
-            
-            folders = NSMutableDictionary()
-            folders = [:]
-            //            elements = [:]
-            //            title1 = NSMutableString()
-            //            title1 = ""
-            //            date = NSMutableString()
-            //            date = ""
-        }
-        
-        
-        
         
         
         
@@ -284,33 +277,44 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
             nodes.append(node)
         }
         
-        
-        if (elementName as NSString).isEqualToString("folder")
-        {
-            if !folderName.isEqual(nil) {
-                folders.setObject(folderName, forKey: "name")
-            }
-//            if !date.isEqual(nil) {
-//                folders.setObject(date, forKey: "property")
-//            }
-//            //folders.addObject(elements)
-            
-            
-        }
-        
-        
-        
-        
-        
-        
-        
-        
     }
     
     func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError)
     {
         print("parseErrorOccurred: \(parseError)")
     }
+    
+    
+    func getNodes()
+    {
+        var folderName = xml!["nodes"]["node"][1]["name"].element?.text
+        print("folderName  \(folderName)")
+        
+        for elem in xml!["nodes"]["node"] {
+            NSLog(elem["name"].element!.text!)
+            
+        }
+        
+        
+        for elem in xml!["nodes"]["folder"] {
+            var folder = Folder()
+            
+            var name = elem["name"].element!.text!
+            //folders.setObject(name, forKey: "name")
+            var address = elem["address"].element!.text!
+            //folders.setObject(address, forKey: "address")
+            folder.name = name
+            folder.address = address
+            folders += [folder]
+            
+        }
+        
+        
+        
+    }
+    
+    
+    
     
     
     
