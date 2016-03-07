@@ -1,0 +1,202 @@
+//
+//  NodeManager.swift
+//  HomeAutomation
+//
+//  Created by Steele on 2016-03-05.
+//  Copyright © 2016 Steele. All rights reserved.
+//
+
+import UIKit
+import SWXMLHash
+
+class NodeManager: NSObject, NSURLSessionDelegate {
+    
+    //Mark: Properties
+    
+    //var node = Node()
+    var nodes = [Node]()
+    var folders = [Folder]()
+    var xml: XMLIndexer?
+    let baseURL = NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes")
+    
+    
+    
+    //Mark: Functions
+    
+    // get information from ISY994
+    func requestData(request: NSMutableURLRequest, completionHandler: (response: XMLIndexer) -> ())
+    {
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        
+        let session = NSURLSession(configuration: configuration, delegate: self, delegateQueue:NSOperationQueue.mainQueue())
+        
+        let task = session.dataTaskWithRequest(request) {
+            
+            (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+            if error == nil
+            {
+                completionHandler(response: SWXMLHash.parse(data!))
+            }
+        }
+        task.resume()
+    }
+    
+    
+    //Allow server to connect without SSL Certs
+    func URLSession(session: NSURLSession, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void)
+    {
+        completionHandler(NSURLSessionAuthChallengeDisposition.UseCredential, NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!))
+    }
+    
+    
+    //grab data from xml and place nodes in a custom class
+    func getNodes(completionHandler: (success: Bool) -> ())
+    {
+        requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
+            
+            for elem in response["nodes"]["node"] {
+                let node = Node()
+                NSLog(elem["name"].element!.text!)
+                
+                //Get the name of the node
+                if let name = elem["name"].element?.text!
+                {
+                    node.name = name
+                }
+
+                //Get the current folder the node
+                if let parent = elem["parent"].element?.text!
+                {
+                    node.parent = parent
+                }
+                
+                //Get the status of the node
+                if let status = elem["property"].element?.attributes["formatted"]
+                {
+                    node.status = status
+                }
+                
+                //Get the address of the node
+                if let address = elem["address"].element?.text!
+                {
+                    node.address = address
+                }
+
+                //Add node to array of nodes
+                self.nodes += [node]
+            }
+            completionHandler(success: true)
+        })
+    }
+    
+    
+    //create all folders and place them in an array
+    func createFolders(completionHandler: (success: Bool) -> ())
+    {
+        requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
+            
+            for elem in response["nodes"]["folder"]
+            {
+                let name = elem["name"].element!.text!
+                let address = elem["address"].element!.text!
+                let folder = Folder()
+                folder.name = name
+                folder.address = address
+                self.folders += [folder]
+            }
+            completionHandler(success: true)
+        })
+    }
+    
+    
+    
+    //add nodes to the proper folder array
+    func addNodes(completionHandler: (success: Bool) -> ())
+    {
+        
+        createFolders { (success) -> () in
+            if success
+            {
+                self.getNodes { (success) -> () in
+                    if success
+                    {
+                        for folder in self.folders
+                        {
+                            print("folders \(folder.name)")
+                            for node in self.nodes
+                            {
+                                if node.parent == folder.address
+                                {
+                                    print("node \(node.name)")
+                                    folder.nodeArray += [node]
+                                }
+                            }
+                        }
+                    }
+                    completionHandler(success: true)
+                }
+            }
+        }
+        
+        
+        
+    }
+    
+    
+    func fetchNumberOfFolders() -> Int {
+        return self.folders.count
+    }
+    
+    
+    
+    
+    
+    //
+    //    func fetchErrandsForGroup(section: NSInteger) -> [Errand]? {
+    //
+    //        if let groups = self.errandsDictionary.allKeys as? [String] {
+    //            let group = groups[section]
+    //            return self.errandsDictionary.valueForKey(group) as? [Errand]
+    //        } else {
+    //            return nil
+    //        }
+    //    }
+    //
+    //    func fetchNumberOfRowsInSection(section: NSInteger) -> Int {
+    //        if let errands = fetchErrandsForGroup(section) {
+    //            return errands.count
+    //        } else {
+    //            return 0
+    //        }
+    //    }
+    //
+    //
+    //    func fetchErrand(indexPath: NSIndexPath) -> Errand? {
+    //        if let errands = fetchErrandsForGroup(indexPath.section) {
+    //            return errands[indexPath.row]
+    //        } else {
+    //            return nil
+    //        }
+    //    }
+    //
+    //    func fetchTitleForHeaderInSection(section: NSInteger) -> String? {
+    //
+    //        if let groups = self.errandsDictionary.allKeys as? [String] {
+    //            let gObjectID = groups[section]
+    //            let gName = self.objectIDtoNameDictionary.valueForKey(gObjectID) as! String
+    //            return gName.capitalizedString
+    //        } else {
+    //            return nil
+    //        }
+    //    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}

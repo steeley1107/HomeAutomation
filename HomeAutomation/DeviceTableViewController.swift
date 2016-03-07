@@ -13,32 +13,41 @@ import Foundation
 class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSURLSessionDelegate {
     
     //Mark: Properties
-    var parser = NSXMLParser()
-    var posts = NSMutableArray()
-    var elements = NSMutableDictionary()
-    var element = NSString()
-    var title1 = NSMutableString()
-    var date = NSMutableString()
-    var elementValue: String?
-    var success = false
-    var node = Node()
-    var nodes = [Node]()
-    var folder = Folder()
-    var folders = [Folder]()
-    var folderName = NSMutableString()
     
     var xml: XMLIndexer?
-    //var refreshControl:UIRefreshControl!
+    var nodeManager: NodeManager!
+    
+    var tableRefreshControl: UIRefreshControl!
+    
+    //var refreshControl: UIRefreshControl!
     
     
     
+    //Mark:  Load ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        httpGet(NSMutableURLRequest(URL: NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes")!))
+        //Reload tableView
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        
+        //Init node controller
+        self.nodeManager = NodeManager()
+        
+        
+        nodeManager.addNodes { (success) -> () in
+            if success {
+                self.tableView.reloadData()
+            }
+        }
         
         
         
+        //Update tableView with pulldown
+        //        self.refreshControl = UIRefreshControl()
+        //        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        //        self.tableView.addSubview(refreshControl)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -47,21 +56,53 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        
+        
+        //Fetch all folders
+        nodeManager.createFolders { (success) -> () in
+            if success {
+                self.tableView.reloadData()
+            }
+        }
+        
+        
+        
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    func refresh(sender:AnyObject)
+    {
+        nodeManager.createFolders { (success) -> () in
+            if success {
+                self.tableView.reloadData()
+                self.refreshControl!.endRefreshing()
+            }
+        }
+    }
+    
+    
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        
+        let count = nodeManager.folders.count
+        //print("count \(count)")
+        return count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return nodes.count
+        let count = nodeManager.folders[section].nodeArray.count
+        return count
     }
     
     
@@ -71,13 +112,27 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         
         // Configure the cell...
         
-        cell.textLabel?.text = nodes[indexPath.row].name
-        cell.detailTextLabel?.text = nodes[indexPath.row].status
+        cell.textLabel?.text = nodeManager.folders[indexPath.section].nodeArray[indexPath.row].name
+        cell.detailTextLabel?.text = nodeManager.folders[indexPath.section].nodeArray[indexPath.row].status
         
+        
+        //Change the color of the status to red or green.
+        if cell.detailTextLabel?.text == "Off"
+        {
+            cell.detailTextLabel?.textColor = UIColor.redColor()
+        }
+        else if cell.detailTextLabel?.text == "On"
+        {
+            cell.detailTextLabel?.textColor = UIColor.greenColor()
+        }
         
         return cell
     }
     
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return nodeManager.folders[section].name
+    }
     
     /*
     // Override to support conditional editing of the table view.
@@ -120,202 +175,15 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-        if (segue.identifier == "Details") {
+        if (segue.identifier == "Details")
+        {
             let detailVC:DetailViewController = segue.destinationViewController as! DetailViewController
             // let selectedIndex = self.tableView.indexPathForCell(sender as! UITableViewCell)
             let indexPath = tableView.indexPathForSelectedRow
-            let selectedNode = nodes[indexPath!.row] as Node
+            let selectedNode = nodeManager.folders[indexPath!.section].nodeArray[indexPath!.row] as Node
             detailVC.node = selectedNode
-            
         }
     }
-    
-    
-    
-    // get information from ISY994
-    func httpGet(request: NSMutableURLRequest!)
-    {
-        var configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        
-        var session = NSURLSession(configuration: configuration, delegate: self, delegateQueue:NSOperationQueue.mainQueue())
-        
-        var task = session.dataTaskWithRequest(request){
-            (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
-            if error == nil {
-                var result = NSString(data: data!, encoding:
-                    NSASCIIStringEncoding)!
-                NSLog("result %@", result)
-                self.posts = []
-                self.parser = NSXMLParser(data: data!)
-                self.parser.delegate = self
-                self.parser.parse()
-                
-                self.xml = SWXMLHash.parse(data!)
-                
-                self.getNodes()
-                print("swxml \(self.xml)")
-                self.tableView!.reloadData()
-            }
-        }
-        task.resume()
-    }
-    
-    
-    func URLSession(session: NSURLSession, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void)
-    {
-        completionHandler(NSURLSessionAuthChallengeDisposition.UseCredential, NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!))
-    }
-    
-    
-    
-    //Mark: Parser Delegate Functions
-    
-    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String])
-    {
-        if elementName == "success"
-        {
-            elementValue = String()
-        }
-        
-        if elementName == "property"
-        {
-            //print("111111 \(attributeDict["formatted"])")
-            node.status = attributeDict["formatted"]!
-            
-        }
-        
-        
-        element = elementName
-        if (elementName as NSString).isEqualToString("node")
-        {
-            elements = NSMutableDictionary()
-            elements = [:]
-            title1 = NSMutableString()
-            title1 = ""
-            date = NSMutableString()
-            date = ""
-            
-            node = Node()
-        }
-        
-        
-        
-    }
-    
-    func parser(parser: NSXMLParser, foundCharacters string: String) {
-        if elementValue != nil {
-            elementValue! += string
-            print("element value \(elementValue)")
-        }
-        
-        if element.isEqualToString("name")
-        {
-            //title1.appendString(string)
-            node.name = string
-        }
-        else if element.isEqualToString("address")
-        {
-            //print("property \(element)")
-            //date.appendString(string)
-            node.address = string
-        }
-        else if element.isEqualToString("type")
-        {
-            node.type = string
-        }
-        else if element.isEqualToString("enabled")
-        {
-            node.enabled = string
-        }
-        else if element.isEqualToString("deviceClass")
-        {
-            node.deviceClass = string
-        }
-        else if element.isEqualToString("wattage")
-        {
-            node.wattage = string
-        }
-        else if element.isEqualToString("property")
-        {
-            print("property xxx \(element)")
-            
-        }
-        
-        
-        //if element.isEqualToString("name")
-        
-        
-        
-        
-    }
-    
-    func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if elementName == "success" {
-            if elementValue == "true" {
-                success = true
-            }
-            elementValue = nil
-        }
-        
-        
-        
-        //        if (elementName as NSString).isEqualToString("node")
-        //        {
-        //            if !title1.isEqual(nil) {
-        //                elements.setObject(title1, forKey: "name")
-        //            }
-        //            if !date.isEqual(nil) {
-        //                elements.setObject(date, forKey: "property")
-        //            }
-        //            posts.addObject(elements)
-        //
-        //        }
-        
-        
-        if (elementName as NSString).isEqualToString("node")
-        {
-            nodes.append(node)
-        }
-        
-    }
-    
-    func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError)
-    {
-        print("parseErrorOccurred: \(parseError)")
-    }
-    
-    
-    func getNodes()
-    {
-        var folderName = xml!["nodes"]["node"][1]["name"].element?.text
-        print("folderName  \(folderName)")
-        
-        for elem in xml!["nodes"]["node"] {
-            NSLog(elem["name"].element!.text!)
-            
-        }
-        
-        
-        for elem in xml!["nodes"]["folder"] {
-            var folder = Folder()
-            
-            var name = elem["name"].element!.text!
-            //folders.setObject(name, forKey: "name")
-            var address = elem["address"].element!.text!
-            //folders.setObject(address, forKey: "address")
-            folder.name = name
-            folder.address = address
-            folders += [folder]
-            
-        }
-        
-        
-        
-    }
-    
-    
-    
-    
     
     
 }

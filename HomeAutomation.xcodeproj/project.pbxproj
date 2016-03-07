@@ -11,6 +11,7 @@
 		DA21C5211C77E87300F41A83 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5201C77E87300F41A83 /* Node.swift */; };
 		DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */; };
 		DA21C5251C7D4D9B00F41A83 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5241C7D4D9B00F41A83 /* Folder.swift */; };
+		DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */; };
 		DA912FE71C32F38A0082F91A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA912FE61C32F38A0082F91A /* AppDelegate.swift */; };
 		DA912FE91C32F38A0082F91A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA912FE81C32F38A0082F91A /* DetailViewController.swift */; };
 		DA912FEC1C32F38A0082F91A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA912FEA1C32F38A0082F91A /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 		DA21C5201C77E87300F41A83 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
 		DA21C5241C7D4D9B00F41A83 /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
 		DA912FE31C32F38A0082F91A /* HomeAutomation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeAutomation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA912FE61C32F38A0082F91A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA912FE81C32F38A0082F91A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +104,32 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		DA88C9281C8B394800EA5B20 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DA21C5241C7D4D9B00F41A83 /* Folder.swift */,
+				DA21C5201C77E87300F41A83 /* Node.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		DA88C9291C8B397300EA5B20 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */,
+				DA912FE81C32F38A0082F91A /* DetailViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		DA88C92A1C8B3A3600EA5B20 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		DA912FDA1C32F38A0082F91A = {
 			isa = PBXGroup;
 			children = (
@@ -127,15 +155,14 @@
 		DA912FE51C32F38A0082F91A /* HomeAutomation */ = {
 			isa = PBXGroup;
 			children = (
+				DA88C9281C8B394800EA5B20 /* Models */,
+				DA88C92A1C8B3A3600EA5B20 /* Controllers */,
+				DA88C9291C8B397300EA5B20 /* ViewControllers */,
 				DA912FE61C32F38A0082F91A /* AppDelegate.swift */,
-				DA21C5241C7D4D9B00F41A83 /* Folder.swift */,
-				DA912FE81C32F38A0082F91A /* DetailViewController.swift */,
-				DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */,
 				DA912FEA1C32F38A0082F91A /* Main.storyboard */,
 				DA912FED1C32F38A0082F91A /* Assets.xcassets */,
 				DA912FEF1C32F38A0082F91A /* LaunchScreen.storyboard */,
 				DA912FF21C32F38A0082F91A /* Info.plist */,
-				DA21C5201C77E87300F41A83 /* Node.swift */,
 			);
 			path = HomeAutomation;
 			sourceTree = "<group>";
@@ -225,7 +252,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0720;
-				ORGANIZATIONNAME = Steele;
+				ORGANIZATIONNAME = 11thHourIndustries;
 				TargetAttributes = {
 					DA912FE21C32F38A0082F91A = {
 						CreatedOnToolsVersion = 7.2;
@@ -341,6 +368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA21C5211C77E87300F41A83 /* Node.swift in Sources */,
+				DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */,
 				DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */,
 				DA912FE91C32F38A0082F91A /* DetailViewController.swift in Sources */,
 				DA912FE71C32F38A0082F91A /* AppDelegate.swift in Sources */,
