@@ -18,6 +18,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     var folders = [Folder]()
     var xml: XMLIndexer?
     let baseURL = NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes")
+    let baseURLString = "https://admin:paintball1@69.165.175.141/rest/nodes"
     
     
     
@@ -63,7 +64,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 {
                     node.name = name
                 }
-
+                
                 //Get the current folder the node
                 if let parent = elem["parent"].element?.text!
                 {
@@ -81,7 +82,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 {
                     node.address = address
                 }
-
+                
                 //Add node to array of nodes
                 self.nodes += [node]
             }
@@ -138,62 +139,55 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             }
         }
         
-        
-        
-    }
-    
-    
-    func fetchNumberOfFolders() -> Int {
-        return self.folders.count
     }
     
     
     
+    func onCommand(node: Node)
+    {
+        ///rest/nodes/<node>/cmd/DFON
+        
+        var commandURLString = baseURLString + "/" + node.address + "/cmd/DFON"
+        
+        commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
+        
+        let commandURL = NSURL(string: commandURLString)
+        
+        print("url \(commandURL)")
+        
+        requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
+        
+            if let status = response["RestResponse"].element?.attributes["succeeded"]
+            {
+                if status == "true"
+                {
+                node.status = "On"
+                
+                }
+            }
+        })
+    }
     
-    
-    //
-    //    func fetchErrandsForGroup(section: NSInteger) -> [Errand]? {
-    //
-    //        if let groups = self.errandsDictionary.allKeys as? [String] {
-    //            let group = groups[section]
-    //            return self.errandsDictionary.valueForKey(group) as? [Errand]
-    //        } else {
-    //            return nil
-    //        }
-    //    }
-    //
-    //    func fetchNumberOfRowsInSection(section: NSInteger) -> Int {
-    //        if let errands = fetchErrandsForGroup(section) {
-    //            return errands.count
-    //        } else {
-    //            return 0
-    //        }
-    //    }
-    //
-    //
-    //    func fetchErrand(indexPath: NSIndexPath) -> Errand? {
-    //        if let errands = fetchErrandsForGroup(indexPath.section) {
-    //            return errands[indexPath.row]
-    //        } else {
-    //            return nil
-    //        }
-    //    }
-    //
-    //    func fetchTitleForHeaderInSection(section: NSInteger) -> String? {
-    //
-    //        if let groups = self.errandsDictionary.allKeys as? [String] {
-    //            let gObjectID = groups[section]
-    //            let gName = self.objectIDtoNameDictionary.valueForKey(gObjectID) as! String
-    //            return gName.capitalizedString
-    //        } else {
-    //            return nil
-    //        }
-    //    }
-    
-    
-    
-    
-    
+    func offCommand(node: Node)
+    {
+        ///rest/nodes/<node>/cmd/DFON
+        
+        var commandURLString = baseURLString + "/" + node.address + "/cmd/DFOF"
+        commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let commandURL = NSURL(string: commandURLString)
+        
+        requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
+            if let status = response["RestResponse"].element?.attributes["succeeded"]
+                {
+                    if status == "true"
+                    {
+                        node.status = "Off"
+                        
+                    }
+            }
+
+        })
+    }
     
     
     

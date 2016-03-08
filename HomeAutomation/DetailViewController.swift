@@ -20,6 +20,7 @@ class DetailViewController: UIViewController, NSURLSessionDelegate {
     var elementValue: String?
     var success = false
     var node = Node()
+    var nodeManager: NodeManager!
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
@@ -28,6 +29,9 @@ class DetailViewController: UIViewController, NSURLSessionDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Init node controller
+        self.nodeManager = NodeManager()
         
         nameLabel.text = node.name
         addressLabel.text = node.address
@@ -73,11 +77,11 @@ class DetailViewController: UIViewController, NSURLSessionDelegate {
         //let onString = "/18%20F3%20D%201/cmd/DFON"
         //let onString = "/2B%2014%2084%201/cmd/DFON"
         //httpGet(NSMutableURLRequest(URL: NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes/18%20F3%20D%201/cmd/DFON")!))
-        httpGet(NSMutableURLRequest(URL: NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes/2B%2014%2084%201/cmd/DFON")!))
+       // httpGet(NSMutableURLRequest(URL: NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes/2B%2014%2084%201/cmd/DFON")!))
 
         //refreshXML(onString)
         
-        
+        nodeManager.onCommand(node)
     }
     
     
@@ -85,10 +89,11 @@ class DetailViewController: UIViewController, NSURLSessionDelegate {
         
         //let offString = "/2B%2014%2084%201/cmd/DFOF"
         //httpGet(NSMutableURLRequest(URL: NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes/18%20F3%20D%201/cmd/DFOF")!))
-         httpGet(NSMutableURLRequest(URL: NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes/2B%2014%2084%201/cmd/DFOF")!))
+         //httpGet(NSMutableURLRequest(URL: NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes/2B%2014%2084%201/cmd/DFOF")!))
         
         
         //refreshXML(offString)
+        nodeManager.offCommand(node)
         
         
         
