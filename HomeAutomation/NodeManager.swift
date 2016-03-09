@@ -168,9 +168,10 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         })
     }
     
+    
     func offCommand(node: Node)
     {
-        ///rest/nodes/<node>/cmd/DFON
+        ///rest/nodes/<node>/cmd/DFOF
         
         var commandURLString = baseURLString + "/" + node.address + "/cmd/DFOF"
         commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
