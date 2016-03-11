@@ -12,6 +12,8 @@
 		DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */; };
 		DA21C5251C7D4D9B00F41A83 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5241C7D4D9B00F41A83 /* Folder.swift */; };
 		DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */; };
+		DA8FE8B11C93749200991FB4 /* Lightbulb-on-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8FE8B01C93749200991FB4 /* Lightbulb-on-icon.png */; };
+		DA8FE8B31C93749900991FB4 /* Lightbulb-off-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8FE8B21C93749900991FB4 /* Lightbulb-off-icon.png */; };
 		DA912FE71C32F38A0082F91A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA912FE61C32F38A0082F91A /* AppDelegate.swift */; };
 		DA912FE91C32F38A0082F91A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA912FE81C32F38A0082F91A /* DetailViewController.swift */; };
 		DA912FEC1C32F38A0082F91A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA912FEA1C32F38A0082F91A /* Main.storyboard */; };
@@ -19,6 +21,7 @@
 		DA912FF11C32F38A0082F91A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA912FEF1C32F38A0082F91A /* LaunchScreen.storyboard */; };
 		DA912FFC1C32F38A0082F91A /* HomeAutomationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA912FFB1C32F38A0082F91A /* HomeAutomationTests.swift */; };
 		DA9130071C32F38A0082F91A /* HomeAutomationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9130061C32F38A0082F91A /* HomeAutomationUITests.swift */; };
+		DAFA7B991C93858D002CF894 /* NodeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFA7B981C93858D002CF894 /* NodeListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +49,8 @@
 		DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
 		DA21C5241C7D4D9B00F41A83 /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
+		DA8FE8B01C93749200991FB4 /* Lightbulb-on-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lightbulb-on-icon.png"; sourceTree = "<group>"; };
+		DA8FE8B21C93749900991FB4 /* Lightbulb-off-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lightbulb-off-icon.png"; sourceTree = "<group>"; };
 		DA912FE31C32F38A0082F91A /* HomeAutomation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeAutomation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA912FE61C32F38A0082F91A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA912FE81C32F38A0082F91A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +64,7 @@
 		DA9130021C32F38A0082F91A /* HomeAutomationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeAutomationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA9130061C32F38A0082F91A /* HomeAutomationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAutomationUITests.swift; sourceTree = "<group>"; };
 		DA9130081C32F38A0082F91A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAFA7B981C93858D002CF894 /* NodeListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +136,15 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		DA8FE8AF1C93747700991FB4 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				DA8FE8B21C93749900991FB4 /* Lightbulb-off-icon.png */,
+				DA8FE8B01C93749200991FB4 /* Lightbulb-on-icon.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		DA912FDA1C32F38A0082F91A = {
 			isa = PBXGroup;
 			children = (
@@ -155,14 +170,16 @@
 		DA912FE51C32F38A0082F91A /* HomeAutomation */ = {
 			isa = PBXGroup;
 			children = (
+				DA912FE61C32F38A0082F91A /* AppDelegate.swift */,
+				DA912FEA1C32F38A0082F91A /* Main.storyboard */,
+				DAFA7B971C938555002CF894 /* TableViewCells */,
 				DA88C9281C8B394800EA5B20 /* Models */,
 				DA88C92A1C8B3A3600EA5B20 /* Controllers */,
 				DA88C9291C8B397300EA5B20 /* ViewControllers */,
-				DA912FE61C32F38A0082F91A /* AppDelegate.swift */,
-				DA912FEA1C32F38A0082F91A /* Main.storyboard */,
 				DA912FED1C32F38A0082F91A /* Assets.xcassets */,
 				DA912FEF1C32F38A0082F91A /* LaunchScreen.storyboard */,
 				DA912FF21C32F38A0082F91A /* Info.plist */,
+				DA8FE8AF1C93747700991FB4 /* Images */,
 			);
 			path = HomeAutomation;
 			sourceTree = "<group>";
@@ -183,6 +200,14 @@
 				DA9130081C32F38A0082F91A /* Info.plist */,
 			);
 			path = HomeAutomationUITests;
+			sourceTree = "<group>";
+		};
+		DAFA7B971C938555002CF894 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				DAFA7B981C93858D002CF894 /* NodeListTableViewCell.swift */,
+			);
+			name = TableViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,8 +317,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA8FE8B11C93749200991FB4 /* Lightbulb-on-icon.png in Resources */,
 				DA912FF11C32F38A0082F91A /* LaunchScreen.storyboard in Resources */,
 				DA912FEE1C32F38A0082F91A /* Assets.xcassets in Resources */,
+				DA8FE8B31C93749900991FB4 /* Lightbulb-off-icon.png in Resources */,
 				DA912FEC1C32F38A0082F91A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -369,6 +396,7 @@
 			files = (
 				DA21C5211C77E87300F41A83 /* Node.swift in Sources */,
 				DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */,
+				DAFA7B991C93858D002CF894 /* NodeListTableViewCell.swift in Sources */,
 				DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */,
 				DA912FE91C32F38A0082F91A /* DetailViewController.swift in Sources */,
 				DA912FE71C32F38A0082F91A /* AppDelegate.swift in Sources */,

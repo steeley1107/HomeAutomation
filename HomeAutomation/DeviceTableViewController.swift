@@ -60,15 +60,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         
-        
-        //Fetch all folders
-        nodeManager.createFolders { (success) -> () in
-            if success {
-                self.tableView.reloadData()
-            }
-        }
-        
-        
+        self.tableView.reloadData()
         
     }
     
@@ -80,7 +72,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
     
     func refresh(sender:AnyObject)
     {
-        nodeManager.createFolders { (success) -> () in
+        nodeManager.addNodes { (success) -> () in
             if success {
                 self.tableView.reloadData()
                 self.refreshControl!.endRefreshing()
@@ -108,22 +100,24 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        var cell:NodeListTableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! NodeListTableViewCell
         
         // Configure the cell...
         
-        cell.textLabel?.text = nodeManager.folders[indexPath.section].nodeArray[indexPath.row].name
-        cell.detailTextLabel?.text = nodeManager.folders[indexPath.section].nodeArray[indexPath.row].status
-        
+        cell.nodeTitle.text = nodeManager.folders[indexPath.section].nodeArray[indexPath.row].name
+        cell.nodeStatus.text = nodeManager.folders[indexPath.section].nodeArray[indexPath.row].status
+       
         
         //Change the color of the status to red or green.
-        if cell.detailTextLabel?.text == "Off"
+        if cell.nodeStatus.text == "Off"
         {
-            cell.detailTextLabel?.textColor = UIColor.redColor()
+            cell.nodeStatus.textColor = UIColor.redColor()
+            cell.nodeImage.image = UIImage(named: "Lightbulb-off-icon")
         }
-        else if cell.detailTextLabel?.text == "On"
+        else if cell.nodeStatus.text == "On"
         {
-            cell.detailTextLabel?.textColor = UIColor.greenColor()
+            cell.nodeStatus.textColor = UIColor.greenColor()
+            cell.nodeImage.image = UIImage(named: "Lightbulb-on-icon")
         }
         
         return cell

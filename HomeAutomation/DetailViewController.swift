@@ -41,13 +41,24 @@ class DetailViewController: UIViewController, NSURLSessionDelegate {
     
     @IBAction func onButton(sender: AnyObject)
     {
-        nodeManager.onCommand(node)
+        
+        nodeManager.onCommand(node) { (success) -> () in
+            if success
+            {
+                self.statusLabel.text = self.node.status
+            }
+        }
     }
     
     
     @IBAction func offButton(sender: AnyObject)
     {
-        nodeManager.offCommand(node)
+        nodeManager.offCommand(node) { (success) -> () in
+            if success
+            {
+                self.statusLabel.text = self.node.status
+            }
+        }
     }
     
     

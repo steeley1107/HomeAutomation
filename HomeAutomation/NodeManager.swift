@@ -18,7 +18,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     var folders = [Folder]()
     var xml: XMLIndexer?
     let baseURL = NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes")
-    let baseURLString = "https://admin:paintball1@69.165.175.141/rest/nodes"
+    let baseURLString = "https://admin:paintball1@69.165.175.141/rest/"
     
     
     
@@ -55,6 +55,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     {
         requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
             
+            self.nodes = []
             for elem in response["nodes"]["node"] {
                 let node = Node()
                 NSLog(elem["name"].element!.text!)
@@ -95,7 +96,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     func createFolders(completionHandler: (success: Bool) -> ())
     {
         requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
-            
+            self.folders = []
             for elem in response["nodes"]["folder"]
             {
                 let name = elem["name"].element!.text!
@@ -105,6 +106,9 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 folder.address = address
                 self.folders += [folder]
             }
+            let folder = Folder()
+            folder.name = "Other"
+            self.folders += [folder]
             completionHandler(success: true)
         })
     }
@@ -142,55 +146,81 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     }
     
     
-    
-    func onCommand(node: Node)
+    //turn on node funtion
+    func onCommand(node: Node, completionHandler: (success: Bool) -> ())
     {
         ///rest/nodes/<node>/cmd/DFON
         
-        var commandURLString = baseURLString + "/" + node.address + "/cmd/DFON"
-        
+        //Create url for on command
+        var commandURLString = baseURLString + "nodes/" + node.address + "/cmd/DFON"
         commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
-        
         let commandURL = NSURL(string: commandURLString)
         
-        print("url \(commandURL)")
+        //print("url \(commandURL)")
         
         requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
-        
+            
             if let status = response["RestResponse"].element?.attributes["succeeded"]
             {
                 if status == "true"
                 {
-                node.status = "On"
-                
+                    self.nodeStatus(node, completionHandler: { (success) -> () in
+                        if success
+                        {
+                            completionHandler(success: true)
+                        }
+                    })
                 }
             }
         })
     }
     
-    
-    func offCommand(node: Node)
+    //turn off node function
+    func offCommand(node: Node, completionHandler: (success: Bool) -> ())
     {
         ///rest/nodes/<node>/cmd/DFOF
         
-        var commandURLString = baseURLString + "/" + node.address + "/cmd/DFOF"
+        //Create url for off command
+        var commandURLString = baseURLString + "nodes/" + node.address + "/cmd/DFOF"
         commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
         let commandURL = NSURL(string: commandURLString)
         
         requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
             if let status = response["RestResponse"].element?.attributes["succeeded"]
+            {
+                if status == "true"
                 {
-                    if status == "true"
-                    {
-                        node.status = "Off"
-                        
-                    }
+                    self.nodeStatus(node, completionHandler: { (success) -> () in
+                        if success
+                        {
+                            completionHandler(success: true)
+                        }
+                    })
+                }
             }
-
+            
         })
     }
     
     
+    //get the status of a node
+    func nodeStatus(node: Node, completionHandler: (success: Bool) -> ())
+    {
+        ///rest/status/<node>
+        
+        //Create url to get the status of a node
+        var commandURLString = baseURLString + "status/" + node.address
+        commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let commandURL = NSURL(string: commandURLString)
+        
+        requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
+            if let status = response["properties"]["property"].element?.attributes["formatted"]
+            {
+                node.status = status
+                completionHandler(success: true)
+            }
+        })
+    }
     
     
     
