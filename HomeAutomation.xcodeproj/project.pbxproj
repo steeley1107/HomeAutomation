@@ -12,6 +12,8 @@
 		DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */; };
 		DA21C5251C7D4D9B00F41A83 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5241C7D4D9B00F41A83 /* Folder.swift */; };
 		DA3C3A761C97259B00494CEB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C3A751C97259B00494CEB /* SettingsTableViewController.swift */; };
+		DA3C3A7E1C9C46C800494CEB /* 001-home.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3C3A7D1C9C46C800494CEB /* 001-home.png */; };
+		DA3C3A801C9C471900494CEB /* 149-cog.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3C3A7F1C9C471900494CEB /* 149-cog.png */; };
 		DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */; };
 		DA8FE8B11C93749200991FB4 /* Lightbulb-on-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8FE8B01C93749200991FB4 /* Lightbulb-on-icon.png */; };
 		DA8FE8B31C93749900991FB4 /* Lightbulb-off-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8FE8B21C93749900991FB4 /* Lightbulb-off-icon.png */; };
@@ -50,6 +52,8 @@
 		DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
 		DA21C5241C7D4D9B00F41A83 /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		DA3C3A751C97259B00494CEB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		DA3C3A7D1C9C46C800494CEB /* 001-home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "001-home.png"; sourceTree = "<group>"; };
+		DA3C3A7F1C9C471900494CEB /* 149-cog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "149-cog.png"; sourceTree = "<group>"; };
 		DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
 		DA8FE8B01C93749200991FB4 /* Lightbulb-on-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lightbulb-on-icon.png"; sourceTree = "<group>"; };
 		DA8FE8B21C93749900991FB4 /* Lightbulb-off-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lightbulb-off-icon.png"; sourceTree = "<group>"; };
@@ -142,6 +146,8 @@
 		DA8FE8AF1C93747700991FB4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DA3C3A7D1C9C46C800494CEB /* 001-home.png */,
+				DA3C3A7F1C9C471900494CEB /* 149-cog.png */,
 				DA8FE8B21C93749900991FB4 /* Lightbulb-off-icon.png */,
 				DA8FE8B01C93749200991FB4 /* Lightbulb-on-icon.png */,
 			);
@@ -322,6 +328,8 @@
 			files = (
 				DA8FE8B11C93749200991FB4 /* Lightbulb-on-icon.png in Resources */,
 				DA912FF11C32F38A0082F91A /* LaunchScreen.storyboard in Resources */,
+				DA3C3A7E1C9C46C800494CEB /* 001-home.png in Resources */,
+				DA3C3A801C9C471900494CEB /* 149-cog.png in Resources */,
 				DA912FEE1C32F38A0082F91A /* Assets.xcassets in Resources */,
 				DA8FE8B31C93749900991FB4 /* Lightbulb-off-icon.png in Resources */,
 				DA912FEC1C32F38A0082F91A /* Main.storyboard in Resources */,
