@@ -11,6 +11,7 @@
 		DA21C5211C77E87300F41A83 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5201C77E87300F41A83 /* Node.swift */; };
 		DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */; };
 		DA21C5251C7D4D9B00F41A83 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5241C7D4D9B00F41A83 /* Folder.swift */; };
+		DA3C3A761C97259B00494CEB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C3A751C97259B00494CEB /* SettingsTableViewController.swift */; };
 		DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */; };
 		DA8FE8B11C93749200991FB4 /* Lightbulb-on-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8FE8B01C93749200991FB4 /* Lightbulb-on-icon.png */; };
 		DA8FE8B31C93749900991FB4 /* Lightbulb-off-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8FE8B21C93749900991FB4 /* Lightbulb-off-icon.png */; };
@@ -48,6 +49,7 @@
 		DA21C5201C77E87300F41A83 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
 		DA21C5241C7D4D9B00F41A83 /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		DA3C3A751C97259B00494CEB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
 		DA8FE8B01C93749200991FB4 /* Lightbulb-on-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lightbulb-on-icon.png"; sourceTree = "<group>"; };
 		DA8FE8B21C93749900991FB4 /* Lightbulb-off-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lightbulb-off-icon.png"; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			children = (
 				DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */,
 				DA912FE81C32F38A0082F91A /* DetailViewController.swift */,
+				DA3C3A751C97259B00494CEB /* SettingsTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */,
 				DAFA7B991C93858D002CF894 /* NodeListTableViewCell.swift in Sources */,
 				DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */,
+				DA3C3A761C97259B00494CEB /* SettingsTableViewController.swift in Sources */,
 				DA912FE91C32F38A0082F91A /* DetailViewController.swift in Sources */,
 				DA912FE71C32F38A0082F91A /* AppDelegate.swift in Sources */,
 				DA21C5251C7D4D9B00F41A83 /* Folder.swift in Sources */,

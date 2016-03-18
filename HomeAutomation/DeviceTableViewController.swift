@@ -35,6 +35,10 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         //Init node controller
         self.nodeManager = NodeManager()
         
+        if let baseURLString = NSUserDefaults.standardUserDefaults().objectForKey("baseURLString") as? String
+        {
+            nodeManager.baseURLString = baseURLString
+        }
         
         nodeManager.addNodes { (success) -> () in
             if success {

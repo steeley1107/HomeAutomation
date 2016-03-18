@@ -13,13 +13,10 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     //Mark: Properties
     
-    //var node = Node()
     var nodes = [Node]()
     var folders = [Folder]()
     var xml: XMLIndexer?
-    let baseURL = NSURL(string: "https://admin:paintball1@69.165.175.141/rest/nodes")
-    let baseURLString = "https://admin:paintball1@69.165.175.141/rest/"
-    
+    var baseURLString = ""
     
     
     //Mark: Functions
@@ -53,6 +50,8 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     //grab data from xml and place nodes in a custom class
     func getNodes(completionHandler: (success: Bool) -> ())
     {
+        
+        let baseURL = NSURL(string: baseURLString + "nodes")
         requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
             
             self.nodes = []
@@ -84,6 +83,14 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                     node.address = address
                 }
                 
+                //Get the address of the node
+                if let type = elem["type"].element?.text!
+                {
+                    node.type = type
+                    NSLog(elem["type"].element!.text!)
+                }
+
+                
                 //Add node to array of nodes
                 self.nodes += [node]
             }
@@ -95,6 +102,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     //create all folders and place them in an array
     func createFolders(completionHandler: (success: Bool) -> ())
     {
+        let baseURL = NSURL(string: baseURLString + "nodes")
         requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
             self.folders = []
             for elem in response["nodes"]["folder"]
@@ -155,8 +163,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         var commandURLString = baseURLString + "nodes/" + node.address + "/cmd/DFON"
         commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
         let commandURL = NSURL(string: commandURLString)
-        
-        //print("url \(commandURL)")
         
         requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
             
@@ -221,6 +227,28 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             }
         })
     }
+    
+    
+    func nodeType(node: Node)
+    {
+        
+        var nodeType = node.type
+        let nodeTypeArray = nodeType.componentsSeparatedByString(".")
+        
+        var deviceCategory: String = nodeTypeArray[0]
+        var subCategory: String = nodeTypeArray[1]
+        var productKey: String = nodeTypeArray[2]
+        
+        print("device \(deviceCategory)")
+        print("sub \(subCategory)")
+        print("product \(productKey)")
+        
+        
+    
+    }
+    
+    
+    
     
     
     

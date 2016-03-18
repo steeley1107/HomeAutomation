@@ -30,6 +30,8 @@ class DetailViewController: UIViewController, NSURLSessionDelegate {
         addressLabel.text = node.address
         statusLabel.text = node.status
         
+        nodeManager.nodeType(node)
+        
     }
     
     
