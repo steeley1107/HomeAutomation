@@ -33,8 +33,6 @@ class Node: NSObject {
     var wattage: String = ""
     var status: String = ""
     var parent: String = ""
-
-    
-
+    var value: String = ""
 
 }

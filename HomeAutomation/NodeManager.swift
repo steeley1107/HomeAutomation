@@ -77,6 +77,12 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                     node.status = status
                 }
                 
+                //Get the status of the node
+                if let value = elem["property"].element?.attributes["value"]
+                {
+                    node.value = value
+                }
+
                 //Get the address of the node
                 if let address = elem["address"].element?.text!
                 {
@@ -155,6 +161,36 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     
     //turn on node funtion
+    func onPercentageCommand(node: Node, percent: Int, completionHandler: (success: Bool) -> ())
+    {
+        ///rest/nodes/<node>/cmd/DFON/255
+        
+        //Create url for on command
+        var commandURLString = baseURLString + "nodes/" + node.address + "/cmd/DON/" + String(percent)
+        commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
+        
+        print("\(commandURLString)")
+        let commandURL = NSURL(string: commandURLString)
+        
+        requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
+            
+            if let status = response["RestResponse"].element?.attributes["succeeded"]
+            {
+                if status == "true"
+                {
+                    self.nodeStatus(node, completionHandler: { (success) -> () in
+                        if success
+                        {
+                            completionHandler(success: true)
+                        }
+                    })
+                }
+            }
+        })
+    }
+
+    
+    //turn on node funtion
     func onCommand(node: Node, completionHandler: (success: Bool) -> ())
     {
         ///rest/nodes/<node>/cmd/DFON
@@ -192,6 +228,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         let commandURL = NSURL(string: commandURLString)
         
         requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
+            
             if let status = response["RestResponse"].element?.attributes["succeeded"]
             {
                 if status == "true"
@@ -220,14 +257,15 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         let commandURL = NSURL(string: commandURLString)
         
         requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
-            if let status = response["properties"]["property"].element?.attributes["formatted"]
+            if let status = response["properties"]["property"].element?.attributes["formatted"], let value = response["properties"]["property"].element?.attributes["value"]
             {
                 node.status = status
+                node.value = value
                 completionHandler(success: true)
             }
         })
     }
-    
+   
     
     func nodeType(node: Node)
     {

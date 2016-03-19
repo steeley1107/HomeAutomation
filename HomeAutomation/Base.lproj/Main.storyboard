@@ -85,19 +85,28 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STe-q2-gOD">
-                                        <rect key="frame" x="269" y="387" width="63" height="21"/>
+                                        <rect key="frame" x="269" y="452" width="63" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1.5" minValue="0.0" maxValue="255" translatesAutoresizingMaskIntoConstraints="NO" id="5Q1-iF-fzs">
+                                        <rect key="frame" x="196" y="352" width="209" height="31"/>
+                                        <connections>
+                                            <action selector="dimControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="kln-D9-Use"/>
+                                        </connections>
+                                    </slider>
                                 </subviews>
                                 <color key="backgroundColor" red="0.066666666666666666" green="0.23529411764705882" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="STe-q2-gOD" firstAttribute="top" secondItem="R4o-u8-JaA" secondAttribute="bottom" constant="73" id="5Mh-CD-3o4"/>
+                                    <constraint firstItem="5Q1-iF-fzs" firstAttribute="top" secondItem="tyT-tG-X39" secondAttribute="bottom" constant="159" id="1ut-TE-i56"/>
                                     <constraint firstItem="tyT-tG-X39" firstAttribute="top" secondItem="mAB-0l-Ziw" secondAttribute="bottom" constant="41" id="7Hj-Gv-5U1"/>
+                                    <constraint firstItem="5Q1-iF-fzs" firstAttribute="width" secondItem="R4o-u8-JaA" secondAttribute="width" id="8du-Jp-rxi"/>
+                                    <constraint firstItem="5Q1-iF-fzs" firstAttribute="centerX" secondItem="s7K-ls-2jA" secondAttribute="centerX" id="Ka1-7J-7Pd"/>
                                     <constraint firstItem="tyT-tG-X39" firstAttribute="centerX" secondItem="s7K-ls-2jA" secondAttribute="centerX" id="OOh-Kx-pia"/>
                                     <constraint firstItem="mAB-0l-Ziw" firstAttribute="top" secondItem="s7K-ls-2jA" secondAttribute="top" constant="74" id="Qlz-WG-D2y"/>
                                     <constraint firstItem="R4o-u8-JaA" firstAttribute="top" secondItem="tyT-tG-X39" secondAttribute="bottom" constant="71" id="WjI-IY-6LI"/>
+                                    <constraint firstItem="STe-q2-gOD" firstAttribute="top" secondItem="5Q1-iF-fzs" secondAttribute="bottom" constant="70" id="WwG-1g-pj9"/>
                                     <constraint firstItem="STe-q2-gOD" firstAttribute="centerX" secondItem="s7K-ls-2jA" secondAttribute="centerX" id="ecs-hZ-eVq"/>
                                     <constraint firstItem="mAB-0l-Ziw" firstAttribute="centerX" secondItem="s7K-ls-2jA" secondAttribute="centerX" id="giK-E2-wdz"/>
                                     <constraint firstItem="R4o-u8-JaA" firstAttribute="centerX" secondItem="s7K-ls-2jA" secondAttribute="centerX" id="raS-mU-7Qc"/>
@@ -114,6 +123,7 @@
                     </view>
                     <connections>
                         <outlet property="addressLabel" destination="STe-q2-gOD" id="ipC-yS-Xx5"/>
+                        <outlet property="dimSlider" destination="5Q1-iF-fzs" id="76y-Mb-HBW"/>
                         <outlet property="nameLabel" destination="mAB-0l-Ziw" id="ubF-of-OU8"/>
                         <outlet property="statusIcon" destination="yHi-wr-2t0" id="rKA-RF-UYf"/>
                         <outlet property="statusLabel" destination="OFJ-ci-0pe" id="hyA-1m-aBl"/>
