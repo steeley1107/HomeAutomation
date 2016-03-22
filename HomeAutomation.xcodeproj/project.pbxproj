@@ -18,12 +18,18 @@
 		DA8FE8B11C93749200991FB4 /* Lightbulb-on-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8FE8B01C93749200991FB4 /* Lightbulb-on-icon.png */; };
 		DA8FE8B31C93749900991FB4 /* Lightbulb-off-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8FE8B21C93749900991FB4 /* Lightbulb-off-icon.png */; };
 		DA912FE71C32F38A0082F91A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA912FE61C32F38A0082F91A /* AppDelegate.swift */; };
-		DA912FE91C32F38A0082F91A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA912FE81C32F38A0082F91A /* DetailViewController.swift */; };
+		DA912FE91C32F38A0082F91A /* SwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA912FE81C32F38A0082F91A /* SwitchViewController.swift */; };
 		DA912FEC1C32F38A0082F91A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA912FEA1C32F38A0082F91A /* Main.storyboard */; };
 		DA912FEE1C32F38A0082F91A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA912FED1C32F38A0082F91A /* Assets.xcassets */; };
 		DA912FF11C32F38A0082F91A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA912FEF1C32F38A0082F91A /* LaunchScreen.storyboard */; };
 		DA912FFC1C32F38A0082F91A /* HomeAutomationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA912FFB1C32F38A0082F91A /* HomeAutomationTests.swift */; };
 		DA9130071C32F38A0082F91A /* HomeAutomationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9130061C32F38A0082F91A /* HomeAutomationUITests.swift */; };
+		DA993F7F1CA04B4A00D93654 /* NodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA993F7E1CA04B4A00D93654 /* NodeType.swift */; };
+		DA993F811CA0849800D93654 /* nodeType.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA993F801CA0849800D93654 /* nodeType.plist */; };
+		DA993F831CA0A87900D93654 /* ClimateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA993F821CA0A87900D93654 /* ClimateViewController.swift */; };
+		DA993F851CA0A89500D93654 /* EnergyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA993F841CA0A89500D93654 /* EnergyViewController.swift */; };
+		DA993F871CA0DC6600D93654 /* downArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F861CA0DC6600D93654 /* downArrow.png */; };
+		DA993F891CA0DC6D00D93654 /* upArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F881CA0DC6D00D93654 /* upArrow.png */; };
 		DAFA7B991C93858D002CF894 /* NodeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFA7B981C93858D002CF894 /* NodeListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,7 +65,7 @@
 		DA8FE8B21C93749900991FB4 /* Lightbulb-off-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lightbulb-off-icon.png"; sourceTree = "<group>"; };
 		DA912FE31C32F38A0082F91A /* HomeAutomation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeAutomation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA912FE61C32F38A0082F91A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DA912FE81C32F38A0082F91A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		DA912FE81C32F38A0082F91A /* SwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewController.swift; sourceTree = "<group>"; };
 		DA912FEB1C32F38A0082F91A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DA912FED1C32F38A0082F91A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA912FF01C32F38A0082F91A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -70,6 +76,12 @@
 		DA9130021C32F38A0082F91A /* HomeAutomationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeAutomationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA9130061C32F38A0082F91A /* HomeAutomationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAutomationUITests.swift; sourceTree = "<group>"; };
 		DA9130081C32F38A0082F91A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA993F7E1CA04B4A00D93654 /* NodeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeType.swift; sourceTree = "<group>"; };
+		DA993F801CA0849800D93654 /* nodeType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = nodeType.plist; sourceTree = "<group>"; };
+		DA993F821CA0A87900D93654 /* ClimateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClimateViewController.swift; sourceTree = "<group>"; };
+		DA993F841CA0A89500D93654 /* EnergyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyViewController.swift; sourceTree = "<group>"; };
+		DA993F861CA0DC6600D93654 /* downArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downArrow.png; sourceTree = "<group>"; };
+		DA993F881CA0DC6D00D93654 /* upArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upArrow.png; sourceTree = "<group>"; };
 		DAFA7B981C93858D002CF894 /* NodeListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,6 +133,7 @@
 			children = (
 				DA21C5241C7D4D9B00F41A83 /* Folder.swift */,
 				DA21C5201C77E87300F41A83 /* Node.swift */,
+				DA993F7E1CA04B4A00D93654 /* NodeType.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -129,8 +142,10 @@
 			isa = PBXGroup;
 			children = (
 				DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */,
-				DA912FE81C32F38A0082F91A /* DetailViewController.swift */,
+				DA912FE81C32F38A0082F91A /* SwitchViewController.swift */,
 				DA3C3A751C97259B00494CEB /* SettingsTableViewController.swift */,
+				DA993F821CA0A87900D93654 /* ClimateViewController.swift */,
+				DA993F841CA0A89500D93654 /* EnergyViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -146,6 +161,8 @@
 		DA8FE8AF1C93747700991FB4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DA993F881CA0DC6D00D93654 /* upArrow.png */,
+				DA993F861CA0DC6600D93654 /* downArrow.png */,
 				DA3C3A7D1C9C46C800494CEB /* 001-home.png */,
 				DA3C3A7F1C9C471900494CEB /* 149-cog.png */,
 				DA8FE8B21C93749900991FB4 /* Lightbulb-off-icon.png */,
@@ -189,6 +206,7 @@
 				DA912FEF1C32F38A0082F91A /* LaunchScreen.storyboard */,
 				DA912FF21C32F38A0082F91A /* Info.plist */,
 				DA8FE8AF1C93747700991FB4 /* Images */,
+				DA993F801CA0849800D93654 /* nodeType.plist */,
 			);
 			path = HomeAutomation;
 			sourceTree = "<group>";
@@ -326,10 +344,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA993F811CA0849800D93654 /* nodeType.plist in Resources */,
 				DA8FE8B11C93749200991FB4 /* Lightbulb-on-icon.png in Resources */,
 				DA912FF11C32F38A0082F91A /* LaunchScreen.storyboard in Resources */,
+				DA993F871CA0DC6600D93654 /* downArrow.png in Resources */,
 				DA3C3A7E1C9C46C800494CEB /* 001-home.png in Resources */,
 				DA3C3A801C9C471900494CEB /* 149-cog.png in Resources */,
+				DA993F891CA0DC6D00D93654 /* upArrow.png in Resources */,
 				DA912FEE1C32F38A0082F91A /* Assets.xcassets in Resources */,
 				DA8FE8B31C93749900991FB4 /* Lightbulb-off-icon.png in Resources */,
 				DA912FEC1C32F38A0082F91A /* Main.storyboard in Resources */,
@@ -406,11 +427,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA21C5211C77E87300F41A83 /* Node.swift in Sources */,
+				DA993F851CA0A89500D93654 /* EnergyViewController.swift in Sources */,
 				DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */,
+				DA993F831CA0A87900D93654 /* ClimateViewController.swift in Sources */,
 				DAFA7B991C93858D002CF894 /* NodeListTableViewCell.swift in Sources */,
+				DA993F7F1CA04B4A00D93654 /* NodeType.swift in Sources */,
 				DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */,
 				DA3C3A761C97259B00494CEB /* SettingsTableViewController.swift in Sources */,
-				DA912FE91C32F38A0082F91A /* DetailViewController.swift in Sources */,
+				DA912FE91C32F38A0082F91A /* SwitchViewController.swift in Sources */,
 				DA912FE71C32F38A0082F91A /* AppDelegate.swift in Sources */,
 				DA21C5251C7D4D9B00F41A83 /* Folder.swift in Sources */,
 			);

@@ -34,5 +34,26 @@ class Node: NSObject {
     var status: String = ""
     var parent: String = ""
     var value: String = ""
+    
+    //Thermostat features
+    var thermostatPV: String = ""
+    var thermostatMode: String = ""
+    var thermostatCoolSP: String = ""
+    var thermostatHeatSP: String = ""
+    var thermostatHumidity: String = ""
+    
+    
+    
+    var deviceCat:DeviceCat
+    
+   // var nodeType: NodeType
+
+
+    override init()
+    {
+        deviceCat = DeviceCat.x16
+
+    }
+
 
 }

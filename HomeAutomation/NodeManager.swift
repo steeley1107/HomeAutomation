@@ -9,6 +9,34 @@
 import UIKit
 import SWXMLHash
 
+enum DeviceCat : Int {
+    case RemoteLinc = 0     //0x00 Generalized Controllers ControLinc, RemoteLinc, SignaLinc, etc.
+    case Dimmable = 1       //0x01 Dimmable Lighting Control Dimmable Light Switches, Dimmable Plug-In Modules
+    case Switched = 2       //0x02 Switched Lighting Control Relay Switches, Relay Plug-In Modules
+    case Network = 3        //0x03 Network Bridges PowerLinc Controllers, TRex, Lonworks, ZigBee, etc.
+    case Irrigation = 4     //0x04 Irrigation Control Irrigation Management, Sprinkler Controllers
+    case Climate = 5        //0x05 Climate Control Heating, Air conditioning, Exhausts Fans, Ceiling Fans, Indoor Air Quality
+    case PoolAndSpa = 6     //0x06 Pool and Spa Control Pumps, Heaters, Chemicals
+    case Sensors = 7        //0x07 Sensors and Actuators Sensors, Contact Closures
+    case AV = 8             //0x08 Home Entertainment Audio/Video Equipment
+    case Energy = 9         //0x09 Energy Management Electricity, Water, Gas Consumption, Leak Monitors
+    case x0A = 10           //0x0A Built-In Appliance Control White Goods, Brown Goods
+    case x0B = 11           //0x0B Plumbing Faucets, Showers, Toilets
+    case x0C = 12           //0x0C Communication Telephone System Controls, Intercoms
+    case x0D = 13           //0x0D Computer Control PC On/Off, UPS Control, App Activation, Remote Mouse, Keyboards
+    case x0E = 14           //0x0E Window Coverings Drapes, Blinds, Awnings
+    case x0F = 15           //0x0F Access Control Automatic Doors, Gates, Windows, Locks
+    case x10 = 16           //0x10 Security, Health, Safety Door and Window Sensors, Motion Sensors, Scales
+    case x11 = 17           //0x11 Surveillance Video Camera Control, Time-lapse Recorders, Security System Links
+    case x12 = 18           //0x12 Automotive Remote Starters, Car Alarms, Car Door Locks
+    case x13 = 19           //0x13 Pet Care Pet Feeders, Trackers
+    case x14 = 20           //0x14 Toys Model Trains, Robots
+    case x15 = 21           //0x15 Timekeeping Clocks, Alarms, Timers
+    case x16 = 22           //0x16 Holiday Christmas Lights, Displays
+    
+}
+
+
 class NodeManager: NSObject, NSURLSessionDelegate {
     
     //Mark: Properties
@@ -82,7 +110,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 {
                     node.value = value
                 }
-
+                
                 //Get the address of the node
                 if let address = elem["address"].element?.text!
                 {
@@ -93,9 +121,62 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 if let type = elem["type"].element?.text!
                 {
                     node.type = type
-                    NSLog(elem["type"].element!.text!)
+                    self.nodeType(node)
                 }
-
+                
+                
+                //Get information from thermostat
+                do
+                {
+                    let thermostatPV = try elem["property"].withAttr("id", "ST").element?.attributes["formatted"]
+                    let thermostatMode = try elem["property"].withAttr("id", "CLIMD").element?.attributes["formatted"]
+                    let thermostatCoolSP = try elem["property"].withAttr("id", "CLISPC").element?.attributes["formatted"]
+                    let thermostatHeatSP = try elem["property"].withAttr("id", "CLISPH").element?.attributes["formatted"]
+                    let thermostatHumidity = try elem["property"].withAttr("id", "CLIHUM").element?.attributes["formatted"]
+                    
+                    node.thermostatPV = thermostatPV!
+                    node.thermostatMode = thermostatMode!
+                    node.thermostatCoolSP = thermostatCoolSP!
+                    node.thermostatHeatSP = thermostatHeatSP!
+                    node.thermostatHumidity = thermostatHumidity!
+                }
+                catch
+                {
+                }
+                
+                
+                
+                
+                //
+                //                <node flag="128">
+                //                <address>1F 17 C9 1</address>
+                //                <name>ShopHeat</name>
+                //                <parent type="3">57742</parent>
+                //                <type>5.11.13.243</type>
+                //                <enabled>true</enabled>
+                //                <deviceClass>1</deviceClass>
+                //                <wattage>1000</wattage>
+                //                <dcPeriod>60</dcPeriod>
+                //                <pnode>1F 17 C9 1</pnode>
+                //                <ELK_ID>C15</ELK_ID>
+                //                <property id="ST" value="100" formatted="50.00" uom="degrees"/>
+                //                <property id="CLIMD" value="1" formatted="Heat" uom="n/a"/>
+                //                <property id="CLISPC" value="158" formatted="79.00" uom="degrees"/>
+                //                <property id="CLISPH" value="78" formatted="39.00" uom="degrees"/>
+                //                <property id="CLIHUM" value="44" formatted="44.00" uom="%"/>
+                //                </node>
+                //
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 //Add node to array of nodes
                 self.nodes += [node]
@@ -188,7 +269,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             }
         })
     }
-
+    
     
     //turn on node funtion
     func onCommand(node: Node, completionHandler: (success: Bool) -> ())
@@ -265,29 +346,22 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             }
         })
     }
-   
+    
     
     func nodeType(node: Node)
     {
         
-        var nodeType = node.type
+        let nodeType = node.type
         let nodeTypeArray = nodeType.componentsSeparatedByString(".")
         
-        var deviceCategory: String = nodeTypeArray[0]
-        var subCategory: String = nodeTypeArray[1]
-        var productKey: String = nodeTypeArray[2]
+        let deviceCategory: String = nodeTypeArray[0]
+        let subCategory: String = nodeTypeArray[1]
+        let productKey: String = nodeTypeArray[2]
         
-        print("device \(deviceCategory)")
-        print("sub \(subCategory)")
-        print("product \(productKey)")
+        node.deviceCat = DeviceCat(rawValue: Int(deviceCategory)!)!
         
         
-    
     }
-    
-    
-    
-    
     
     
 }

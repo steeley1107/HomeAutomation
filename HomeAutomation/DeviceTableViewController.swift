@@ -132,6 +132,27 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         return nodeManager.folders[section].name
     }
     
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let selectedNode = nodeManager.folders[indexPath.section].nodeArray[indexPath.row] as Node
+        
+        if selectedNode.deviceCat.rawValue == 1 || selectedNode.deviceCat.rawValue == 2
+        {
+            performSegueWithIdentifier("Switch", sender: nil)
+            
+        }
+        if selectedNode.deviceCat.rawValue == 5
+        {
+            performSegueWithIdentifier("Climate", sender: nil)
+            
+        }
+
+        
+        
+    }
+    
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -173,14 +194,32 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-        if (segue.identifier == "Details")
+        if (segue.identifier == "Switch")
         {
-            let detailVC:DetailViewController = segue.destinationViewController as! DetailViewController
+            let switchVC:SwitchViewController = segue.destinationViewController as! SwitchViewController
             // let selectedIndex = self.tableView.indexPathForCell(sender as! UITableViewCell)
             let indexPath = tableView.indexPathForSelectedRow
             let selectedNode = nodeManager.folders[indexPath!.section].nodeArray[indexPath!.row] as Node
-            detailVC.node = selectedNode
+            switchVC.node = selectedNode
         }
+        if (segue.identifier == "Climate")
+        {
+            let climateVC:ClimateViewController = segue.destinationViewController as! ClimateViewController
+            // let selectedIndex = self.tableView.indexPathForCell(sender as! UITableViewCell)
+            let indexPath = tableView.indexPathForSelectedRow
+            let selectedNode = nodeManager.folders[indexPath!.section].nodeArray[indexPath!.row] as Node
+            climateVC.node = selectedNode
+        }
+
+        if (segue.identifier == "Energy")
+        {
+            let switchVC:SwitchViewController = segue.destinationViewController as! SwitchViewController
+            // let selectedIndex = self.tableView.indexPathForCell(sender as! UITableViewCell)
+            let indexPath = tableView.indexPathForSelectedRow
+            let selectedNode = nodeManager.folders[indexPath!.section].nodeArray[indexPath!.row] as Node
+            switchVC.node = selectedNode
+        }
+
     }
     
     
