@@ -145,39 +145,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 }
                 
                 
-                
-                
-                //
-                //                <node flag="128">
-                //                <address>1F 17 C9 1</address>
-                //                <name>ShopHeat</name>
-                //                <parent type="3">57742</parent>
-                //                <type>5.11.13.243</type>
-                //                <enabled>true</enabled>
-                //                <deviceClass>1</deviceClass>
-                //                <wattage>1000</wattage>
-                //                <dcPeriod>60</dcPeriod>
-                //                <pnode>1F 17 C9 1</pnode>
-                //                <ELK_ID>C15</ELK_ID>
-                //                <property id="ST" value="100" formatted="50.00" uom="degrees"/>
-                //                <property id="CLIMD" value="1" formatted="Heat" uom="n/a"/>
-                //                <property id="CLISPC" value="158" formatted="79.00" uom="degrees"/>
-                //                <property id="CLISPH" value="78" formatted="39.00" uom="degrees"/>
-                //                <property id="CLIHUM" value="44" formatted="44.00" uom="%"/>
-                //                </node>
-                //
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
                 //Add node to array of nodes
                 self.nodes += [node]
             }
@@ -325,6 +292,87 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             
         })
     }
+    
+    
+    //turn on node funtion
+    func temperatureUpCommand(node: Node, completionHandler: (success: Bool) -> ())
+    {
+        ///rest/nodes/<node>/cmd/CLISPH/heatsetpoint
+        
+        let currentSP = Float(node.thermostatHeatSP)
+        let newTempSP = currentSP! + 1
+        
+        //Create url for on command
+        var commandURLString = baseURLString + "nodes/" + node.address + "/cmd/CLISPH/" + String(newTempSP)
+        commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
+        
+        print("\(commandURLString)")
+        let commandURL = NSURL(string: commandURLString)
+        
+        requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
+            
+            if let status = response["RestResponse"].element?.attributes["succeeded"]
+            {
+                if status == "true"
+                {
+                    self.nodeStatus(node, completionHandler: { (success) -> () in
+                        if success
+                        {
+                            completionHandler(success: true)
+                        }
+                    })
+                }
+            }
+        })
+    }
+    
+    
+    //Decrease Temperature
+    func temperatureDownCommand(node: Node, completionHandler: (success: Bool) -> ())
+    {
+        ///rest/nodes/<node>/cmd/CLISPH/heatsetpoint
+        
+        print("node \(node.thermostatHeatSP)")
+        
+        
+        let currentSP = Float(node.thermostatHeatSP)
+        
+            let newTempSP = currentSP! - 1
+        
+        
+        
+        
+        //Create url for on command
+        var commandURLString = baseURLString + "nodes/" + node.address + "/cmd/CLISPH/" + String(newTempSP)
+        commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
+        
+        print("\(commandURLString)")
+        let commandURL = NSURL(string: commandURLString)
+        
+        requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
+            
+            if let status = response["RestResponse"].element?.attributes["succeeded"]
+            {
+                if status == "true"
+                {
+                    self.nodeStatus(node, completionHandler: { (success) -> () in
+                        if success
+                        {
+                            completionHandler(success: true)
+                        }
+                    })
+                }
+            }
+        })
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     //get the status of a node

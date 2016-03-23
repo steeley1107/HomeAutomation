@@ -30,6 +30,8 @@
 		DA993F851CA0A89500D93654 /* EnergyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA993F841CA0A89500D93654 /* EnergyViewController.swift */; };
 		DA993F871CA0DC6600D93654 /* downArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F861CA0DC6600D93654 /* downArrow.png */; };
 		DA993F891CA0DC6D00D93654 /* upArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F881CA0DC6D00D93654 /* upArrow.png */; };
+		DA993F8C1CA20F8900D93654 /* blue-down-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F8A1CA20F8900D93654 /* blue-down-arrow.png */; };
+		DA993F8D1CA20F8900D93654 /* blue-up-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F8B1CA20F8900D93654 /* blue-up-arrow.png */; };
 		DAFA7B991C93858D002CF894 /* NodeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFA7B981C93858D002CF894 /* NodeListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +84,8 @@
 		DA993F841CA0A89500D93654 /* EnergyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyViewController.swift; sourceTree = "<group>"; };
 		DA993F861CA0DC6600D93654 /* downArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downArrow.png; sourceTree = "<group>"; };
 		DA993F881CA0DC6D00D93654 /* upArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upArrow.png; sourceTree = "<group>"; };
+		DA993F8A1CA20F8900D93654 /* blue-down-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-down-arrow.png"; sourceTree = "<group>"; };
+		DA993F8B1CA20F8900D93654 /* blue-up-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-up-arrow.png"; sourceTree = "<group>"; };
 		DAFA7B981C93858D002CF894 /* NodeListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,6 +165,8 @@
 		DA8FE8AF1C93747700991FB4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DA993F8A1CA20F8900D93654 /* blue-down-arrow.png */,
+				DA993F8B1CA20F8900D93654 /* blue-up-arrow.png */,
 				DA993F881CA0DC6D00D93654 /* upArrow.png */,
 				DA993F861CA0DC6600D93654 /* downArrow.png */,
 				DA3C3A7D1C9C46C800494CEB /* 001-home.png */,
@@ -349,6 +355,8 @@
 				DA912FF11C32F38A0082F91A /* LaunchScreen.storyboard in Resources */,
 				DA993F871CA0DC6600D93654 /* downArrow.png in Resources */,
 				DA3C3A7E1C9C46C800494CEB /* 001-home.png in Resources */,
+				DA993F8C1CA20F8900D93654 /* blue-down-arrow.png in Resources */,
+				DA993F8D1CA20F8900D93654 /* blue-up-arrow.png in Resources */,
 				DA3C3A801C9C471900494CEB /* 149-cog.png in Resources */,
 				DA993F891CA0DC6D00D93654 /* upArrow.png in Resources */,
 				DA912FEE1C32F38A0082F91A /* Assets.xcassets in Resources */,

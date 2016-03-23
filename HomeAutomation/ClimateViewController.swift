@@ -19,8 +19,9 @@ class ClimateViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var statusIcon: UIImageView!
-
-    
+    @IBOutlet weak var setpointTempLabel: UILabel!
+    @IBOutlet weak var currentTempLabel: UILabel!
+    @IBOutlet weak var currentHumidityLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,10 @@ class ClimateViewController: UIViewController {
         nameLabel.text = node.name
         addressLabel.text = node.address
         nodeManager.nodeType(node)
+        
+        currentHumidityLabel.text = node.thermostatHumidity
+        currentTempLabel.text = node.thermostatPV
+        setpointTempLabel.text = node.thermostatHeatSP
         
         
         print("\(node.thermostatCoolSP)")
@@ -68,9 +73,22 @@ class ClimateViewController: UIViewController {
     
 
     
+    @IBAction func upTempButton(sender: AnyObject)
+    {
+       nodeManager.temperatureUpCommand(node) { (success) -> () in
+        
+        } 
+    }
     
     
     
+    @IBAction func downTempButton(sender: AnyObject)
+    {
+        nodeManager.temperatureDownCommand(node) { (success) -> () in
+            
+        }
+
+    }
     
     
     
