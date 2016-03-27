@@ -37,6 +37,7 @@ enum DeviceCat : Int {
 }
 
 
+
 class NodeManager: NSObject, NSURLSessionDelegate {
     
     //Mark: Properties
@@ -265,6 +266,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         })
     }
     
+    
     //turn off node function
     func offCommand(node: Node, completionHandler: (success: Bool) -> ())
     {
@@ -294,13 +296,14 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     }
     
     
-    //turn on node funtion
-    func temperatureUpCommand(node: Node, completionHandler: (success: Bool) -> ())
+    //control the temperature
+    func temperatureChangeCommand(node: Node, tempSP: Int, completionHandler: (success: Bool) -> ())
     {
         ///rest/nodes/<node>/cmd/CLISPH/heatsetpoint
         
+        //temp control SP 1 = 0.5 degrees.
         let currentSP = Float(node.thermostatHeatSP)
-        let newTempSP = currentSP! + 1
+        let newTempSP = Int(currentSP!) * 2 + tempSP
         
         //Create url for on command
         var commandURLString = baseURLString + "nodes/" + node.address + "/cmd/CLISPH/" + String(newTempSP)
@@ -325,54 +328,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             }
         })
     }
-    
-    
-    //Decrease Temperature
-    func temperatureDownCommand(node: Node, completionHandler: (success: Bool) -> ())
-    {
-        ///rest/nodes/<node>/cmd/CLISPH/heatsetpoint
-        
-        print("node \(node.thermostatHeatSP)")
-        
-        
-        let currentSP = Float(node.thermostatHeatSP)
-        
-            let newTempSP = currentSP! - 1
-        
-        
-        
-        
-        //Create url for on command
-        var commandURLString = baseURLString + "nodes/" + node.address + "/cmd/CLISPH/" + String(newTempSP)
-        commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
-        
-        print("\(commandURLString)")
-        let commandURL = NSURL(string: commandURLString)
-        
-        requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
-            
-            if let status = response["RestResponse"].element?.attributes["succeeded"]
-            {
-                if status == "true"
-                {
-                    self.nodeStatus(node, completionHandler: { (success) -> () in
-                        if success
-                        {
-                            completionHandler(success: true)
-                        }
-                    })
-                }
-            }
-        })
-    }
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     //get the status of a node
@@ -386,19 +341,44 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         let commandURL = NSURL(string: commandURLString)
         
         requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
+            
+            //get information of a simple device  on/off
             if let status = response["properties"]["property"].element?.attributes["formatted"], let value = response["properties"]["property"].element?.attributes["value"]
             {
                 node.status = status
                 node.value = value
                 completionHandler(success: true)
             }
+            
+            //Get information from thermostat
+            do
+            {
+                let thermostatPV = try response["properties"]["property"].withAttr("id", "ST").element?.attributes["formatted"]
+                let thermostatMode = try response["properties"]["property"].withAttr("id", "CLIMD").element?.attributes["formatted"]
+                let thermostatCoolSP = try response["properties"]["property"].withAttr("id", "CLISPC").element?.attributes["formatted"]
+                let thermostatHeatSP = try response["properties"]["property"].withAttr("id", "CLISPH").element?.attributes["formatted"]
+                let thermostatHumidity = try response["properties"]["property"].withAttr("id", "CLIHUM").element?.attributes["formatted"]
+                
+                node.thermostatPV = thermostatPV!
+                node.thermostatMode = thermostatMode!
+                node.thermostatCoolSP = thermostatCoolSP!
+                node.thermostatHeatSP = thermostatHeatSP!
+                node.thermostatHumidity = thermostatHumidity!
+                
+                completionHandler(success: true)
+            }
+            catch
+            {
+            }
+
+            
         })
     }
     
-    
+    //function to determine the type of node, so it can just to the right screen
+    //ie. thermostat can go to climate screen.
     func nodeType(node: Node)
     {
-        
         let nodeType = node.type
         let nodeTypeArray = nodeType.componentsSeparatedByString(".")
         
@@ -410,6 +390,18 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         
         
     }
+    
+    //function to call delays in the program.
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
+    
+    
     
     
 }
