@@ -34,6 +34,7 @@ class Node: NSObject {
     var status: String = ""
     var parent: String = ""
     var value: String = ""
+    var imageName: String = ""
     
     //Thermostat features
     var thermostatPV: String = ""

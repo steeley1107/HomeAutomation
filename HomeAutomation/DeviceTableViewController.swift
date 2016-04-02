@@ -65,7 +65,6 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         super.viewWillAppear(true)
         
         self.tableView.reloadData()
-        
     }
     
     
@@ -107,6 +106,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         var cell:NodeListTableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! NodeListTableViewCell
         
         // Configure the cell...
+        var node:Node =  nodeManager.folders[indexPath.section].nodeArray[indexPath.row]
         
         cell.nodeTitle.text = nodeManager.folders[indexPath.section].nodeArray[indexPath.row].name
         cell.nodeStatus.text = nodeManager.folders[indexPath.section].nodeArray[indexPath.row].status
@@ -116,6 +116,12 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         if cell.nodeStatus.text == "Off"
         {
             cell.nodeStatus.textColor = UIColor.redColor()
+            
+            
+            //adding icon ending
+            
+            cell.nodeImage.image = UIImage(named: node.imageName)
+            
             cell.nodeImage.image = UIImage(named: "Lightbulb-off-icon")
         }
         else if cell.nodeStatus.text == "On"
@@ -146,9 +152,6 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
             performSegueWithIdentifier("Climate", sender: nil)
             
         }
-
-        
-        
     }
     
     
@@ -219,7 +222,6 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
             let selectedNode = nodeManager.folders[indexPath!.section].nodeArray[indexPath!.row] as Node
             switchVC.node = selectedNode
         }
-
     }
     
     

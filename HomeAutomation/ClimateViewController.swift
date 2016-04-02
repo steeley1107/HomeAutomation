@@ -42,22 +42,11 @@ class ClimateViewController: UIViewController {
             nodeManager.baseURLString = baseURLString
         }
         
-        nameLabel.text = node.name
-        addressLabel.text = node.address
-        statusLabel.text = node.thermostatMode
         nodeManager.nodeType(node)
         
-        currentHumidityLabel.text = node.thermostatHumidity
-        currentTempLabel.text = node.thermostatPV
-        setpointTempLabel.text = node.thermostatHeatSP
-        
-        
-        print("\(node.thermostatCoolSP)")
-        print("\(node.thermostatHeatSP)")
-        print("\(node.thermostatMode)")
-        print("\(node.thermostatHumidity)")
-        print("\(node.thermostatPV)")
-        
+        //Update view
+        updateView()
+
         //Setup Activity Spinner
         activitySpinner.hidesWhenStopped = true
         
@@ -92,6 +81,8 @@ class ClimateViewController: UIViewController {
         }
         
         currentNumber += 2
+        let requestedSP = Int(node.thermostatHeatSP)! + currentNumber / 2
+        setpointTempLabel.text = String(requestedSP)
         timer.invalidate()
         timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "incControl", userInfo: nil, repeats: false)
         
@@ -125,6 +116,8 @@ class ClimateViewController: UIViewController {
         }
         
         currentNumber -= 2
+        let requestedSP = Int(node.thermostatHeatSP)! + currentNumber / 2
+        setpointTempLabel.text = String(requestedSP)
         timer.invalidate()
         timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "incControl", userInfo: nil, repeats: false)
         
@@ -165,6 +158,16 @@ class ClimateViewController: UIViewController {
         currentTempLabel.text = node.thermostatPV
         setpointTempLabel.text = node.thermostatHeatSP
         
+        
+        //Change the color of the status to red or green.
+        if node.thermostatMode == "Heat"
+        {
+
+            statusIcon.image = UIImage(named: "flameIcon")
+        }
+
+
+    
     }
     
     

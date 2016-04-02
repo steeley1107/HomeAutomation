@@ -37,7 +37,6 @@ enum DeviceCat : Int {
 }
 
 
-
 class NodeManager: NSObject, NSURLSessionDelegate {
     
     //Mark: Properties
@@ -123,6 +122,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 {
                     node.type = type
                     self.nodeType(node)
+                    self.iconSelect(node)
                 }
                 
                 
@@ -135,11 +135,12 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                     let thermostatHeatSP = try elem["property"].withAttr("id", "CLISPH").element?.attributes["formatted"]
                     let thermostatHumidity = try elem["property"].withAttr("id", "CLIHUM").element?.attributes["formatted"]
                     
-                    node.thermostatPV = thermostatPV!
+                    node.thermostatPV = String(thermostatPV!.characters.dropLast(3))
                     node.thermostatMode = thermostatMode!
-                    node.thermostatCoolSP = thermostatCoolSP!
-                    node.thermostatHeatSP = thermostatHeatSP!
-                    node.thermostatHumidity = thermostatHumidity!
+                    node.thermostatCoolSP = String(thermostatCoolSP!.characters.dropLast(3))
+                    node.thermostatHeatSP = String(thermostatHeatSP!.characters.dropLast(3))
+                    node.thermostatHumidity = String(thermostatHumidity!.characters.dropLast(3))
+                    
                 }
                 catch
                 {
@@ -359,11 +360,11 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 let thermostatHeatSP = try response["properties"]["property"].withAttr("id", "CLISPH").element?.attributes["formatted"]
                 let thermostatHumidity = try response["properties"]["property"].withAttr("id", "CLIHUM").element?.attributes["formatted"]
                 
-                node.thermostatPV = thermostatPV!
+                node.thermostatPV = String(thermostatPV!.characters.dropLast(3))
                 node.thermostatMode = thermostatMode!
-                node.thermostatCoolSP = thermostatCoolSP!
-                node.thermostatHeatSP = thermostatHeatSP!
-                node.thermostatHumidity = thermostatHumidity!
+                node.thermostatCoolSP = String(thermostatCoolSP!.characters.dropLast(3))
+                node.thermostatHeatSP = String(thermostatHeatSP!.characters.dropLast(3))
+                node.thermostatHumidity = String(thermostatHumidity!.characters.dropLast(3))
                 
                 completionHandler(success: true)
             }
@@ -401,7 +402,16 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             dispatch_get_main_queue(), closure)
     }
     
+    func iconSelect(node: Node)
+    {
+        switch node.deviceCat.rawValue {
+        case 0:
+            node.imageName = "lightbulb"
+        default:
+            node.imageName = "lightbulb"
+        }
     
+    }
     
     
 }
