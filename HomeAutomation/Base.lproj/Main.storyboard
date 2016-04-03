@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mQO-6b-k2j">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -62,10 +61,10 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="tyT-tG-X39">
+                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="tyT-tG-X39">
                                         <rect key="frame" x="252" y="145" width="98" height="48"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Lightbulb-on-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="yHi-wr-2t0">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Lightbulb-on-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="yHi-wr-2t0">
                                                 <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFJ-ci-0pe">
@@ -164,7 +163,7 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TTc-Bf-wyn" id="RLb-qx-FVI">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8pj-a2-aOu">
@@ -184,7 +183,7 @@
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.43137254899999999" green="0.57254901960000004" blue="0.63137254899999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="nodeImage" destination="NOA-JK-V5D" id="F3V-tq-sJ5"/>
                                     <outlet property="nodeStatus" destination="DD2-s5-BMD" id="TTK-B4-BjP"/>
@@ -565,9 +564,9 @@
                                         <rect key="frame" x="290" y="201" width="20" height="20"/>
                                     </activityIndicatorView>
                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="z4J-Xj-qxw">
-                                        <rect key="frame" x="20" y="221" width="125" height="158"/>
+                                        <rect key="frame" x="20" y="232" width="125" height="158"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2xB-l2-vMf">
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2xB-l2-vMf">
                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="128"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Current Temp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MdV-JE-ddZ">
@@ -620,7 +619,7 @@
                                     <constraint firstAttribute="trailing" secondItem="owP-kj-CVz" secondAttribute="trailing" constant="20" id="P8l-CB-7a4"/>
                                     <constraint firstItem="86f-Tn-28e" firstAttribute="top" secondItem="VOv-X7-SAh" secondAttribute="bottom" constant="41" id="dag-1s-V6U"/>
                                     <constraint firstItem="owP-kj-CVz" firstAttribute="centerY" secondItem="ReA-Fb-9pU" secondAttribute="centerY" id="gXX-EL-sc6"/>
-                                    <constraint firstItem="z4J-Xj-qxw" firstAttribute="centerY" secondItem="ReA-Fb-9pU" secondAttribute="centerY" id="oQi-fO-sgj"/>
+                                    <constraint firstItem="z4J-Xj-qxw" firstAttribute="centerY" secondItem="ReA-Fb-9pU" secondAttribute="centerY" constant="10" id="oQi-fO-sgj"/>
                                     <constraint firstItem="qtA-Vf-sj1" firstAttribute="centerX" secondItem="ReA-Fb-9pU" secondAttribute="centerX" id="qcg-IK-UOV"/>
                                     <constraint firstItem="86f-Tn-28e" firstAttribute="centerX" secondItem="ReA-Fb-9pU" secondAttribute="centerX" id="vWz-6Y-zpA"/>
                                     <constraint firstItem="qtA-Vf-sj1" firstAttribute="top" secondItem="86f-Tn-28e" secondAttribute="bottom" constant="8" id="z97-ID-Tqt"/>

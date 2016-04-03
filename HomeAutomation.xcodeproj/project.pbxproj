@@ -16,6 +16,17 @@
 		DA3C3A761C97259B00494CEB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C3A751C97259B00494CEB /* SettingsTableViewController.swift */; };
 		DA3C3A7E1C9C46C800494CEB /* 001-home.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3C3A7D1C9C46C800494CEB /* 001-home.png */; };
 		DA3C3A801C9C471900494CEB /* 149-cog.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3C3A7F1C9C471900494CEB /* 149-cog.png */; };
+		DA5446771CB038D600873C74 /* temp-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446761CB038D600873C74 /* temp-on.png */; };
+		DA54467A1CB03A3800873C74 /* lamp01-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446781CB03A3800873C74 /* lamp01-off.png */; };
+		DA54467B1CB03A3800873C74 /* lamp01-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446791CB03A3800873C74 /* lamp01-on.png */; };
+		DA54467E1CB03AF400873C74 /* motion01-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DA54467C1CB03AF400873C74 /* motion01-off.png */; };
+		DA54467F1CB03AF400873C74 /* motion01-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DA54467D1CB03AF400873C74 /* motion01-on.png */; };
+		DA5446821CB03B4600873C74 /* light01-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446801CB03B4600873C74 /* light01-off.png */; };
+		DA5446831CB03B4600873C74 /* light01-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446811CB03B4600873C74 /* light01-on.png */; };
+		DA5446861CB1BA7000873C74 /* remote-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446841CB1BA7000873C74 /* remote-off.png */; };
+		DA5446871CB1BA7000873C74 /* remote-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446851CB1BA7000873C74 /* remote-on.png */; };
+		DA54468A1CB1BDD900873C74 /* energy-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446881CB1BDD900873C74 /* energy-off.png */; };
+		DA54468B1CB1BDD900873C74 /* energy-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446891CB1BDD900873C74 /* energy-on.png */; };
 		DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */; };
 		DA8FE8B11C93749200991FB4 /* lightbulb-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8FE8B01C93749200991FB4 /* lightbulb-on.png */; };
 		DA8FE8B31C93749900991FB4 /* lightbulb-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8FE8B21C93749900991FB4 /* lightbulb-off.png */; };
@@ -68,6 +79,17 @@
 		DA3C3A751C97259B00494CEB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		DA3C3A7D1C9C46C800494CEB /* 001-home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "001-home.png"; sourceTree = "<group>"; };
 		DA3C3A7F1C9C471900494CEB /* 149-cog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "149-cog.png"; sourceTree = "<group>"; };
+		DA5446761CB038D600873C74 /* temp-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp-on.png"; sourceTree = "<group>"; };
+		DA5446781CB03A3800873C74 /* lamp01-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lamp01-off.png"; sourceTree = "<group>"; };
+		DA5446791CB03A3800873C74 /* lamp01-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lamp01-on.png"; sourceTree = "<group>"; };
+		DA54467C1CB03AF400873C74 /* motion01-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motion01-off.png"; sourceTree = "<group>"; };
+		DA54467D1CB03AF400873C74 /* motion01-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motion01-on.png"; sourceTree = "<group>"; };
+		DA5446801CB03B4600873C74 /* light01-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "light01-off.png"; sourceTree = "<group>"; };
+		DA5446811CB03B4600873C74 /* light01-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "light01-on.png"; sourceTree = "<group>"; };
+		DA5446841CB1BA7000873C74 /* remote-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remote-off.png"; sourceTree = "<group>"; };
+		DA5446851CB1BA7000873C74 /* remote-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remote-on.png"; sourceTree = "<group>"; };
+		DA5446881CB1BDD900873C74 /* energy-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "energy-off.png"; sourceTree = "<group>"; };
+		DA5446891CB1BDD900873C74 /* energy-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "energy-on.png"; sourceTree = "<group>"; };
 		DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
 		DA8FE8B01C93749200991FB4 /* lightbulb-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightbulb-on.png"; sourceTree = "<group>"; };
 		DA8FE8B21C93749900991FB4 /* lightbulb-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightbulb-off.png"; sourceTree = "<group>"; };
@@ -184,7 +206,18 @@
 				DA8FE8B21C93749900991FB4 /* lightbulb-off.png */,
 				DA8FE8B01C93749200991FB4 /* lightbulb-on.png */,
 				DA3977391CAB5F3000341D54 /* flame.png */,
+				DA5446781CB03A3800873C74 /* lamp01-off.png */,
+				DA5446791CB03A3800873C74 /* lamp01-on.png */,
+				DA5446761CB038D600873C74 /* temp-on.png */,
 				DA95455F1CAF35C80010FF2A /* temp-off.png */,
+				DA5446801CB03B4600873C74 /* light01-off.png */,
+				DA5446811CB03B4600873C74 /* light01-on.png */,
+				DA54467C1CB03AF400873C74 /* motion01-off.png */,
+				DA54467D1CB03AF400873C74 /* motion01-on.png */,
+				DA5446841CB1BA7000873C74 /* remote-off.png */,
+				DA5446851CB1BA7000873C74 /* remote-on.png */,
+				DA5446881CB1BDD900873C74 /* energy-off.png */,
+				DA5446891CB1BDD900873C74 /* energy-on.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -362,22 +395,33 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA54467F1CB03AF400873C74 /* motion01-on.png in Resources */,
 				DA993F811CA0849800D93654 /* nodeType.plist in Resources */,
 				DA8FE8B11C93749200991FB4 /* lightbulb-on.png in Resources */,
+				DA54468A1CB1BDD900873C74 /* energy-off.png in Resources */,
+				DA5446821CB03B4600873C74 /* light01-off.png in Resources */,
+				DA5446831CB03B4600873C74 /* light01-on.png in Resources */,
+				DA54468B1CB1BDD900873C74 /* energy-on.png in Resources */,
 				DA912FF11C32F38A0082F91A /* LaunchScreen.storyboard in Resources */,
+				DA5446771CB038D600873C74 /* temp-on.png in Resources */,
 				DA39773A1CAB5F3000341D54 /* flame.png in Resources */,
 				DA993F871CA0DC6600D93654 /* downArrow.png in Resources */,
 				DA3C3A7E1C9C46C800494CEB /* 001-home.png in Resources */,
 				DA95455E1CAEBAB00010FF2A /* flameIcon.png in Resources */,
 				DA993F8C1CA20F8900D93654 /* blue-down-arrow.png in Resources */,
 				DA993F8D1CA20F8900D93654 /* blue-up-arrow.png in Resources */,
+				DA5446861CB1BA7000873C74 /* remote-off.png in Resources */,
 				DA3C3A801C9C471900494CEB /* 149-cog.png in Resources */,
 				DA993F891CA0DC6D00D93654 /* upArrow.png in Resources */,
 				DA912FEE1C32F38A0082F91A /* Assets.xcassets in Resources */,
 				DA8FE8B31C93749900991FB4 /* lightbulb-off.png in Resources */,
+				DA54467E1CB03AF400873C74 /* motion01-off.png in Resources */,
+				DA54467A1CB03A3800873C74 /* lamp01-off.png in Resources */,
 				DA2671291CA7122500C134D6 /* home-logo-md.png in Resources */,
 				DA912FEC1C32F38A0082F91A /* Main.storyboard in Resources */,
 				DA9545601CAF35C80010FF2A /* temp-off.png in Resources */,
+				DA54467B1CB03A3800873C74 /* lamp01-on.png in Resources */,
+				DA5446871CB1BA7000873C74 /* remote-on.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,7 +650,7 @@
 				INFOPLIST_FILE = HomeAutomation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "-107.HomeAutomation";
+				PRODUCT_BUNDLE_IDENTIFIER = "-1107.HomeAutomation";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -619,7 +663,7 @@
 				INFOPLIST_FILE = HomeAutomation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "-107.HomeAutomation";
+				PRODUCT_BUNDLE_IDENTIFIER = "-1107.HomeAutomation";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

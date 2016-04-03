@@ -120,14 +120,15 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
             
             //adding icon ending
             
-            cell.nodeImage.image = UIImage(named: node.imageName)
+            cell.nodeImage.image = UIImage(named: node.imageName + "-off")
             
-            cell.nodeImage.image = UIImage(named: "Lightbulb-off-icon")
+            //cell.nodeImage.image = UIImage(named: "Lightbulb-off-icon")
         }
-        else if cell.nodeStatus.text == "On"
+        else //if cell.nodeStatus.text == "On"
         {
             cell.nodeStatus.textColor = UIColor.greenColor()
-            cell.nodeImage.image = UIImage(named: "Lightbulb-on-icon")
+//            cell.nodeImage.image = UIImage(named: "Lightbulb-on-icon")
+            cell.nodeImage.image = UIImage(named: node.imageName + "-on")
         }
         
         return cell

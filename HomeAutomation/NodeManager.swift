@@ -406,9 +406,20 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     {
         switch node.deviceCat.rawValue {
         case 0:
-            node.imageName = "lightbulb"
+            node.imageName = "remote"
+        case 1:
+            node.imageName = "light01"
+        case 2:
+            node.imageName = "light01"
+        case 5:
+            node.imageName = "temp"
+        case 7:
+            node.imageName = "motion01"
+        case 9:
+            node.imageName = "energy"
+
         default:
-            node.imageName = "lightbulb"
+            node.imageName = "lamp01"
         }
     
     }
