@@ -35,23 +35,13 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         //Init node controller
         self.nodeManager = NodeManager()
         
-        if let baseURLString = NSUserDefaults.standardUserDefaults().objectForKey("baseURLString") as? String
-        {
-            nodeManager.baseURLString = baseURLString
-        }
+        //Check to see if values are loaded in the settings screen
+        checkSettings()
         
-        nodeManager.addNodes { (success) -> () in
-            if success {
-                self.tableView.reloadData()
-            }
-        }
+        //update tableview
+        refresh(self)
         
         
-        
-        //Update tableView with pulldown
-        //        self.refreshControl = UIRefreshControl()
-        //        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        //        self.tableView.addSubview(refreshControl)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -73,8 +63,15 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         // Dispose of any resources that can be recreated.
     }
     
+    
+    //call this function to update tableview
     func refresh(sender:AnyObject)
     {
+        if let baseURLString = NSUserDefaults.standardUserDefaults().objectForKey("baseURLString") as? String
+        {
+            nodeManager.baseURLString = baseURLString
+        }
+        
         nodeManager.addNodes { (success) -> () in
             if success {
                 self.tableView.reloadData()
@@ -94,6 +91,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         return count
     }
     
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         let count = nodeManager.folders[section].nodeArray.count
@@ -103,34 +101,27 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell:NodeListTableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! NodeListTableViewCell
+        let cell:NodeListTableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! NodeListTableViewCell
         
         // Configure the cell...
-        var node:Node =  nodeManager.folders[indexPath.section].nodeArray[indexPath.row]
+        let node:Node =  nodeManager.folders[indexPath.section].nodeArray[indexPath.row]
         
         cell.nodeTitle.text = nodeManager.folders[indexPath.section].nodeArray[indexPath.row].name
         cell.nodeStatus.text = nodeManager.folders[indexPath.section].nodeArray[indexPath.row].status
-       
         
         //Change the color of the status to red or green.
-        if cell.nodeStatus.text == "Off"
-        {
-            cell.nodeStatus.textColor = UIColor.redColor()
-            
-            
-            //adding icon ending
-            
-            cell.nodeImage.image = UIImage(named: node.imageName + "-off")
-            
-            //cell.nodeImage.image = UIImage(named: "Lightbulb-off-icon")
-        }
-        else //if cell.nodeStatus.text == "On"
+        if cell.nodeStatus.text == "On"
         {
             cell.nodeStatus.textColor = UIColor.greenColor()
-//            cell.nodeImage.image = UIImage(named: "Lightbulb-on-icon")
+            //adding icon ending
             cell.nodeImage.image = UIImage(named: node.imageName + "-on")
         }
-        
+        else
+        {
+            cell.nodeStatus.textColor = UIColor.redColor()
+            //add icon ending
+            cell.nodeImage.image = UIImage(named: node.imageName + "-off")
+        }
         return cell
     }
     
@@ -156,41 +147,57 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
     }
     
     
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        //Create label and autoresize it
+        let headerLabel = UILabel(frame: CGRectMake(10, 5, tableView.frame.width, 2000))
+        headerLabel.textColor = UIColor.whiteColor()
+        headerLabel.text = self.tableView(self.tableView, titleForHeaderInSection: section)
+        headerLabel.sizeToFit()
+        
+        //Adding Label to existing headerView
+        let headerView = UIView()
+        headerView.addSubview(headerLabel)
+        headerView.backgroundColor = UIColor.blackColor()
+        return headerView
+    }
+    
+    
     
     /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return false if you do not want the specified item to be editable.
-    return true
-    }
-    */
+     // Override to support conditional editing of the table view.
+     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
     
     /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-    // Delete the row from the data source
-    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    } else if editingStyle == .Insert {
-    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-    }
-    */
+     // Override to support editing the table view.
+     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+     if editingStyle == .Delete {
+     // Delete the row from the data source
+     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+     } else if editingStyle == .Insert {
+     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     }
+     }
+     */
     
     /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    
-    }
-    */
+     // Override to support rearranging the table view.
+     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+     
+     }
+     */
     
     /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return false if you do not want the item to be re-orderable.
-    return true
-    }
-    */
+     // Override to support conditional rearranging of the table view.
+     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
     
     
     // MARK: - Navigation
@@ -214,7 +221,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
             let selectedNode = nodeManager.folders[indexPath!.section].nodeArray[indexPath!.row] as Node
             climateVC.node = selectedNode
         }
-
+        
         if (segue.identifier == "Energy")
         {
             let switchVC:SwitchViewController = segue.destinationViewController as! SwitchViewController
@@ -224,6 +231,81 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
             switchVC.node = selectedNode
         }
     }
+    
+    
+    
+    //Alert Controller for the errand manager
+    func showAlert(title: String, message: String) {
+        
+        // create the alert
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        
+        // show the alert
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    
+    //Check to see if there are user settings
+    func checkSettings()
+    {
+        let userSettings = Array(NSUserDefaults.standardUserDefaults().dictionaryRepresentation().keys).count
+
+        if userSettings < 10
+        {
+            showAlert("Error", message: "Please add information in the settings")
+        }
+        else
+        {
+            if let userName = NSUserDefaults.standardUserDefaults().objectForKey("userName") as? String
+            {
+                if userName.characters.count == 0
+                {
+                    showAlert("Error", message: "Missing Username")
+                }
+            }
+            if let userName = NSUserDefaults.standardUserDefaults().objectForKey("password") as? String
+            {
+                if userName.characters.count == 0
+                {
+                    showAlert("Error", message: "Missing Password")
+                }
+            }
+            if let userName = NSUserDefaults.standardUserDefaults().objectForKey("localIP") as? String
+            {
+                if userName.characters.count == 0
+                {
+                    showAlert("Error", message: "Missing local IP")
+                }
+            }
+            if let userName = NSUserDefaults.standardUserDefaults().objectForKey("localPort") as? String
+            {
+                if userName.characters.count == 0
+                {
+                    showAlert("Error", message: "Missing Local Port")
+                }
+            }
+            if let userName = NSUserDefaults.standardUserDefaults().objectForKey("secureIP") as? String
+            {
+                if userName.characters.count == 0
+                {
+                    showAlert("Error", message: "Missing Secure IP")
+                }
+            }
+            if let userName = NSUserDefaults.standardUserDefaults().objectForKey("securePort") as? String
+            {
+                if userName.characters.count == 0
+                {
+                    showAlert("Error", message: "Missing Secure Port")
+                }
+            }
+        }
+    }
+    
+    
+    
     
     
 }

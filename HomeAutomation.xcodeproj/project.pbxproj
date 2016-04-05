@@ -15,7 +15,7 @@
 		DA39773A1CAB5F3000341D54 /* flame.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3977391CAB5F3000341D54 /* flame.png */; };
 		DA3C3A761C97259B00494CEB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C3A751C97259B00494CEB /* SettingsTableViewController.swift */; };
 		DA3C3A7E1C9C46C800494CEB /* 001-home.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3C3A7D1C9C46C800494CEB /* 001-home.png */; };
-		DA3C3A801C9C471900494CEB /* 149-cog.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3C3A7F1C9C471900494CEB /* 149-cog.png */; };
+		DA3C3A801C9C471900494CEB /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3C3A7F1C9C471900494CEB /* settings.png */; };
 		DA5446771CB038D600873C74 /* temp-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446761CB038D600873C74 /* temp-on.png */; };
 		DA54467A1CB03A3800873C74 /* lamp01-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446781CB03A3800873C74 /* lamp01-off.png */; };
 		DA54467B1CB03A3800873C74 /* lamp01-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446791CB03A3800873C74 /* lamp01-on.png */; };
@@ -47,6 +47,16 @@
 		DA993F891CA0DC6D00D93654 /* upArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F881CA0DC6D00D93654 /* upArrow.png */; };
 		DA993F8C1CA20F8900D93654 /* blue-down-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F8A1CA20F8900D93654 /* blue-down-arrow.png */; };
 		DA993F8D1CA20F8900D93654 /* blue-up-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F8B1CA20F8900D93654 /* blue-up-arrow.png */; };
+		DAE7D36A1CB2B794007F4FD4 /* deskLamp-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE7D3681CB2B794007F4FD4 /* deskLamp-off.png */; };
+		DAE7D36B1CB2B794007F4FD4 /* deskLamp-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE7D3691CB2B794007F4FD4 /* deskLamp-on.png */; };
+		DAE7D36D1CB2E64B007F4FD4 /* ProgramTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE7D36C1CB2E64B007F4FD4 /* ProgramTableViewController.swift */; };
+		DAE7D36F1CB2E9A6007F4FD4 /* programs.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE7D36E1CB2E9A6007F4FD4 /* programs.png */; };
+		DAE7D3731CB2EDEE007F4FD4 /* 185-clipboard.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE7D3721CB2EDEE007F4FD4 /* 185-clipboard.png */; };
+		DAE7D3761CB2F78B007F4FD4 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE7D3751CB2F78B007F4FD4 /* Program.swift */; };
+		DAE7D3781CB30A09007F4FD4 /* ProgramFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE7D3771CB30A09007F4FD4 /* ProgramFolder.swift */; };
+		DAE7D37B1CB31E28007F4FD4 /* program-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE7D3791CB31E28007F4FD4 /* program-off.png */; };
+		DAE7D37C1CB31E28007F4FD4 /* program-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE7D37A1CB31E28007F4FD4 /* program-on.png */; };
+		DAE7D37E1CB31EE1007F4FD4 /* ProgramManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE7D37D1CB31EE1007F4FD4 /* ProgramManager.swift */; };
 		DAFA7B991C93858D002CF894 /* NodeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFA7B981C93858D002CF894 /* NodeListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -78,7 +88,7 @@
 		DA3977391CAB5F3000341D54 /* flame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flame.png; sourceTree = "<group>"; };
 		DA3C3A751C97259B00494CEB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		DA3C3A7D1C9C46C800494CEB /* 001-home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "001-home.png"; sourceTree = "<group>"; };
-		DA3C3A7F1C9C471900494CEB /* 149-cog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "149-cog.png"; sourceTree = "<group>"; };
+		DA3C3A7F1C9C471900494CEB /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		DA5446761CB038D600873C74 /* temp-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp-on.png"; sourceTree = "<group>"; };
 		DA5446781CB03A3800873C74 /* lamp01-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lamp01-off.png"; sourceTree = "<group>"; };
 		DA5446791CB03A3800873C74 /* lamp01-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lamp01-on.png"; sourceTree = "<group>"; };
@@ -116,6 +126,16 @@
 		DA993F881CA0DC6D00D93654 /* upArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upArrow.png; sourceTree = "<group>"; };
 		DA993F8A1CA20F8900D93654 /* blue-down-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-down-arrow.png"; sourceTree = "<group>"; };
 		DA993F8B1CA20F8900D93654 /* blue-up-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-up-arrow.png"; sourceTree = "<group>"; };
+		DAE7D3681CB2B794007F4FD4 /* deskLamp-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deskLamp-off.png"; sourceTree = "<group>"; };
+		DAE7D3691CB2B794007F4FD4 /* deskLamp-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deskLamp-on.png"; sourceTree = "<group>"; };
+		DAE7D36C1CB2E64B007F4FD4 /* ProgramTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgramTableViewController.swift; sourceTree = "<group>"; };
+		DAE7D36E1CB2E9A6007F4FD4 /* programs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = programs.png; sourceTree = "<group>"; };
+		DAE7D3721CB2EDEE007F4FD4 /* 185-clipboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "185-clipboard.png"; sourceTree = "<group>"; };
+		DAE7D3751CB2F78B007F4FD4 /* Program.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
+		DAE7D3771CB30A09007F4FD4 /* ProgramFolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgramFolder.swift; sourceTree = "<group>"; };
+		DAE7D3791CB31E28007F4FD4 /* program-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "program-off.png"; sourceTree = "<group>"; };
+		DAE7D37A1CB31E28007F4FD4 /* program-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "program-on.png"; sourceTree = "<group>"; };
+		DAE7D37D1CB31EE1007F4FD4 /* ProgramManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgramManager.swift; sourceTree = "<group>"; };
 		DAFA7B981C93858D002CF894 /* NodeListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -166,6 +186,8 @@
 			isa = PBXGroup;
 			children = (
 				DA21C5241C7D4D9B00F41A83 /* Folder.swift */,
+				DAE7D3771CB30A09007F4FD4 /* ProgramFolder.swift */,
+				DAE7D3751CB2F78B007F4FD4 /* Program.swift */,
 				DA21C5201C77E87300F41A83 /* Node.swift */,
 				DA993F7E1CA04B4A00D93654 /* NodeType.swift */,
 			);
@@ -180,6 +202,7 @@
 				DA3C3A751C97259B00494CEB /* SettingsTableViewController.swift */,
 				DA993F821CA0A87900D93654 /* ClimateViewController.swift */,
 				DA993F841CA0A89500D93654 /* EnergyViewController.swift */,
+				DAE7D36C1CB2E64B007F4FD4 /* ProgramTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -188,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */,
+				DAE7D37D1CB31EE1007F4FD4 /* ProgramManager.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -195,6 +219,7 @@
 		DA8FE8AF1C93747700991FB4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DAE7D3721CB2EDEE007F4FD4 /* 185-clipboard.png */,
 				DA95455D1CAEBAB00010FF2A /* flameIcon.png */,
 				DA2671281CA7122500C134D6 /* home-logo-md.png */,
 				DA993F8A1CA20F8900D93654 /* blue-down-arrow.png */,
@@ -202,10 +227,13 @@
 				DA993F881CA0DC6D00D93654 /* upArrow.png */,
 				DA993F861CA0DC6600D93654 /* downArrow.png */,
 				DA3C3A7D1C9C46C800494CEB /* 001-home.png */,
-				DA3C3A7F1C9C471900494CEB /* 149-cog.png */,
+				DA3C3A7F1C9C471900494CEB /* settings.png */,
+				DAE7D36E1CB2E9A6007F4FD4 /* programs.png */,
 				DA8FE8B21C93749900991FB4 /* lightbulb-off.png */,
 				DA8FE8B01C93749200991FB4 /* lightbulb-on.png */,
 				DA3977391CAB5F3000341D54 /* flame.png */,
+				DAE7D3791CB31E28007F4FD4 /* program-off.png */,
+				DAE7D37A1CB31E28007F4FD4 /* program-on.png */,
 				DA5446781CB03A3800873C74 /* lamp01-off.png */,
 				DA5446791CB03A3800873C74 /* lamp01-on.png */,
 				DA5446761CB038D600873C74 /* temp-on.png */,
@@ -218,6 +246,8 @@
 				DA5446851CB1BA7000873C74 /* remote-on.png */,
 				DA5446881CB1BDD900873C74 /* energy-off.png */,
 				DA5446891CB1BDD900873C74 /* energy-on.png */,
+				DAE7D3681CB2B794007F4FD4 /* deskLamp-off.png */,
+				DAE7D3691CB2B794007F4FD4 /* deskLamp-on.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -396,9 +426,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA54467F1CB03AF400873C74 /* motion01-on.png in Resources */,
+				DAE7D36B1CB2B794007F4FD4 /* deskLamp-on.png in Resources */,
+				DAE7D37B1CB31E28007F4FD4 /* program-off.png in Resources */,
 				DA993F811CA0849800D93654 /* nodeType.plist in Resources */,
 				DA8FE8B11C93749200991FB4 /* lightbulb-on.png in Resources */,
 				DA54468A1CB1BDD900873C74 /* energy-off.png in Resources */,
+				DAE7D36F1CB2E9A6007F4FD4 /* programs.png in Resources */,
 				DA5446821CB03B4600873C74 /* light01-off.png in Resources */,
 				DA5446831CB03B4600873C74 /* light01-on.png in Resources */,
 				DA54468B1CB1BDD900873C74 /* energy-on.png in Resources */,
@@ -407,13 +440,16 @@
 				DA39773A1CAB5F3000341D54 /* flame.png in Resources */,
 				DA993F871CA0DC6600D93654 /* downArrow.png in Resources */,
 				DA3C3A7E1C9C46C800494CEB /* 001-home.png in Resources */,
+				DAE7D36A1CB2B794007F4FD4 /* deskLamp-off.png in Resources */,
 				DA95455E1CAEBAB00010FF2A /* flameIcon.png in Resources */,
 				DA993F8C1CA20F8900D93654 /* blue-down-arrow.png in Resources */,
 				DA993F8D1CA20F8900D93654 /* blue-up-arrow.png in Resources */,
 				DA5446861CB1BA7000873C74 /* remote-off.png in Resources */,
-				DA3C3A801C9C471900494CEB /* 149-cog.png in Resources */,
+				DA3C3A801C9C471900494CEB /* settings.png in Resources */,
 				DA993F891CA0DC6D00D93654 /* upArrow.png in Resources */,
+				DAE7D3731CB2EDEE007F4FD4 /* 185-clipboard.png in Resources */,
 				DA912FEE1C32F38A0082F91A /* Assets.xcassets in Resources */,
+				DAE7D37C1CB31E28007F4FD4 /* program-on.png in Resources */,
 				DA8FE8B31C93749900991FB4 /* lightbulb-off.png in Resources */,
 				DA54467E1CB03AF400873C74 /* motion01-off.png in Resources */,
 				DA54467A1CB03A3800873C74 /* lamp01-off.png in Resources */,
@@ -494,6 +530,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAE7D36D1CB2E64B007F4FD4 /* ProgramTableViewController.swift in Sources */,
 				DA21C5211C77E87300F41A83 /* Node.swift in Sources */,
 				DA993F851CA0A89500D93654 /* EnergyViewController.swift in Sources */,
 				DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */,
@@ -501,8 +538,11 @@
 				DAFA7B991C93858D002CF894 /* NodeListTableViewCell.swift in Sources */,
 				DA993F7F1CA04B4A00D93654 /* NodeType.swift in Sources */,
 				DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */,
+				DAE7D3781CB30A09007F4FD4 /* ProgramFolder.swift in Sources */,
 				DA3C3A761C97259B00494CEB /* SettingsTableViewController.swift in Sources */,
+				DAE7D37E1CB31EE1007F4FD4 /* ProgramManager.swift in Sources */,
 				DA912FE91C32F38A0082F91A /* SwitchViewController.swift in Sources */,
+				DAE7D3761CB2F78B007F4FD4 /* Program.swift in Sources */,
 				DA912FE71C32F38A0082F91A /* AppDelegate.swift in Sources */,
 				DA21C5251C7D4D9B00F41A83 /* Folder.swift in Sources */,
 			);

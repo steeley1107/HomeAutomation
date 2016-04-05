@@ -46,8 +46,21 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     var xml: XMLIndexer?
     var baseURLString = ""
     
+    var programs = [Program]()
+    var programFolders = [ProgramFolder]()
+    
     
     //Mark: Functions
+    
+    
+    override init()
+    {
+        if let baseURLString = NSUserDefaults.standardUserDefaults().objectForKey("baseURLString") as? String
+        {
+            self.baseURLString = baseURLString
+        }
+    }
+    
     
     // get information from ISY994
     func requestData(request: NSMutableURLRequest, completionHandler: (response: XMLIndexer) -> ())
@@ -85,7 +98,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             self.nodes = []
             for elem in response["nodes"]["node"] {
                 let node = Node()
-                NSLog(elem["name"].element!.text!)
                 
                 //Get the name of the node
                 if let name = elem["name"].element?.text!
@@ -182,7 +194,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     //add nodes to the proper folder array
     func addNodes(completionHandler: (success: Bool) -> ())
     {
-        
         createFolders { (success) -> () in
             if success
             {
@@ -191,12 +202,10 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                     {
                         for folder in self.folders
                         {
-                            print("folders \(folder.name)")
                             for node in self.nodes
                             {
                                 if node.parent == folder.address
                                 {
-                                    print("node \(node.name)")
                                     folder.nodeArray += [node]
                                 }
                             }
@@ -206,8 +215,10 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 }
             }
         }
-        
     }
+    
+    
+    //Mark: node commands
     
     
     //turn on node funtion
@@ -371,7 +382,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             catch
             {
             }
-
+            
             
         })
     }
@@ -402,6 +413,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             dispatch_get_main_queue(), closure)
     }
     
+    //select icon based on device catagory
     func iconSelect(node: Node)
     {
         switch node.deviceCat.rawValue {
@@ -410,18 +422,19 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         case 1:
             node.imageName = "light01"
         case 2:
-            node.imageName = "light01"
+            node.imageName = "deskLamp"
         case 5:
             node.imageName = "temp"
         case 7:
             node.imageName = "motion01"
         case 9:
             node.imageName = "energy"
-
+        case 16:
+            node.imageName = "motion01"
         default:
             node.imageName = "lamp01"
         }
-    
+        
     }
     
     

@@ -62,4 +62,20 @@ class SettingsTableViewController: UITableViewController {
         self.view.endEditing(true)
     }
     
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        //Create label and autoresize it
+        let headerLabel = UILabel(frame: CGRectMake(10, 20, tableView.frame.width, 2000))
+        headerLabel.textColor = UIColor.whiteColor()
+        headerLabel.text = "Settings"
+        headerLabel.sizeToFit()
+        
+        //Adding Label to existing headerView
+        let headerView = UIView()
+        headerView.addSubview(headerLabel)
+        headerView.backgroundColor = UIColor.blackColor()
+        return headerView
+    }
+
+    
 }
