@@ -43,7 +43,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     var nodes = [Node]()
     var folders = [Folder]()
-    var subFolders = [Folder]()
+    var subfolders = [Folder]()
     var xml: XMLIndexer?
     var baseURLString = ""
     
@@ -200,17 +200,20 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 }
                 else
                 {
-                    self.subFolders += [folder]                }
+                    self.subfolders += [folder]                }
             }
             
-//            for rootfolder in self.folders
-//            {
-//                if self.subFolders.parent == rootfolder.address
-//                {
-//                    rootfolder.folderArray += [folder]
-//                }
-//            }
-        
+            for rootfolder in self.folders
+            {
+                for subfolder in self.subfolders
+                {
+                    if subfolder.parent == rootfolder.address
+                    {
+                        rootfolder.folderArray += [subfolder]
+                    }
+                }
+            }
+            
             let folder = Folder()
             folder.name = "Other"
             self.folders += [folder]
@@ -267,7 +270,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             completionHandler(success: true)
         })
     }
-
+    
     
     
     
