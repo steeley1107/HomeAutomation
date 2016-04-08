@@ -12,7 +12,9 @@ class Folder: NSObject {
     
     var name = ""
     var address = ""
+    var parent = ""
     var nodeArray = [Node]()
+    var folderArray = [Folder]()
     
 
 }

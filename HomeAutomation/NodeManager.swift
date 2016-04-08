@@ -43,6 +43,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     var nodes = [Node]()
     var folders = [Folder]()
+    var subFolders = [Folder]()
     var xml: XMLIndexer?
     var baseURLString = ""
     
@@ -175,12 +176,90 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             self.folders = []
             for elem in response["nodes"]["folder"]
             {
-                let name = elem["name"].element!.text!
-                let address = elem["address"].element!.text!
                 let folder = Folder()
-                folder.name = name
-                folder.address = address
-                self.folders += [folder]
+                
+                //Get the name of the folder
+                if let name = elem["name"].element?.text!
+                {
+                    folder.name = name
+                }
+                //Get the address of the folder
+                if let address = elem["address"].element?.text!
+                {
+                    folder.address = address
+                }
+                //Get the parent folder
+                if let parent = elem["parent"].element?.text!
+                {
+                    folder.parent = parent
+                }
+                
+                if folder.parent == ""
+                {
+                    self.folders += [folder]
+                }
+                else
+                {
+                    self.subFolders += [folder]                }
+            }
+            
+//            for rootfolder in self.folders
+//            {
+//                if self.subFolders.parent == rootfolder.address
+//                {
+//                    rootfolder.folderArray += [folder]
+//                }
+//            }
+        
+            let folder = Folder()
+            folder.name = "Other"
+            self.folders += [folder]
+            completionHandler(success: true)
+        })
+    }
+    
+    
+    //create all folders and place them in an array
+    func createSubFolders(completionHandler: (success: Bool) -> ())
+    {
+        let baseURL = NSURL(string: baseURLString + "nodes")
+        requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
+            self.folders = []
+            for elem in response["nodes"]["folder"]
+            {
+                let folder = Folder()
+                
+                //Get the name of the folder
+                if let name = elem["name"].element?.text!
+                {
+                    folder.name = name
+                }
+                //Get the address of the folder
+                if let address = elem["address"].element?.text!
+                {
+                    folder.address = address
+                }
+                //Get the parent folder
+                if let parent = elem["parent"].element?.text!
+                {
+                    folder.parent = parent
+                }
+                
+                if folder.parent == ""
+                {
+                    self.folders += [folder]
+                }
+                else
+                {
+                    for rootfolder in self.folders
+                    {
+                        if folder.parent == rootfolder.address
+                        {
+                            rootfolder.folderArray += [folder]
+                        }
+                    }
+                }
+                
             }
             let folder = Folder()
             folder.name = "Other"
@@ -188,6 +267,8 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             completionHandler(success: true)
         })
     }
+
+    
     
     
     
