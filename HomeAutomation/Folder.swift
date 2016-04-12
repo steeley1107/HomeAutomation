@@ -14,7 +14,7 @@ class Folder: NSObject {
     var address = ""
     var parent = ""
     var nodeArray = [Node]()
-    var folderArray = [Folder]()
+    var subfolderArray = [Folder]()
     
 
 }

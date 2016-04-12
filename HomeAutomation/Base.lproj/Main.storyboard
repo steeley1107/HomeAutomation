@@ -154,17 +154,17 @@
         <scene sceneID="o6I-Xs-9eu">
             <objects>
                 <tableViewController id="i9F-u3-KXK" customClass="DeviceTableViewController" customModule="HomeAutomation" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ylb-Ao-g9e">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="45" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ylb-Ao-g9e">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.080160741800000004" green="1" blue="0.053159360609999998" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="TTc-Bf-wyn" customClass="NodeListTableViewCell" customModule="HomeAutomation" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TTc-Bf-wyn" id="RLb-qx-FVI">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="45"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8pj-a2-aOu">
@@ -185,10 +185,37 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="nodeImage" destination="NOA-JK-V5D" id="F3V-tq-sJ5"/>
                                     <outlet property="nodeStatus" destination="DD2-s5-BMD" id="TTK-B4-BjP"/>
                                     <outlet property="nodeTitle" destination="8pj-a2-aOu" id="XKT-nP-kU8"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CellFolder" id="WJN-ct-8WM" customClass="NodeListTableViewCell" customModule="HomeAutomation" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="137" width="600" height="45"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WJN-ct-8WM" id="rOo-Ti-DPB">
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="45"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wkM-mE-uDw">
+                                            <rect key="frame" x="8" y="2" width="40" height="40"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wav-uS-CIo">
+                                            <rect key="frame" x="56" y="12" width="503" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="nodeImage" destination="wkM-mE-uDw" id="8MI-lA-sjU"/>
+                                    <outlet property="nodeTitle" destination="Wav-uS-CIo" id="fkf-u1-frN"/>
+                                    <segue destination="i9F-u3-KXK" kind="show" identifier="Folder" id="3OO-AI-cNz"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -743,11 +770,14 @@
     </scenes>
     <resources>
         <image name="001-home.png" width="32" height="32"/>
-        <image name="149-cog.png" width="48" height="48"/>
+        <image name="149-cog.png" width="16" height="16"/>
         <image name="185-clipboard.png" width="32" height="32"/>
         <image name="blue-down-arrow.png" width="256" height="256"/>
         <image name="blue-up-arrow.png" width="256" height="256"/>
         <image name="flameIcon.png" width="44" height="48"/>
         <image name="settings.png" width="32" height="32"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="AUm-1f-Bfs"/>
+    </inferredMetricsTieBreakers>
 </document>

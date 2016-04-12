@@ -86,16 +86,34 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         
-        let count = nodeManager.folders.count
-        //print("count \(count)")
+        //let count = nodeManager.folders.count
+        let count = 1
         return count
     }
     
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        let count = nodeManager.folders[section].nodeArray.count
+        
+        
+        //                if section == 0
+        //                {
+        //                    let count = nodeManager.rootfolder.subfolderArray.count // folders[section].nodeArray.count
+        //                    return count
+        //                }
+        //                else
+        //                {
+        //                    let count = nodeManager.rootfolder.nodeArray.count
+        //                    return count
+        //                }
+        
+        let count = nodeManager.array.count
         return count
+        
+        
+        
+        
+        
     }
     
     
@@ -104,35 +122,74 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         let cell:NodeListTableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! NodeListTableViewCell
         
         // Configure the cell...
-        let node:Node =  nodeManager.folders[indexPath.section].nodeArray[indexPath.row]
+        //let node:Node // =  nodeManager.rootfolder.subfolderArray[indexPath.section].nodeArray[indexPath.row]
         
-        cell.nodeTitle.text = nodeManager.folders[indexPath.section].nodeArray[indexPath.row].name
-        cell.nodeStatus.text = nodeManager.folders[indexPath.section].nodeArray[indexPath.row].status
+//        if indexPath.section == 0
+//        {
+//            let folder = nodeManager.rootfolder.subfolderArray[indexPath.row]
+//            cell.nodeTitle.text = folder.name
+//            return cell
+//        }
+//        else
+//        {
+//            let node = nodeManager.rootfolder.nodeArray[indexPath.row]
+//            
+//            cell.nodeTitle.text = node.name
+//            cell.nodeStatus.text = node.status
+//            
+//            //Change the color of the status to red or green.
+//            if cell.nodeStatus.text == "On"
+//            {
+//                cell.nodeStatus.textColor = UIColor.greenColor()
+//                //adding icon ending
+//                cell.nodeImage.image = UIImage(named: node.imageName + "-on")
+//            }
+//            else
+//            {
+//                cell.nodeStatus.textColor = UIColor.redColor()
+//                //add icon ending
+//                cell.nodeImage.image = UIImage(named: node.imageName + "-off")
+//            }
+//            
+//            
+//            
+//            return cell
+//        }
         
-        //Change the color of the status to red or green.
-        if cell.nodeStatus.text == "On"
+        
+        let element = nodeManager.array[indexPath.row]
+        if let element = element as? Node
         {
-            cell.nodeStatus.textColor = UIColor.greenColor()
-            //adding icon ending
-            cell.nodeImage.image = UIImage(named: node.imageName + "-on")
+            cell.nodeTitle.text = element.name
         }
-        else
+        else if let element = element as? Folder
         {
-            cell.nodeStatus.textColor = UIColor.redColor()
-            //add icon ending
-            cell.nodeImage.image = UIImage(named: node.imageName + "-off")
+        cell.nodeTitle.text = element.name
         }
+        
         return cell
+        
+        
     }
     
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return nodeManager.folders[section].name
-    }
+    //    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    //        return nodeManager.folders[section].name
+    //    }
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedNode = nodeManager.folders[indexPath.section].nodeArray[indexPath.row] as Node
+        
+        if indexPath.section == 0
+        {
+            let selectedNode = nodeManager.folders[indexPath.section].nodeArray[indexPath.row] as Node
+        }
+        
+        
+        
+        
+        
         
         if selectedNode.deviceCat.rawValue == 1 || selectedNode.deviceCat.rawValue == 2
         {
@@ -252,7 +309,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
     func checkSettings()
     {
         let userSettings = Array(NSUserDefaults.standardUserDefaults().dictionaryRepresentation().keys).count
-
+        
         if userSettings < 10
         {
             showAlert("Error", message: "Please add information in the settings")

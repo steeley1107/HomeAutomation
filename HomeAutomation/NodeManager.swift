@@ -41,7 +41,10 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     //Mark: Properties
     
+    var array = [Any]()
     var nodes = [Node]()
+    var subnodes = [Node]()
+    var rootfolder = Folder()
     var folders = [Folder]()
     var subfolders = [Folder]()
     var xml: XMLIndexer?
@@ -60,6 +63,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         {
             self.baseURLString = baseURLString
         }
+        
     }
     
     
@@ -130,6 +134,12 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                     node.address = address
                 }
                 
+                //Get the flag of the node
+                if let flag = elem.element?.attributes["flag"]
+                {
+                    node.flag = flag
+                }
+                
                 //Get the address of the node
                 if let type = elem["type"].element?.text!
                 {
@@ -159,9 +169,17 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 {
                 }
                 
-                
                 //Add node to array of nodes
-                self.nodes += [node]
+                if node.flag == "0"
+                {
+                    self.subnodes += [node]
+                }
+                else
+                {
+                    self.nodes += [node]
+                }
+                
+                
             }
             completionHandler(success: true)
         })
@@ -194,84 +212,30 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                     folder.parent = parent
                 }
                 
+                //determine if the folder is a root or a sub folder.
                 if folder.parent == ""
                 {
-                    self.folders += [folder]
+                    self.rootfolder.subfolderArray += [folder]
                 }
                 else
                 {
                     self.subfolders += [folder]                }
             }
             
-            for rootfolder in self.folders
+            for rootfolder in self.rootfolder.subfolderArray
             {
                 for subfolder in self.subfolders
                 {
                     if subfolder.parent == rootfolder.address
                     {
-                        rootfolder.folderArray += [subfolder]
+                        rootfolder.subfolderArray += [subfolder]
                     }
                 }
             }
             
-            let folder = Folder()
-            folder.name = "Other"
-            self.folders += [folder]
             completionHandler(success: true)
         })
     }
-    
-    
-    //create all folders and place them in an array
-    func createSubFolders(completionHandler: (success: Bool) -> ())
-    {
-        let baseURL = NSURL(string: baseURLString + "nodes")
-        requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
-            self.folders = []
-            for elem in response["nodes"]["folder"]
-            {
-                let folder = Folder()
-                
-                //Get the name of the folder
-                if let name = elem["name"].element?.text!
-                {
-                    folder.name = name
-                }
-                //Get the address of the folder
-                if let address = elem["address"].element?.text!
-                {
-                    folder.address = address
-                }
-                //Get the parent folder
-                if let parent = elem["parent"].element?.text!
-                {
-                    folder.parent = parent
-                }
-                
-                if folder.parent == ""
-                {
-                    self.folders += [folder]
-                }
-                else
-                {
-                    for rootfolder in self.folders
-                    {
-                        if folder.parent == rootfolder.address
-                        {
-                            rootfolder.folderArray += [folder]
-                        }
-                    }
-                }
-                
-            }
-            let folder = Folder()
-            folder.name = "Other"
-            self.folders += [folder]
-            completionHandler(success: true)
-        })
-    }
-    
-    
     
     
     
@@ -284,16 +248,69 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 self.getNodes { (success) -> () in
                     if success
                     {
-                        for folder in self.folders
+                        //add nodes into sub folders
+                        for rootfolder in self.rootfolder.subfolderArray
                         {
-                            for node in self.nodes
+                            for subfolder in rootfolder.subfolderArray
                             {
-                                if node.parent == folder.address
+                                for node in self.nodes
                                 {
-                                    folder.nodeArray += [node]
+                                    if node.parent == subfolder.address
+                                    {
+                                        subfolder.nodeArray += [node]
+                                    }
                                 }
                             }
                         }
+                        
+                        //add nodes into root folder
+                        for rootfolder in self.rootfolder.subfolderArray
+                        {
+                            for node in self.nodes
+                            {
+                                if node.parent == rootfolder.address
+                                {
+                                    rootfolder.nodeArray += [node]
+                                }
+                            }
+                        }
+                        
+                        //add subnode into subnodes array
+                        for rootnode in self.nodes
+                        {
+                            for subnode in self.subnodes
+                            {
+                                if subnode.parent == rootnode.address
+                                {
+                                    rootnode.subnodeArray += [subnode]
+                                }
+                            }
+                        }
+                        
+                        //add nodes into root folder
+                        for node in self.nodes
+                        {
+                            if node.parent == ""
+                            {
+                                self.rootfolder.nodeArray += [node]
+                            }
+                        }
+                        
+                        
+                        for folder in self.rootfolder.subfolderArray
+                        {
+                            self.array.append(folder)  // += [folder] as Any
+                        }
+                        
+                        for node in self.rootfolder.nodeArray
+                        {
+                            self.array.append(node)  // += [folder] as Any
+                        }
+                        
+                        
+                        
+                        
+                        
                     }
                     completionHandler(success: true)
                 }

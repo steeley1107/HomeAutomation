@@ -35,6 +35,9 @@ class Node: NSObject {
     var parent: String = ""
     var value: String = ""
     var imageName: String = ""
+    var flag: String = ""
+    
+    var subnodeArray = [Node]()
     
     //Thermostat features
     var thermostatPV: String = ""
@@ -43,11 +46,7 @@ class Node: NSObject {
     var thermostatHeatSP: String = ""
     var thermostatHumidity: String = ""
     
-    
-    
     var deviceCat:DeviceCat
-    
-   // var nodeType: NodeType
 
 
     override init()
