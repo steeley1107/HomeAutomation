@@ -47,6 +47,8 @@
 		DA993F891CA0DC6D00D93654 /* upArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F881CA0DC6D00D93654 /* upArrow.png */; };
 		DA993F8C1CA20F8900D93654 /* blue-down-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F8A1CA20F8900D93654 /* blue-down-arrow.png */; };
 		DA993F8D1CA20F8900D93654 /* blue-up-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F8B1CA20F8900D93654 /* blue-up-arrow.png */; };
+		DAD43B081CC13C0F00DE99F5 /* FolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD43B071CC13C0F00DE99F5 /* FolderTableViewCell.swift */; };
+		DAD43B0A1CC13E0400DE99F5 /* 048-folder.png in Resources */ = {isa = PBXBuildFile; fileRef = DAD43B091CC13E0400DE99F5 /* 048-folder.png */; };
 		DAE7D36A1CB2B794007F4FD4 /* deskLamp-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE7D3681CB2B794007F4FD4 /* deskLamp-off.png */; };
 		DAE7D36B1CB2B794007F4FD4 /* deskLamp-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE7D3691CB2B794007F4FD4 /* deskLamp-on.png */; };
 		DAE7D36D1CB2E64B007F4FD4 /* ProgramTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE7D36C1CB2E64B007F4FD4 /* ProgramTableViewController.swift */; };
@@ -57,7 +59,7 @@
 		DAE7D37B1CB31E28007F4FD4 /* program-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE7D3791CB31E28007F4FD4 /* program-off.png */; };
 		DAE7D37C1CB31E28007F4FD4 /* program-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE7D37A1CB31E28007F4FD4 /* program-on.png */; };
 		DAE7D37E1CB31EE1007F4FD4 /* ProgramManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE7D37D1CB31EE1007F4FD4 /* ProgramManager.swift */; };
-		DAFA7B991C93858D002CF894 /* NodeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFA7B981C93858D002CF894 /* NodeListTableViewCell.swift */; };
+		DAFA7B991C93858D002CF894 /* NodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFA7B981C93858D002CF894 /* NodeTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +128,8 @@
 		DA993F881CA0DC6D00D93654 /* upArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upArrow.png; sourceTree = "<group>"; };
 		DA993F8A1CA20F8900D93654 /* blue-down-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-down-arrow.png"; sourceTree = "<group>"; };
 		DA993F8B1CA20F8900D93654 /* blue-up-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-up-arrow.png"; sourceTree = "<group>"; };
+		DAD43B071CC13C0F00DE99F5 /* FolderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderTableViewCell.swift; sourceTree = "<group>"; };
+		DAD43B091CC13E0400DE99F5 /* 048-folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "048-folder.png"; sourceTree = "<group>"; };
 		DAE7D3681CB2B794007F4FD4 /* deskLamp-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deskLamp-off.png"; sourceTree = "<group>"; };
 		DAE7D3691CB2B794007F4FD4 /* deskLamp-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deskLamp-on.png"; sourceTree = "<group>"; };
 		DAE7D36C1CB2E64B007F4FD4 /* ProgramTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgramTableViewController.swift; sourceTree = "<group>"; };
@@ -136,7 +140,7 @@
 		DAE7D3791CB31E28007F4FD4 /* program-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "program-off.png"; sourceTree = "<group>"; };
 		DAE7D37A1CB31E28007F4FD4 /* program-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "program-on.png"; sourceTree = "<group>"; };
 		DAE7D37D1CB31EE1007F4FD4 /* ProgramManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgramManager.swift; sourceTree = "<group>"; };
-		DAFA7B981C93858D002CF894 /* NodeListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeListTableViewCell.swift; sourceTree = "<group>"; };
+		DAFA7B981C93858D002CF894 /* NodeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +223,7 @@
 		DA8FE8AF1C93747700991FB4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DAD43B091CC13E0400DE99F5 /* 048-folder.png */,
 				DAE7D3721CB2EDEE007F4FD4 /* 185-clipboard.png */,
 				DA95455D1CAEBAB00010FF2A /* flameIcon.png */,
 				DA2671281CA7122500C134D6 /* home-logo-md.png */,
@@ -313,7 +318,8 @@
 		DAFA7B971C938555002CF894 /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
-				DAFA7B981C93858D002CF894 /* NodeListTableViewCell.swift */,
+				DAFA7B981C93858D002CF894 /* NodeTableViewCell.swift */,
+				DAD43B071CC13C0F00DE99F5 /* FolderTableViewCell.swift */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -443,6 +449,7 @@
 				DAE7D36A1CB2B794007F4FD4 /* deskLamp-off.png in Resources */,
 				DA95455E1CAEBAB00010FF2A /* flameIcon.png in Resources */,
 				DA993F8C1CA20F8900D93654 /* blue-down-arrow.png in Resources */,
+				DAD43B0A1CC13E0400DE99F5 /* 048-folder.png in Resources */,
 				DA993F8D1CA20F8900D93654 /* blue-up-arrow.png in Resources */,
 				DA5446861CB1BA7000873C74 /* remote-off.png in Resources */,
 				DA3C3A801C9C471900494CEB /* settings.png in Resources */,
@@ -533,9 +540,10 @@
 				DAE7D36D1CB2E64B007F4FD4 /* ProgramTableViewController.swift in Sources */,
 				DA21C5211C77E87300F41A83 /* Node.swift in Sources */,
 				DA993F851CA0A89500D93654 /* EnergyViewController.swift in Sources */,
+				DAD43B081CC13C0F00DE99F5 /* FolderTableViewCell.swift in Sources */,
 				DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */,
 				DA993F831CA0A87900D93654 /* ClimateViewController.swift in Sources */,
-				DAFA7B991C93858D002CF894 /* NodeListTableViewCell.swift in Sources */,
+				DAFA7B991C93858D002CF894 /* NodeTableViewCell.swift in Sources */,
 				DA993F7F1CA04B4A00D93654 /* NodeType.swift in Sources */,
 				DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */,
 				DAE7D3781CB30A09007F4FD4 /* ProgramFolder.swift in Sources */,

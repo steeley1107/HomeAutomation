@@ -15,6 +15,7 @@ class Folder: NSObject {
     var parent = ""
     var nodeArray = [Node]()
     var subfolderArray = [Folder]()
+    var array = [Any]()
     
 
 }

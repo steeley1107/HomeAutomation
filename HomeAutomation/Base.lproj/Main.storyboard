@@ -160,7 +160,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.080160741800000004" green="1" blue="0.053159360609999998" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="TTc-Bf-wyn" customClass="NodeListTableViewCell" customModule="HomeAutomation" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="NodeCell" id="TTc-Bf-wyn" customClass="NodeTableViewCell" customModule="HomeAutomation" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TTc-Bf-wyn" id="RLb-qx-FVI">
@@ -192,14 +192,14 @@
                                     <outlet property="nodeTitle" destination="8pj-a2-aOu" id="XKT-nP-kU8"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CellFolder" id="WJN-ct-8WM" customClass="NodeListTableViewCell" customModule="HomeAutomation" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="FolderCell" id="WJN-ct-8WM" customClass="FolderTableViewCell" customModule="HomeAutomation" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="137" width="600" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WJN-ct-8WM" id="rOo-Ti-DPB">
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="45"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wkM-mE-uDw">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="048-folder.png" translatesAutoresizingMaskIntoConstraints="NO" id="wkM-mE-uDw">
                                             <rect key="frame" x="8" y="2" width="40" height="40"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wav-uS-CIo">
@@ -770,6 +770,7 @@
     </scenes>
     <resources>
         <image name="001-home.png" width="32" height="32"/>
+        <image name="048-folder.png" width="32" height="32"/>
         <image name="149-cog.png" width="16" height="16"/>
         <image name="185-clipboard.png" width="32" height="32"/>
         <image name="blue-down-arrow.png" width="256" height="256"/>

@@ -299,18 +299,14 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                         
                         for folder in self.rootfolder.subfolderArray
                         {
-                            self.array.append(folder)  // += [folder] as Any
+                            self.array.append(folder)
                         }
                         
                         for node in self.rootfolder.nodeArray
                         {
-                            self.array.append(node)  // += [folder] as Any
+                            self.array.append(node)
                         }
-                        
-                        
-                        
-                        
-                        
+
                     }
                     completionHandler(success: true)
                 }

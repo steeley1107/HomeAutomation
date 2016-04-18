@@ -82,7 +82,7 @@ class ProgramTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell:NodeListTableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! NodeListTableViewCell
+        let cell:NodeTableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! NodeTableViewCell
         
         // Configure the cell...
         let program:Program =  programManager.programFolders[indexPath.section].programArray[indexPath.row]

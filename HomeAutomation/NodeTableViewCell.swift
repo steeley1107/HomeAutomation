@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NodeListTableViewCell: UITableViewCell {
+class NodeTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nodeTitle: UILabel!
     @IBOutlet weak var nodeImage: UIImageView!

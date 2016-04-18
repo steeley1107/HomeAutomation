@@ -16,10 +16,9 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
     
     var xml: XMLIndexer?
     var nodeManager: NodeManager!
+    var array = [Any]()
     
     var tableRefreshControl: UIRefreshControl!
-    
-    //var refreshControl: UIRefreshControl!
     
     
     
@@ -33,13 +32,13 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         
         //Init node controller
-        self.nodeManager = NodeManager()
+        nodeManager = NodeManager()
         
         //Check to see if values are loaded in the settings screen
         checkSettings()
         
         //update tableview
-        refresh(self)
+        //refresh(self)
         
         
         
@@ -74,6 +73,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         
         nodeManager.addNodes { (success) -> () in
             if success {
+                self.array = self.nodeManager.array
                 self.tableView.reloadData()
                 self.refreshControl!.endRefreshing()
             }
@@ -85,8 +85,6 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        
-        //let count = nodeManager.folders.count
         let count = 1
         return count
     }
@@ -94,167 +92,76 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        
-        
-        //                if section == 0
-        //                {
-        //                    let count = nodeManager.rootfolder.subfolderArray.count // folders[section].nodeArray.count
-        //                    return count
-        //                }
-        //                else
-        //                {
-        //                    let count = nodeManager.rootfolder.nodeArray.count
-        //                    return count
-        //                }
-        
-        let count = nodeManager.array.count
+        let count = array.count
         return count
-        
-        
-        
-        
-        
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell:NodeListTableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! NodeListTableViewCell
-        
         // Configure the cell...
-        //let node:Node // =  nodeManager.rootfolder.subfolderArray[indexPath.section].nodeArray[indexPath.row]
+        let element = array[indexPath.row]
         
-//        if indexPath.section == 0
-//        {
-//            let folder = nodeManager.rootfolder.subfolderArray[indexPath.row]
-//            cell.nodeTitle.text = folder.name
-//            return cell
-//        }
-//        else
-//        {
-//            let node = nodeManager.rootfolder.nodeArray[indexPath.row]
-//            
-//            cell.nodeTitle.text = node.name
-//            cell.nodeStatus.text = node.status
-//            
-//            //Change the color of the status to red or green.
-//            if cell.nodeStatus.text == "On"
-//            {
-//                cell.nodeStatus.textColor = UIColor.greenColor()
-//                //adding icon ending
-//                cell.nodeImage.image = UIImage(named: node.imageName + "-on")
-//            }
-//            else
-//            {
-//                cell.nodeStatus.textColor = UIColor.redColor()
-//                //add icon ending
-//                cell.nodeImage.image = UIImage(named: node.imageName + "-off")
-//            }
-//            
-//            
-//            
-//            return cell
-//        }
-        
-        
-        let element = nodeManager.array[indexPath.row]
-        if let element = element as? Node
+        if let node = element as? Node
         {
-            cell.nodeTitle.text = element.name
+            let cell:NodeTableViewCell = tableView.dequeueReusableCellWithIdentifier("NodeCell", forIndexPath: indexPath) as! NodeTableViewCell
+            
+            cell.nodeTitle.text = node.name
+            cell.nodeStatus.text = node.status
+            
+            //Change the color of the status to red or green.
+            if cell.nodeStatus.text == "On"
+            {
+                cell.nodeStatus.textColor = UIColor.greenColor()
+                //adding icon ending
+                cell.nodeImage.image = UIImage(named: node.imageName + "-on")
+            }
+            else
+            {
+                cell.nodeStatus.textColor = UIColor.redColor()
+                //add icon ending
+                cell.nodeImage.image = UIImage(named: node.imageName + "-off")
+            }
+            return cell
         }
         else if let element = element as? Folder
         {
-        cell.nodeTitle.text = element.name
+            let cell:FolderTableViewCell = tableView.dequeueReusableCellWithIdentifier("FolderCell", forIndexPath: indexPath) as! FolderTableViewCell
+            cell.nodeTitle.text = element.name
+            return cell
         }
-        
-        return cell
-        
-        
-    }
-    
-    
-    //    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    //        return nodeManager.folders[section].name
-    //    }
-    
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let selectedNode = nodeManager.folders[indexPath.section].nodeArray[indexPath.row] as Node
-        
-        if indexPath.section == 0
+        else
         {
-            let selectedNode = nodeManager.folders[indexPath.section].nodeArray[indexPath.row] as Node
-        }
-        
-        
-        
-        
-        
-        
-        if selectedNode.deviceCat.rawValue == 1 || selectedNode.deviceCat.rawValue == 2
-        {
-            performSegueWithIdentifier("Switch", sender: nil)
-            
-        }
-        if selectedNode.deviceCat.rawValue == 5
-        {
-            performSegueWithIdentifier("Climate", sender: nil)
-            
+            //Catch all?
+            let cell:FolderTableViewCell = tableView.dequeueReusableCellWithIdentifier("FolderCell", forIndexPath: indexPath) as! FolderTableViewCell
+            return cell
         }
     }
     
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        let selectedElement = array[indexPath.row]
         
-        //Create label and autoresize it
-        let headerLabel = UILabel(frame: CGRectMake(10, 5, tableView.frame.width, 2000))
-        headerLabel.textColor = UIColor.whiteColor()
-        headerLabel.text = self.tableView(self.tableView, titleForHeaderInSection: section)
-        headerLabel.sizeToFit()
-        
-        //Adding Label to existing headerView
-        let headerView = UIView()
-        headerView.addSubview(headerLabel)
-        headerView.backgroundColor = UIColor.blackColor()
-        return headerView
+        if let node = selectedElement as? Node
+        {
+            if node.subnodeArray.count != 0
+            {
+                performSegueWithIdentifier("Folder", sender: nil)
+            }
+            else
+            {
+                if node.deviceCat.rawValue == 1 || node.deviceCat.rawValue == 2
+                {
+                    performSegueWithIdentifier("Switch", sender: nil)
+                }
+                if node.deviceCat.rawValue == 5
+                {
+                    performSegueWithIdentifier("Climate", sender: nil)
+                }
+            }
+        }
     }
-    
-    
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-     if editingStyle == .Delete {
-     // Delete the row from the data source
-     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-     } else if editingStyle == .Insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
     
     
     // MARK: - Navigation
@@ -265,27 +172,56 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         if (segue.identifier == "Switch")
         {
             let switchVC:SwitchViewController = segue.destinationViewController as! SwitchViewController
-            // let selectedIndex = self.tableView.indexPathForCell(sender as! UITableViewCell)
             let indexPath = tableView.indexPathForSelectedRow
-            let selectedNode = nodeManager.folders[indexPath!.section].nodeArray[indexPath!.row] as Node
+            let selectedNode = array[indexPath!.row] as! Node
             switchVC.node = selectedNode
         }
         if (segue.identifier == "Climate")
         {
             let climateVC:ClimateViewController = segue.destinationViewController as! ClimateViewController
-            // let selectedIndex = self.tableView.indexPathForCell(sender as! UITableViewCell)
             let indexPath = tableView.indexPathForSelectedRow
-            let selectedNode = nodeManager.folders[indexPath!.section].nodeArray[indexPath!.row] as Node
+            let selectedNode = array[indexPath!.row] as! Node
             climateVC.node = selectedNode
         }
         
         if (segue.identifier == "Energy")
         {
             let switchVC:SwitchViewController = segue.destinationViewController as! SwitchViewController
-            // let selectedIndex = self.tableView.indexPathForCell(sender as! UITableViewCell)
             let indexPath = tableView.indexPathForSelectedRow
-            let selectedNode = nodeManager.folders[indexPath!.section].nodeArray[indexPath!.row] as Node
+            let selectedNode = array[indexPath!.row] as! Node
             switchVC.node = selectedNode
+        }
+        
+        if (segue.identifier == "Folder")
+        {
+            let deviceTableVC:DeviceTableViewController = segue.destinationViewController as! DeviceTableViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            
+            //Check to see if the cell is a folder
+            if let selectedFolder = array[indexPath!.row] as? Folder
+            {
+                for folder in selectedFolder.subfolderArray
+                {
+                    deviceTableVC.array.append(folder)
+                }
+                for node in selectedFolder.nodeArray
+                {
+                    deviceTableVC.array.append(node)
+                }
+            }
+            
+            //Check to see if the cell is a node
+            if let selectedNode = array[indexPath!.row] as? Node
+            {
+                for node in selectedNode.subnodeArray
+                {
+                    deviceTableVC.array.append(node)
+                }
+                //add main node to the list and remove subnodes so it can be selected
+                let rootNode = selectedNode.copy() as! Node
+                rootNode.subnodeArray.removeAll()
+                deviceTableVC.array.append(rootNode)
+            }
         }
     }
     
