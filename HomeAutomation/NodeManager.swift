@@ -306,14 +306,13 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                         {
                             self.array.append(node)
                         }
-
+                        
                     }
                     completionHandler(success: true)
                 }
             }
         }
     }
-    
     
     //Mark: node commands
     
