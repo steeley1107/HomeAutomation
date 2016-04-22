@@ -42,6 +42,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     //Mark: Properties
     
     var array = [Any]()
+    var displayArray = [Any]()
     var nodes = [Node]()
     var subnodes = [Node]()
     var rootfolder = Folder()
@@ -313,6 +314,43 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             }
         }
     }
+    
+    
+    
+    
+    func loadArray(indexPath: NSIndexPath, array: [Any]) ->([Any])
+    {
+        displayArray = []
+        //Check to see if the cell is a folder
+        if let selectedFolder = array[indexPath.row] as? Folder
+        {
+            for folder in selectedFolder.subfolderArray
+            {
+                displayArray.append(folder)
+            }
+            for node in selectedFolder.nodeArray
+            {
+                displayArray.append(node)
+            }
+        }
+        
+        //Check to see if the cell is a node
+        if let selectedNode = array[indexPath.row] as? Node
+        {
+            for node in selectedNode.subnodeArray
+            {
+                displayArray.append(node)
+            }
+            
+            //add main node to the list and remove subnodes so it can be selected
+            let rootNode = selectedNode.copy() as! Node
+            rootNode.subnodeArray.removeAll()
+            displayArray.append(rootNode)
+        }
+        
+        return displayArray
+    }
+
     
     //Mark: node commands
     

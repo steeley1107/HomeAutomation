@@ -26,9 +26,13 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.methodOfReceivedNotification(_:)), name:"NotificationIdentifier", object: nil)
+        
+        
         //Reload tableView
         self.refreshControl = UIRefreshControl()
-        self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        //self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         
         //Init node controller
@@ -73,12 +77,22 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         
         nodeManager.addNodes { (success) -> () in
             if success {
+                self.array = []
                 self.array = self.nodeManager.array
                 self.tableView.reloadData()
                 self.refreshControl!.endRefreshing()
             }
         }
     }
+    
+    func methodOfReceivedNotification(notification: NSNotification){
+        //Take Action on Notification
+        
+        refresh(self)
+    }
+    
+    
+    
     
     
     // MARK: - Table view data source
@@ -196,32 +210,9 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         {
             let deviceTableVC:DeviceTableViewController = segue.destinationViewController as! DeviceTableViewController
             let indexPath = tableView.indexPathForSelectedRow
+            //array = []
+           deviceTableVC.array = nodeManager.loadArray(indexPath!, array: array)
             
-            //Check to see if the cell is a folder
-            if let selectedFolder = array[indexPath!.row] as? Folder
-            {
-                for folder in selectedFolder.subfolderArray
-                {
-                    deviceTableVC.array.append(folder)
-                }
-                for node in selectedFolder.nodeArray
-                {
-                    deviceTableVC.array.append(node)
-                }
-            }
-            
-            //Check to see if the cell is a node
-            if let selectedNode = array[indexPath!.row] as? Node
-            {
-                for node in selectedNode.subnodeArray
-                {
-                    deviceTableVC.array.append(node)
-                }
-                //add main node to the list and remove subnodes so it can be selected
-                let rootNode = selectedNode.copy() as! Node
-                rootNode.subnodeArray.removeAll()
-                deviceTableVC.array.append(rootNode)
-            }
         }
     }
     

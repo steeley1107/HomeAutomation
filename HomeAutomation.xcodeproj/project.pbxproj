@@ -49,6 +49,7 @@
 		DA993F8D1CA20F8900D93654 /* blue-up-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F8B1CA20F8900D93654 /* blue-up-arrow.png */; };
 		DAD43B081CC13C0F00DE99F5 /* FolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD43B071CC13C0F00DE99F5 /* FolderTableViewCell.swift */; };
 		DAD43B0A1CC13E0400DE99F5 /* 048-folder.png in Resources */ = {isa = PBXBuildFile; fileRef = DAD43B091CC13E0400DE99F5 /* 048-folder.png */; };
+		DAD43B0C1CCA7ABC00DE99F5 /* 049-folder-open.png in Resources */ = {isa = PBXBuildFile; fileRef = DAD43B0B1CCA7ABC00DE99F5 /* 049-folder-open.png */; };
 		DAE7D36A1CB2B794007F4FD4 /* deskLamp-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE7D3681CB2B794007F4FD4 /* deskLamp-off.png */; };
 		DAE7D36B1CB2B794007F4FD4 /* deskLamp-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE7D3691CB2B794007F4FD4 /* deskLamp-on.png */; };
 		DAE7D36D1CB2E64B007F4FD4 /* ProgramTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE7D36C1CB2E64B007F4FD4 /* ProgramTableViewController.swift */; };
@@ -130,6 +131,7 @@
 		DA993F8B1CA20F8900D93654 /* blue-up-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-up-arrow.png"; sourceTree = "<group>"; };
 		DAD43B071CC13C0F00DE99F5 /* FolderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderTableViewCell.swift; sourceTree = "<group>"; };
 		DAD43B091CC13E0400DE99F5 /* 048-folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "048-folder.png"; sourceTree = "<group>"; };
+		DAD43B0B1CCA7ABC00DE99F5 /* 049-folder-open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "049-folder-open.png"; sourceTree = "<group>"; };
 		DAE7D3681CB2B794007F4FD4 /* deskLamp-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deskLamp-off.png"; sourceTree = "<group>"; };
 		DAE7D3691CB2B794007F4FD4 /* deskLamp-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deskLamp-on.png"; sourceTree = "<group>"; };
 		DAE7D36C1CB2E64B007F4FD4 /* ProgramTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgramTableViewController.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				DAD43B091CC13E0400DE99F5 /* 048-folder.png */,
+				DAD43B0B1CCA7ABC00DE99F5 /* 049-folder-open.png */,
 				DAE7D3721CB2EDEE007F4FD4 /* 185-clipboard.png */,
 				DA95455D1CAEBAB00010FF2A /* flameIcon.png */,
 				DA2671281CA7122500C134D6 /* home-logo-md.png */,
@@ -443,6 +446,7 @@
 				DA54468B1CB1BDD900873C74 /* energy-on.png in Resources */,
 				DA912FF11C32F38A0082F91A /* LaunchScreen.storyboard in Resources */,
 				DA5446771CB038D600873C74 /* temp-on.png in Resources */,
+				DAD43B0C1CCA7ABC00DE99F5 /* 049-folder-open.png in Resources */,
 				DA39773A1CAB5F3000341D54 /* flame.png in Resources */,
 				DA993F871CA0DC6600D93654 /* downArrow.png in Resources */,
 				DA3C3A7E1C9C46C800494CEB /* 001-home.png in Resources */,

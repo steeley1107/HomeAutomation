@@ -20,9 +20,11 @@ class ProgramTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.methodOfReceivedNotification(_:)), name:"ProgramsReady", object: nil)
+        
         //Reload tableView
         self.refreshControl = UIRefreshControl()
-        self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        //self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         
         //Init node controller
@@ -61,6 +63,11 @@ class ProgramTableViewController: UITableViewController {
         }
     }
 
+    func methodOfReceivedNotification(notification: NSNotification){
+        //Take Action on Notification
+        
+        refresh(self)
+    }
     
     
     // MARK: - Table view data source
@@ -87,8 +94,8 @@ class ProgramTableViewController: UITableViewController {
         // Configure the cell...
         let program:Program =  programManager.programFolders[indexPath.section].programArray[indexPath.row]
         
-        cell.nodeTitle.text = programManager.programFolders[indexPath.section].programArray[indexPath.row].name
-        cell.nodeStatus.text = programManager.programFolders[indexPath.section].programArray[indexPath.row].status
+        cell.nodeTitle.text = program.name
+        cell.nodeStatus.text = program.status
         
         //Change the color of the status to red or green.
         if cell.nodeStatus.text == "true"

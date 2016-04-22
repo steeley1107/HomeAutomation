@@ -61,7 +61,6 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
     //grab data from xml and place programs in a custom class
     func getPrograms(completionHandler: (success: Bool) -> ())
     {
-        
         let baseURL = NSURL(string: baseURLString + "programs?subfolders=true")
         requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
             
@@ -110,7 +109,6 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
             self.programFolders = []
             for elem in response["programs"]["program"]
             {
-                
                 let folderStatus = elem.element!.attributes["folder"]
                 
                 if folderStatus == "true"
