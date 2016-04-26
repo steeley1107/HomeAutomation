@@ -17,6 +17,10 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
     var baseURLString = ""
     var programs = [Program]()
     var programFolders = [ProgramFolder]()
+    var rootfolder = ProgramFolder()
+    
+    var array = [Any]()
+    var displayArray = [Any]()
     
     
     //Mark: Program functions
@@ -55,7 +59,7 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
     {
         completionHandler(NSURLSessionAuthChallengeDisposition.UseCredential, NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!))
     }
-
+    
     
     
     //grab data from xml and place programs in a custom class
@@ -93,8 +97,17 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                     program.parentId = parentId
                 }
                 
+                //Get the status of the node
+                if let folder = elem.element?.attributes["folder"]
+                {
+                    program.folder = folder
+                }
+                
                 //Add node to array of nodes
-                self.programs += [program]
+                if program.folder == "false"
+                {
+                    self.programs += [program]
+                }
             }
             completionHandler(success: true)
         })
@@ -113,15 +126,60 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                 
                 if folderStatus == "true"
                 {
-                    let name = elem["name"].element!.text!
-                    let id = elem.element!.attributes["id"]!
-                    
                     let folder = ProgramFolder()
-                    folder.name = name
-                    folder.id = id
-                    self.programFolders += [folder]
+                    
+                    //Get the name of the folder
+                    if let name = elem["name"].element?.text!
+                    {
+                        folder.name = name
+                    }
+                    //Get the address of the folder
+                    if let id = elem.element?.attributes["id"]!
+                    {
+                        folder.id = id
+                    }
+                    //Get the parent of the folder
+                    if let parent = elem.element?.attributes["parentId"]
+                    {
+                        folder.parent = parent
+                    }
+                    
+                    
+                    //determine if the folder is a root or a sub folder.
+                    if folder.parent == ""
+                    {
+                        self.rootfolder = folder
+                    }
+                    else
+                    {
+                        self.programFolders += [folder]
+                    }
                 }
             }
+            
+            //Add root folders
+            for folder in self.programFolders
+            {
+                if self.rootfolder.id == folder.parent
+                {
+                    self.rootfolder.subfolderArray.append(folder)
+                }
+            }
+            
+            //Add sub folders
+            for rootfolder in self.rootfolder.subfolderArray
+            {
+                for subfolder in self.programFolders
+                {
+                    if subfolder.parent == rootfolder.id
+                    {
+                        rootfolder.subfolderArray += [subfolder]
+                    }
+                }
+            }
+            
+            
+            
             completionHandler(success: true)
         })
     }
@@ -135,6 +193,17 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                 self.getPrograms { (success) -> () in
                     if success
                     {
+                        //Add programs to root
+                        for program in self.programs
+                        {
+                            if program.parentId == self.rootfolder.id
+                            {
+                                self.rootfolder.programArray += [program]
+                            }
+                        }
+                        
+                        
+                        //Add programs to root
                         for folder in self.programFolders
                         {
                             for program in self.programs
@@ -145,6 +214,37 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                                 }
                             }
                         }
+                        
+                        
+//                        //add nodes into sub folders
+//                        for rootfolder in self.rootfolder.subfolderArray
+//                        {
+//                            for subfolder in rootfolder.subfolderArray
+//                            {
+//                                for program in self.programs
+//                                {
+//                                    if program.parentId == subfolder.id
+//                                    {
+//                                        subfolder.programArray += [program]
+//                                    }
+//                                }
+//                            }
+//                        }
+                        
+                        
+                        
+                        for folder in self.rootfolder.subfolderArray
+                        {
+                            self.array.append(folder)
+                        }
+                        
+                        for node in self.rootfolder.programArray
+                        {
+                            self.array.append(node)
+                        }
+                        
+                        
+                        
                     }
                     completionHandler(success: true)
                 }
@@ -154,33 +254,41 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
     
     
     
-//    //turn on node funtion
-//    func onCommand(node: Node, completionHandler: (success: Bool) -> ())
-//    {
-//        ///rest/nodes/<node>/cmd/DFON
-//        
-//        //Create url for on command
-//        var commandURLString = baseURLString + "nodes/" + node.address + "/cmd/DFON"
-//        commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
-//        let commandURL = NSURL(string: commandURLString)
-//        
-//        requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
-//            
-//            if let status = response["RestResponse"].element?.attributes["succeeded"]
+    
+    func loadArray(indexPath: NSIndexPath, array: [Any]) ->([Any])
+    {
+        displayArray = []
+        //Check to see if the cell is a folder
+        if let selectedFolder = array[indexPath.row] as? ProgramFolder
+        {
+            for folder in selectedFolder.subfolderArray
+            {
+                displayArray.append(folder)
+            }
+            for node in selectedFolder.programArray
+            {
+                displayArray.append(node)
+            }
+        }
+        
+//        //Check to see if the cell is a program
+//        if let selectedProgram = array[indexPath.row] as? Program
+//        {
+//            for program in selectedProgram
 //            {
-//                if status == "true"
-//                {
-//                    self.nodeStatus(node, completionHandler: { (success) -> () in
-//                        if success
-//                        {
-//                            completionHandler(success: true)
-//                        }
-//                    })
-//                }
+//                displayArray.append(node)
 //            }
-//        })
-//    }
-
+//            
+//            //add main node to the list and remove subnodes so it can be selected
+//            let rootNode = selectedNode.copy() as! Node
+//            rootNode.subnodeArray.removeAll()
+//            displayArray.append(rootNode)
+//        }
+        
+        return displayArray
+    }
+    
+    
     
     
     

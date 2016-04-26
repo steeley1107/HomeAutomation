@@ -12,6 +12,7 @@ class ProgramTableViewController: UITableViewController {
     
     //Mark: Properties
     
+    var array = [Any]()
     var programManager: ProgramManager!
     var tableRefreshControl: UIRefreshControl!
     
@@ -20,7 +21,7 @@ class ProgramTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.methodOfReceivedNotification(_:)), name:"ProgramsReady", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.methodOfReceivedNotification(_:)), name:"ProgramsReady", object: nil)
         
         //Reload tableView
         self.refreshControl = UIRefreshControl()
@@ -30,15 +31,7 @@ class ProgramTableViewController: UITableViewController {
         //Init node controller
         self.programManager = ProgramManager()
         
-        //update tableview
-        refresh(self)
         
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,15 +50,16 @@ class ProgramTableViewController: UITableViewController {
         
         programManager.addPrograms { (success) -> () in
             if success {
+                self.array = []
+                self.array = self.programManager.array
                 self.tableView.reloadData()
                 self.refreshControl!.endRefreshing()
             }
         }
     }
-
+    
     func methodOfReceivedNotification(notification: NSNotification){
         //Take Action on Notification
-        
         refresh(self)
     }
     
@@ -73,125 +67,99 @@ class ProgramTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        
-        let count = programManager.programFolders.count
+        let count = 1
         return count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        
-        let count = programManager.programFolders[section].programArray.count
+        let count = array.count
         return count
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell:NodeTableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! NodeTableViewCell
+        let element = array[indexPath.row]
         
-        // Configure the cell...
-        let program:Program =  programManager.programFolders[indexPath.section].programArray[indexPath.row]
-        
-        cell.nodeTitle.text = program.name
-        cell.nodeStatus.text = program.status
-        
-        //Change the color of the status to red or green.
-        if cell.nodeStatus.text == "true"
+        if let program = element as? Program
         {
-            cell.nodeStatus.textColor = UIColor.greenColor()
-            //adding icon ending
-            cell.nodeImage.image = UIImage(named: "program" + "-on")
+            let cell:NodeTableViewCell = tableView.dequeueReusableCellWithIdentifier("ProgramCell", forIndexPath: indexPath) as! NodeTableViewCell
+            
+            cell.nodeTitle.text = program.name
+            cell.nodeStatus.text = program.status
+            
+            //Change the color of the status to red or green.
+            if cell.nodeStatus.text == "true"
+            {
+                cell.nodeStatus.textColor = UIColor.greenColor()
+                //adding icon ending
+                cell.nodeImage.image = UIImage(named: "program" + "-on")
+            }
+            else
+            {
+                cell.nodeStatus.textColor = UIColor.redColor()
+                //add icon ending
+                cell.nodeImage.image = UIImage(named: "program" + "-off")
+            }
+            return cell
+        }
+        else if let element = element as? ProgramFolder
+        {
+            let cell:FolderTableViewCell = tableView.dequeueReusableCellWithIdentifier("FolderCell", forIndexPath: indexPath) as! FolderTableViewCell
+            cell.nodeTitle.text = element.name
+            return cell
         }
         else
         {
-            cell.nodeStatus.textColor = UIColor.redColor()
-            //add icon ending
-            cell.nodeImage.image = UIImage(named: "program" + "-off")
+            //Catch all?
+            let cell:FolderTableViewCell = tableView.dequeueReusableCellWithIdentifier("FolderCell", forIndexPath: indexPath) as! FolderTableViewCell
+            return cell
         }
-        return cell
-    }
-    
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return programManager.programFolders[section].name
     }
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let selectedProgram = programManager.programFolders[indexPath.section].programArray[indexPath.row] as Program
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        let selectedElement = array[indexPath.row]
         
-//        if selectedNode.deviceCat.rawValue == 1 || selectedNode.deviceCat.rawValue == 2
-//        {
-//            performSegueWithIdentifier("Switch", sender: nil)
-//            
-//        }
-//        if selectedNode.deviceCat.rawValue == 5
-//        {
-//            performSegueWithIdentifier("Climate", sender: nil)
-//            
-//        }
+        if let program = selectedElement as? Program
+        {
+            if program.folder == "true"
+            {
+                performSegueWithIdentifier("Folder", sender: nil)
+            }
+            else
+            {
+                //                if node.deviceCat.rawValue == 1 || node.deviceCat.rawValue == 2
+                //                {
+                //                    performSegueWithIdentifier("Switch", sender: nil)
+                //                }
+            }
+        }
     }
     
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if (segue.identifier == "Switch")
+        {
+            let switchVC:SwitchViewController = segue.destinationViewController as! SwitchViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            let selectedNode = array[indexPath!.row] as! Node
+            switchVC.node = selectedNode
+        }
         
-        //Create label and autoresize it
-        let headerLabel = UILabel(frame: CGRectMake(10, 5, tableView.frame.width, 2000))
-        headerLabel.textColor = UIColor.whiteColor()
-        headerLabel.text = self.tableView(self.tableView, titleForHeaderInSection: section)
-        headerLabel.sizeToFit()
-        
-        //Adding Label to existing headerView
-        let headerView = UIView()
-        headerView.addSubview(headerLabel)
-        headerView.backgroundColor = UIColor.blackColor()
-        return headerView
+        if (segue.identifier == "Folder")
+        {
+            let programTableVC:ProgramTableViewController = segue.destinationViewController as! ProgramTableViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            programTableVC.array = programManager.loadArray(indexPath!, array: array)
+        }
     }
     
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-     if editingStyle == .Delete {
-     // Delete the row from the data source
-     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-     } else if editingStyle == .Insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

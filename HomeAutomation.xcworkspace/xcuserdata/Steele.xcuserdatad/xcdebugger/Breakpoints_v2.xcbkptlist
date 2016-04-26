@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HomeAutomation/ProgramTableViewController.swift"
-            timestampString = "483052000.183055"
+            filePath = "HomeAutomation/ProgramManager.swift"
+            timestampString = "483317414.465367"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
+            landmarkName = "addPrograms(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HomeAutomation/ProgramTableViewController.swift"
-            timestampString = "483052054.216251"
+            filePath = "HomeAutomation/ProgramManager.swift"
+            timestampString = "483319303.798162"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
+            landmarkName = "loadArray(_:array:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

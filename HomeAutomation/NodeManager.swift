@@ -64,7 +64,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         {
             self.baseURLString = baseURLString
         }
-        
     }
     
     
@@ -179,8 +178,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 {
                     self.nodes += [node]
                 }
-                
-                
             }
             completionHandler(success: true)
         })
@@ -220,7 +217,8 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 }
                 else
                 {
-                    self.subfolders += [folder]                }
+                    self.subfolders += [folder]
+                }
             }
             
             for rootfolder in self.rootfolder.subfolderArray
