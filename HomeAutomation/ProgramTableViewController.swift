@@ -31,7 +31,6 @@ class ProgramTableViewController: UITableViewController {
         //Init node controller
         self.programManager = ProgramManager()
         
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -145,12 +144,12 @@ class ProgramTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-        if (segue.identifier == "Switch")
+        if (segue.identifier == "Program")
         {
-            let switchVC:SwitchViewController = segue.destinationViewController as! SwitchViewController
+            let programVC:ProgramControlTableViewController = segue.destinationViewController as! ProgramControlTableViewController
             let indexPath = tableView.indexPathForSelectedRow
-            let selectedNode = array[indexPath!.row] as! Node
-            switchVC.node = selectedNode
+            let selectedProgram = array[indexPath!.row] as! Program
+            programVC.program = selectedProgram
         }
         
         if (segue.identifier == "Folder")

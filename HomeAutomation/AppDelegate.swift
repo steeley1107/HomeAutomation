@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         nodeManager.addNodes { (success) -> () in
             if success {
-                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName("NodesReady", object: nil)
             }
         }
         

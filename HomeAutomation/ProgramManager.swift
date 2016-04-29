@@ -19,13 +19,13 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
     var programFolders = [ProgramFolder]()
     var rootfolder = ProgramFolder()
     
+    var program = Program()
+    
     var array = [Any]()
     var displayArray = [Any]()
     
     
     //Mark: Program functions
-    
-    
     
     override init()
     {
@@ -61,7 +61,6 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
     }
     
     
-    
     //grab data from xml and place programs in a custom class
     func getPrograms(completionHandler: (success: Bool) -> ())
     {
@@ -71,36 +70,48 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
             self.programs = []
             for elem in response["programs"]["program"] {
                 let program = Program()
-                NSLog(elem["name"].element!.text!)
                 
                 //Get the name of the program
                 if let name = elem["name"].element?.text!
                 {
                     program.name = name
                 }
-                
                 //Get the status of the program
                 if let status = elem.element?.attributes["status"]
                 {
                     program.status = status
                 }
-                
                 //Get the id of the program
                 if let id = elem.element?.attributes["id"]
                 {
                     program.id = id
                 }
-                
-                //Get the status of the node
+                //Get the status of the program
                 if let parentId = elem.element?.attributes["parentId"]
                 {
                     program.parentId = parentId
                 }
-                
-                //Get the status of the node
+                //Get the folder of the program
                 if let folder = elem.element?.attributes["folder"]
                 {
                     program.folder = folder
+                }
+                
+                //Get the status of the program
+                if let lastRunTime = elem["lastRunTime"].element?.text
+                {
+                    program.lastRunTime = lastRunTime
+                }
+                //Get the status of the program
+                if let lastFinishTime = elem["lastFinishTime"].element?.text
+                {
+                    program.lastFinishTime = lastFinishTime
+                }
+
+                //Get the status of the program
+                if let nextScheduledRunTime = elem["nextScheduledRunTime"].element?.text
+                {
+                    program.nextScheduledRunTime = nextScheduledRunTime
                 }
                 
                 //Add node to array of nodes
@@ -177,12 +188,10 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                     }
                 }
             }
-            
-            
-            
             completionHandler(success: true)
         })
     }
+    
     
     //add nodes to the proper folder array
     func addPrograms(completionHandler: (success: Bool) -> ())
@@ -202,7 +211,6 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                             }
                         }
                         
-                        
                         //Add programs to root
                         for folder in self.programFolders
                         {
@@ -215,24 +223,7 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                             }
                         }
                         
-                        
-//                        //add nodes into sub folders
-//                        for rootfolder in self.rootfolder.subfolderArray
-//                        {
-//                            for subfolder in rootfolder.subfolderArray
-//                            {
-//                                for program in self.programs
-//                                {
-//                                    if program.parentId == subfolder.id
-//                                    {
-//                                        subfolder.programArray += [program]
-//                                    }
-//                                }
-//                            }
-//                        }
-                        
-                        
-                        
+                        //Add folders and programs to the array for the table view
                         for folder in self.rootfolder.subfolderArray
                         {
                             self.array.append(folder)
@@ -242,9 +233,6 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                         {
                             self.array.append(node)
                         }
-                        
-                        
-                        
                     }
                     completionHandler(success: true)
                 }
@@ -253,8 +241,7 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
     }
     
     
-    
-    
+    //Loads the proper array to allow drill down function
     func loadArray(indexPath: NSIndexPath, array: [Any]) ->([Any])
     {
         displayArray = []
@@ -270,29 +257,8 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                 displayArray.append(node)
             }
         }
-        
-//        //Check to see if the cell is a program
-//        if let selectedProgram = array[indexPath.row] as? Program
-//        {
-//            for program in selectedProgram
-//            {
-//                displayArray.append(node)
-//            }
-//            
-//            //add main node to the list and remove subnodes so it can be selected
-//            let rootNode = selectedNode.copy() as! Node
-//            rootNode.subnodeArray.removeAll()
-//            displayArray.append(rootNode)
-//        }
-        
         return displayArray
     }
-    
-    
-    
-    
-    
-    
-    
+
     
 }

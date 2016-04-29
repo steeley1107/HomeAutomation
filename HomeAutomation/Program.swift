@@ -31,6 +31,17 @@ class Program: NSObject {
     var status: String = ""
     var folder: String = ""
     var imageName: String = ""
+    var lastRunTime: String = ""
+    var lastFinishTime: String = ""
+    var nextScheduledRunTime: String = ""
+    var enabled: String = ""
+    var runAtStartup: String = ""
+    
+    
+    
+    override init() {
+        
+    }
     
     
     

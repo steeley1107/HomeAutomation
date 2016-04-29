@@ -10,7 +10,7 @@ import UIKit
 import SWXMLHash
 import Foundation
 
-class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSURLSessionDelegate {
+class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  //, NSURLSessionDelegate {
     
     //Mark: Properties
     
@@ -27,7 +27,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
         super.viewDidLoad()
         
         
-          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.methodOfReceivedNotification(_:)), name:"NotificationIdentifier", object: nil)
+          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.methodOfReceivedNotification(_:)), name:"NodesReady", object: nil)
         
         
         //Reload tableView
@@ -77,12 +77,8 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate, NSU
     
     func methodOfReceivedNotification(notification: NSNotification){
         //Take Action on Notification
-        
         refresh(self)
     }
-    
-    
-    
     
     
     // MARK: - Table view data source
