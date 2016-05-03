@@ -81,6 +81,16 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                 {
                     program.status = status
                 }
+                //Get the enabled option of the program
+                if let enabled = elem.element?.attributes["enabled"]
+                {
+                    program.enabled = enabled
+                }
+                //Get the run at startup option of the program
+                if let runAtStartup = elem.element?.attributes["runAtStartup"]
+                {
+                    program.runAtStartup = runAtStartup
+                }
                 //Get the id of the program
                 if let id = elem.element?.attributes["id"]
                 {
@@ -96,7 +106,6 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                 {
                     program.folder = folder
                 }
-                
                 //Get the status of the program
                 if let lastRunTime = elem["lastRunTime"].element?.text
                 {
@@ -107,7 +116,7 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                 {
                     program.lastFinishTime = lastFinishTime
                 }
-
+                
                 //Get the status of the program
                 if let nextScheduledRunTime = elem["nextScheduledRunTime"].element?.text
                 {
@@ -259,6 +268,115 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
         }
         return displayArray
     }
-
+    
+    
+    
+    //runs the if portion of the program.
+    func programCommand(program: Program, command: String, completionHandler: (success: Bool) -> ())
+    {
+        ///rest/programs/0032/run|runThen|runElse|stop|enable|disable|enableRunAtStartup|disableRunAtStartup
+        
+        //Create url for on command
+        var commandURLString = baseURLString + "programs/" + program.id + "/" + command
+        commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
+        
+        print("\(commandURLString)")
+        let commandURL = NSURL(string: commandURLString)
+        
+        requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
+            
+            if let status = response["RestResponse"].element?.attributes["succeeded"]
+            {
+                if status == "true"
+                {
+                    completionHandler(success: true)
+                }
+            }
+        })
+    }
+    
+    
+    
+    
+    //grab data from xml and place programs in a custom class
+    func getProgram(program: Program, completionHandler: (success: Bool, program: Program) -> ())
+    {
+        let baseURL = NSURL(string: baseURLString + "programs/" + program.id)
+        requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
+            
+            print("\(baseURL)")
+            
+            for elem in response["programs"]["program"] {
+                let program = Program()
+                
+                //Get the name of the program
+                if let name = elem["name"].element?.text!
+                {
+                    program.name = name
+                }
+                //Get the status of the program
+                if let status = elem.element?.attributes["status"]
+                {
+                    program.status = status
+                }
+                //Get the enabled option of the program
+                if let enabled = elem.element?.attributes["enabled"]
+                {
+                    program.enabled = enabled
+                }
+                //Get the run at startup option of the program
+                if let runAtStartup = elem.element?.attributes["runAtStartup"]
+                {
+                    program.runAtStartup = runAtStartup
+                }
+                //Get the id of the program
+                if let id = elem.element?.attributes["id"]
+                {
+                    program.id = id
+                }
+                //Get the status of the program
+                if let parentId = elem.element?.attributes["parentId"]
+                {
+                    program.parentId = parentId
+                }
+                //Get the folder of the program
+                if let folder = elem.element?.attributes["folder"]
+                {
+                    program.folder = folder
+                }
+                //Get the status of the program
+                if let lastRunTime = elem["lastRunTime"].element?.text
+                {
+                    program.lastRunTime = lastRunTime
+                }
+                //Get the status of the program
+                if let lastFinishTime = elem["lastFinishTime"].element?.text
+                {
+                    program.lastFinishTime = lastFinishTime
+                }
+                
+                //Get the status of the program
+                if let nextScheduledRunTime = elem["nextScheduledRunTime"].element?.text
+                {
+                    program.nextScheduledRunTime = nextScheduledRunTime
+                }
+                
+            }
+            completionHandler(success: true, program: program)
+        })
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
