@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		13B5757C4165B0631B091E08 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17BE7A3D1F294957C3DCEDEA /* Pods.framework */; };
 		DA1B8A841CD3B3BB002E0234 /* ProgramControlTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B8A831CD3B3BB002E0234 /* ProgramControlTableViewController.swift */; };
+		DA1B8A861CDD3C3D002E0234 /* 020-film.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1B8A851CDD3C3C002E0234 /* 020-film.png */; };
+		DA1B8A881CDD3DD5002E0234 /* SceneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B8A871CDD3DD5002E0234 /* SceneTableViewController.swift */; };
+		DA1B8A8A1CDD3E13002E0234 /* SceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B8A891CDD3E13002E0234 /* SceneManager.swift */; };
+		DA1B8A8C1CDD43DB002E0234 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B8A8B1CDD43DB002E0234 /* Scene.swift */; };
 		DA21C5211C77E87300F41A83 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5201C77E87300F41A83 /* Node.swift */; };
 		DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */; };
 		DA21C5251C7D4D9B00F41A83 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5241C7D4D9B00F41A83 /* Folder.swift */; };
@@ -86,6 +90,10 @@
 		24E0B9C5C7F3712850FCB591 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CD87C7F91321F46B22C4DD1B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		DA1B8A831CD3B3BB002E0234 /* ProgramControlTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgramControlTableViewController.swift; sourceTree = "<group>"; };
+		DA1B8A851CDD3C3C002E0234 /* 020-film.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "020-film.png"; sourceTree = "<group>"; };
+		DA1B8A871CDD3DD5002E0234 /* SceneTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneTableViewController.swift; sourceTree = "<group>"; };
+		DA1B8A891CDD3E13002E0234 /* SceneManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneManager.swift; sourceTree = "<group>"; };
+		DA1B8A8B1CDD43DB002E0234 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		DA21C5201C77E87300F41A83 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
 		DA21C5241C7D4D9B00F41A83 /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
@@ -198,6 +206,7 @@
 				DAE7D3751CB2F78B007F4FD4 /* Program.swift */,
 				DA21C5201C77E87300F41A83 /* Node.swift */,
 				DA993F7E1CA04B4A00D93654 /* NodeType.swift */,
+				DA1B8A8B1CDD43DB002E0234 /* Scene.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -212,6 +221,7 @@
 				DA993F841CA0A89500D93654 /* EnergyViewController.swift */,
 				DAE7D36C1CB2E64B007F4FD4 /* ProgramTableViewController.swift */,
 				DA1B8A831CD3B3BB002E0234 /* ProgramControlTableViewController.swift */,
+				DA1B8A871CDD3DD5002E0234 /* SceneTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -221,6 +231,7 @@
 			children = (
 				DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */,
 				DAE7D37D1CB31EE1007F4FD4 /* ProgramManager.swift */,
+				DA1B8A891CDD3E13002E0234 /* SceneManager.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -228,6 +239,7 @@
 		DA8FE8AF1C93747700991FB4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DA1B8A851CDD3C3C002E0234 /* 020-film.png */,
 				DAD43B091CC13E0400DE99F5 /* 048-folder.png */,
 				DAD43B0B1CCA7ABC00DE99F5 /* 049-folder-open.png */,
 				DAE7D3721CB2EDEE007F4FD4 /* 185-clipboard.png */,
@@ -467,6 +479,7 @@
 				DA8FE8B31C93749900991FB4 /* lightbulb-off.png in Resources */,
 				DA54467E1CB03AF400873C74 /* motion01-off.png in Resources */,
 				DA54467A1CB03A3800873C74 /* lamp01-off.png in Resources */,
+				DA1B8A861CDD3C3D002E0234 /* 020-film.png in Resources */,
 				DA2671291CA7122500C134D6 /* home-logo-md.png in Resources */,
 				DA912FEC1C32F38A0082F91A /* Main.storyboard in Resources */,
 				DA9545601CAF35C80010FF2A /* temp-off.png in Resources */,
@@ -544,6 +557,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA1B8A881CDD3DD5002E0234 /* SceneTableViewController.swift in Sources */,
 				DAE7D36D1CB2E64B007F4FD4 /* ProgramTableViewController.swift in Sources */,
 				DA21C5211C77E87300F41A83 /* Node.swift in Sources */,
 				DA993F851CA0A89500D93654 /* EnergyViewController.swift in Sources */,
@@ -555,8 +569,10 @@
 				DA993F7F1CA04B4A00D93654 /* NodeType.swift in Sources */,
 				DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */,
 				DAE7D3781CB30A09007F4FD4 /* ProgramFolder.swift in Sources */,
+				DA1B8A8C1CDD43DB002E0234 /* Scene.swift in Sources */,
 				DA3C3A761C97259B00494CEB /* SettingsTableViewController.swift in Sources */,
 				DAE7D37E1CB31EE1007F4FD4 /* ProgramManager.swift in Sources */,
+				DA1B8A8A1CDD3E13002E0234 /* SceneManager.swift in Sources */,
 				DA912FE91C32F38A0082F91A /* SwitchViewController.swift in Sources */,
 				DAE7D3761CB2F78B007F4FD4 /* Program.swift in Sources */,
 				DA912FE71C32F38A0082F91A /* AppDelegate.swift in Sources */,

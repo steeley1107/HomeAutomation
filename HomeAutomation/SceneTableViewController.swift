@@ -1,14 +1,16 @@
 //
-//  ProgramControlTableViewController.swift
+//  SceneTableViewController.swift
 //  HomeAutomation
 //
-//  Created by Steele on 2016-04-29.
+//  Created by Steele on 2016-05-06.
 //  Copyright © 2016 11thHourIndustries. All rights reserved.
 //
 
 import UIKit
 
-class ProgramControlTableViewController: UITableViewController {
+class SceneTableViewController: UITableViewController {
+
+    
     
     
     //Mark: - Properties
@@ -20,15 +22,15 @@ class ProgramControlTableViewController: UITableViewController {
     @IBOutlet weak var lastFinishLabel: UILabel!
     @IBOutlet weak var nextRunLabel: UILabel!
     
-    var program = Program()
-    var programManager: ProgramManager!
+    var scene = Scene()
+    var sceneManager: SceneManager!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Init node controller
-        self.programManager = ProgramManager()
+        self.sceneManager = SceneManager()
         
         reload()
         
@@ -120,10 +122,9 @@ class ProgramControlTableViewController: UITableViewController {
                 self.lastFinishLabel.text = program.lastFinishTime
                 self.nextRunLabel.text = program.lastRunTime
             }
-            
         }
-        
-        
     }
-    
+
+
+
 }

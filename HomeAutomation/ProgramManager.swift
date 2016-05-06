@@ -18,9 +18,7 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
     var programs = [Program]()
     var programFolders = [ProgramFolder]()
     var rootfolder = ProgramFolder()
-    
     var program = Program()
-    
     var array = [Any]()
     var displayArray = [Any]()
     
@@ -233,6 +231,7 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                         }
                         
                         //Add folders and programs to the array for the table view
+                        self.array = []
                         for folder in self.rootfolder.subfolderArray
                         {
                             self.array.append(folder)

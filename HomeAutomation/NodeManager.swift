@@ -189,7 +189,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     {
         let baseURL = NSURL(string: baseURLString + "nodes")
         requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
-            self.folders = []
+            self.rootfolder = Folder()
             for elem in response["nodes"]["folder"]
             {
                 let folder = Folder()
@@ -295,17 +295,15 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                             }
                         }
                         
-                        
+                        self.array = []
                         for folder in self.rootfolder.subfolderArray
                         {
                             self.array.append(folder)
                         }
-                        
                         for node in self.rootfolder.nodeArray
                         {
                             self.array.append(node)
                         }
-                        
                     }
                     completionHandler(success: true)
                 }
