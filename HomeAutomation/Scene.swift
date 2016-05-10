@@ -21,15 +21,16 @@ class Scene: NSObject {
 //    </members>
 //    </group>
     
-    var name: String = ""
-    var address: String = ""
-    var group: String = ""
-    var deviceGroup: String = ""
-    var elkId: String = ""
-    var link: String = ""
+    var name = ""
+    var address = ""
+    var group = ""
+    var deviceGroup = ""
+    var elkId = ""
+    var link = ""
     var members = [String]()
-    var imageName: String = ""
-    var enabled: String = ""
+    var imageName = ""
+    var enabled = ""
+    var parent = ""
     
     
 }

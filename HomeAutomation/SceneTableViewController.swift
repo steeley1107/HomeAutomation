@@ -12,27 +12,28 @@ class SceneTableViewController: UITableViewController {
 
     
     
+    //Mark: Properties
     
-    //Mark: - Properties
-    
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var enabledLabel: UILabel!
-    @IBOutlet weak var runAtStartupLabel: UILabel!
-    @IBOutlet weak var lastRunLabel: UILabel!
-    @IBOutlet weak var lastFinishLabel: UILabel!
-    @IBOutlet weak var nextRunLabel: UILabel!
-    
-    var scene = Scene()
+    var array = [Any]()
     var sceneManager: SceneManager!
+    var tableRefreshControl: UIRefreshControl!
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.methodOfReceivedNotification(_:)), name:"ScenesReady", object: nil)
+        
+        //Reload tableView
+        self.refreshControl = UIRefreshControl()
+        //self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        
         //Init node controller
         self.sceneManager = SceneManager()
-        
-        reload()
         
     }
     
@@ -41,90 +42,128 @@ class SceneTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    //call this function to update tableview
+    func refresh(sender:AnyObject)
+    {
+        if let baseURLString = NSUserDefaults.standardUserDefaults().objectForKey("baseURLString") as? String
+        {
+            sceneManager.baseURLString = baseURLString
+        }
+        
+        sceneManager.addScenes({ (success) in
+            if success {
+                self.array = []
+                self.array = self.sceneManager.array
+                self.tableView.reloadData()
+                self.refreshControl!.endRefreshing()
+            }
+        })
+    }
+    
+    func methodOfReceivedNotification(notification: NSNotification){
+        //Take Action on Notification
+        refresh(self)
+    }
+    
+    
+    // MARK: - Table view data source
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        let count = 1
+        return count
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let count = array.count
+        return count
+    }
+    
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        let element = array[indexPath.row]
+        
+        if let scene = element as? Scene
+        {
+            let cell:NodeTableViewCell = tableView.dequeueReusableCellWithIdentifier("ProgramCell", forIndexPath: indexPath) as! NodeTableViewCell
+            
+            cell.nodeTitle.text = scene.name
+            //cell.nodeStatus.text = scene.status
+            
+            //Change the color of the status to red or green.
+            if cell.nodeStatus.text == "true"
+            {
+                cell.nodeStatus.textColor = UIColor.greenColor()
+                //adding icon ending
+                cell.nodeImage.image = UIImage(named: "program" + "-on")
+            }
+            else
+            {
+                cell.nodeStatus.textColor = UIColor.redColor()
+                //add icon ending
+                cell.nodeImage.image = UIImage(named: "program" + "-off")
+            }
+            return cell
+        }
+        else if let element = element as? Folder
+        {
+            let cell:FolderTableViewCell = tableView.dequeueReusableCellWithIdentifier("FolderCell", forIndexPath: indexPath) as! FolderTableViewCell
+            cell.nodeTitle.text = element.name
+            return cell
+        }
+        else
+        {
+            //Catch all?
+            let cell:FolderTableViewCell = tableView.dequeueReusableCellWithIdentifier("FolderCell", forIndexPath: indexPath) as! FolderTableViewCell
+            return cell
+        }
+    }
+    
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        if indexPath.section == 1
+        let selectedElement = array[indexPath.row]
+        
+        if let program = selectedElement as? Program
         {
-            //select which program to run.
-            switch indexPath.row {
-            case 0:
-                programManager.programCommand(program, command: "run", completionHandler: { (success) in
-                    if success {
-                        print("run")
-                        self.reload()
-                    }
-                })
-            case 1:
-                programManager.programCommand(program, command: "runThen", completionHandler: { (success) in
-                    if success {
-                        print("runThen")
-                        self.reload()
-                    }
-                })
-            case 2:
-                programManager.programCommand(program, command: "runElse", completionHandler: { (success) in
-                    if success {
-                        print("runElse")
-                        self.reload()
-                    }
-                })
-            case 3:
-                programManager.programCommand(program, command: "enable", completionHandler: { (success) in
-                    if success {
-                        print("enable")
-                        self.reload()
-                    }
-                })
-            case 4:
-                programManager.programCommand(program, command: "disable", completionHandler: { (success) in
-                    if success {
-                        print("disable")
-                        self.reload()
-                    }
-                })
-            case 5:
-                programManager.programCommand(program, command: "enableRunAtStartup", completionHandler: { (success) in
-                    if success {
-                        print("enableRunAtStartup")
-                        self.reload()
-                    }
-                })
-            case 6:
-                programManager.programCommand(program, command: "disableRunAtStartup", completionHandler: { (success) in
-                    if success {
-                        print("disableRunAtStartup")
-                        self.reload()
-                    }
-                })
-            case 7:
-                programManager.programCommand(program, command: "stop", completionHandler: { (success) in
-                    if success {
-                        print("stop")
-                        self.reload()
-                    }
-                })
-            default:
-                print("unknown command")
-            }
-        }
-    }
-    
-    
-    func reload()
-    {
-        programManager.getProgram(self.program) { (success, program) in
-            if success == true
+            if program.folder == "true"
             {
-                self.statusLabel.text = program.status
-                self.enabledLabel.text = program.enabled
-                self.runAtStartupLabel.text = program.runAtStartup
-                self.lastRunLabel.text = program.lastRunTime
-                self.lastFinishLabel.text = program.lastFinishTime
-                self.nextRunLabel.text = program.lastRunTime
+                performSegueWithIdentifier("Folder", sender: nil)
+            }
+            else
+            {
+                //                if node.deviceCat.rawValue == 1 || node.deviceCat.rawValue == 2
+                //                {
+                //                    performSegueWithIdentifier("Switch", sender: nil)
+                //                }
             }
         }
     }
-
+    
+    
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if (segue.identifier == "Scene")
+        {
+            let sceneVC:SceneControlTableViewController = segue.destinationViewController as! SceneControlTableViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            let selectedScene = array[indexPath!.row] as! Scene
+            sceneVC.scene = selectedScene
+        }
+        
+        if (segue.identifier == "Folder")
+        {
+            let sceneTableVC:SceneTableViewController = segue.destinationViewController as! SceneTableViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            sceneTableVC.array = sceneManager.loadArray(indexPath!, array: array)
+        }
+    }
+    
 
 
 }

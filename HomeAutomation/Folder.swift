@@ -14,8 +14,10 @@ class Folder: NSObject {
     var address = ""
     var parent = ""
     var nodeArray = [Node]()
+    var sceneArray = [Scene]()
     var subfolderArray = [Folder]()
     var array = [Any]()
+    var containsScene = false
+    var containsNode = false
     
-
 }

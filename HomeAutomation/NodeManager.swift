@@ -257,6 +257,8 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                                     if node.parent == subfolder.address
                                     {
                                         subfolder.nodeArray += [node]
+                                        subfolder.containsNode = true
+                                        rootfolder.containsNode = true
                                     }
                                 }
                             }
