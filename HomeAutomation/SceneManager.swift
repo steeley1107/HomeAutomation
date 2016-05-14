@@ -22,7 +22,7 @@ class SceneManager: NSObject, NSURLSessionDelegate {
     var baseURLString = ""
     var rootfolder = Folder()
     var subfolders = [Folder]()
-    
+    var nodeManager = NodeManager()
     
     
     
@@ -146,6 +146,12 @@ class SceneManager: NSObject, NSURLSessionDelegate {
                 {
                     scene.parent = parent
                 }
+                for member in elem["members"]["link"]
+                {
+                    scene.members.append((member.element?.text)!)
+                }
+
+                
                 
                 //Add node to array of nodes
                 self.scenes += [scene]

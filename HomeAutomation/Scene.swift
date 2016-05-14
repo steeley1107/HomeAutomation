@@ -31,6 +31,7 @@ class Scene: NSObject {
     var imageName = ""
     var enabled = ""
     var parent = ""
+    var nodeArray = [Node]()
     
     
 }

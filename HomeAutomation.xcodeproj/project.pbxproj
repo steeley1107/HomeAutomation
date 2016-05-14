@@ -14,6 +14,7 @@
 		DA1B8A8A1CDD3E13002E0234 /* SceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B8A891CDD3E13002E0234 /* SceneManager.swift */; };
 		DA1B8A8C1CDD43DB002E0234 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B8A8B1CDD43DB002E0234 /* Scene.swift */; };
 		DA1B8A8E1CE132DF002E0234 /* SceneControlTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B8A8D1CE132DF002E0234 /* SceneControlTableViewController.swift */; };
+		DA1B8A901CE634C5002E0234 /* testTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B8A8F1CE634C5002E0234 /* testTableViewController.swift */; };
 		DA21C5211C77E87300F41A83 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5201C77E87300F41A83 /* Node.swift */; };
 		DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */; };
 		DA21C5251C7D4D9B00F41A83 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5241C7D4D9B00F41A83 /* Folder.swift */; };
@@ -96,6 +97,7 @@
 		DA1B8A891CDD3E13002E0234 /* SceneManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneManager.swift; sourceTree = "<group>"; };
 		DA1B8A8B1CDD43DB002E0234 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		DA1B8A8D1CE132DF002E0234 /* SceneControlTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneControlTableViewController.swift; sourceTree = "<group>"; };
+		DA1B8A8F1CE634C5002E0234 /* testTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testTableViewController.swift; sourceTree = "<group>"; };
 		DA21C5201C77E87300F41A83 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
 		DA21C5241C7D4D9B00F41A83 /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				DA1B8A831CD3B3BB002E0234 /* ProgramControlTableViewController.swift */,
 				DA1B8A871CDD3DD5002E0234 /* SceneTableViewController.swift */,
 				DA1B8A8D1CE132DF002E0234 /* SceneControlTableViewController.swift */,
+				DA1B8A8F1CE634C5002E0234 /* testTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -567,6 +570,7 @@
 				DA1B8A8E1CE132DF002E0234 /* SceneControlTableViewController.swift in Sources */,
 				DAD43B081CC13C0F00DE99F5 /* FolderTableViewCell.swift in Sources */,
 				DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */,
+				DA1B8A901CE634C5002E0234 /* testTableViewController.swift in Sources */,
 				DA1B8A841CD3B3BB002E0234 /* ProgramControlTableViewController.swift in Sources */,
 				DA993F831CA0A87900D93654 /* ClimateViewController.swift in Sources */,
 				DAFA7B991C93858D002CF894 /* NodeTableViewCell.swift in Sources */,
