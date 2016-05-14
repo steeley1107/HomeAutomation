@@ -383,13 +383,13 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     }
     
     
-    //turn on node funtion
-    func onCommand(node: Node, completionHandler: (success: Bool) -> ())
+    //turn on and off node funtion
+    func command(node: Node, command: String, completionHandler: (success: Bool) -> ())
     {
-        ///rest/nodes/<node>/cmd/DFON
+        ///rest/nodes/<node>/cmd/DFON|DFOF
         
         //Create url for on command
-        var commandURLString = baseURLString + "nodes/" + node.address + "/cmd/DFON"
+        var commandURLString = baseURLString + "nodes/" + node.address + "/cmd/" + command
         commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
         let commandURL = NSURL(string: commandURLString)
         
@@ -407,35 +407,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                     })
                 }
             }
-        })
-    }
-    
-    
-    //turn off node function
-    func offCommand(node: Node, completionHandler: (success: Bool) -> ())
-    {
-        ///rest/nodes/<node>/cmd/DFOF
-        
-        //Create url for off command
-        var commandURLString = baseURLString + "nodes/" + node.address + "/cmd/DFOF"
-        commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
-        let commandURL = NSURL(string: commandURLString)
-        
-        requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
-            
-            if let status = response["RestResponse"].element?.attributes["succeeded"]
-            {
-                if status == "true"
-                {
-                    self.nodeStatus(node, completionHandler: { (success) -> () in
-                        if success
-                        {
-                            completionHandler(success: true)
-                        }
-                    })
-                }
-            }
-            
         })
     }
     
@@ -514,8 +485,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             catch
             {
             }
-            
-            
         })
     }
     

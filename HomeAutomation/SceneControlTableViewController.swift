@@ -29,7 +29,7 @@ class SceneControlTableViewController: UITableViewController {
         //Init node controller
         self.sceneManager = SceneManager()
         
-        reload()
+        //reload()
         
     }
     
@@ -38,28 +38,53 @@ class SceneControlTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        let count = 1
+        return count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        let count = scene.nodeArray.count
+        return count
     }
     
-    /*
-     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-     let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-     
-     // Configure the cell...
-     
-     return cell
-     }
-     */
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("NodeCell", forIndexPath: indexPath)
+        
+        // Configure the cell...
+        let element = scene.nodeArray[indexPath.row]
+        
+        if let node = element as? Node
+        {
+            let cell:NodeTableViewCell = tableView.dequeueReusableCellWithIdentifier("NodeCell", forIndexPath: indexPath) as! NodeTableViewCell
+            
+            cell.nodeTitle.text = node.name
+            cell.nodeStatus.text = node.status
+            
+            //Change the color of the status to red or green.
+            if cell.nodeStatus.text == "On"
+            {
+                cell.nodeStatus.textColor = UIColor.greenColor()
+                //adding icon ending
+                cell.nodeImage.image = UIImage(named: node.imageName + "-on")
+            }
+            else
+            {
+                cell.nodeStatus.textColor = UIColor.redColor()
+                //add icon ending
+                cell.nodeImage.image = UIImage(named: node.imageName + "-off")
+            }
+            return cell
+
+            
+        }
+    }
     
     /*
      // Override to support conditional editing of the table view.
@@ -105,22 +130,22 @@ class SceneControlTableViewController: UITableViewController {
      // Pass the selected object to the new view controller.
      }
      */
-
+    
     
     
     
     func reload()
     {
-//        sceneManager.getScene(self.scene) { (success, program) in
-//            if success == true
-//            {
-//                self.statusLabel.text = scene.status
-//                self.enabledLabel.text = scene.enabled
+        //        sceneManager.getScene(self.scene) { (success, program) in
+        //            if success == true
+        //            {
+        //                self.statusLabel.text = scene.status
+        //                self.enabledLabel.text = scene.enabled
         self.statusLabel.text = scene.name
-//
-//            }
-//            
-//        }
+        //
+        //            }
+        //
+        //        }
         
         
     }

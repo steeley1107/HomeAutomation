@@ -148,9 +148,20 @@ class SceneManager: NSObject, NSURLSessionDelegate {
                 }
                 for member in elem["members"]["link"]
                 {
-                    scene.members.append((member.element?.text)!)
+                    let memberAddress = member.element?.text!
+                    //scene.members.append((member.element?.text)!)
+                    
+                    for node in self.nodeManager.nodes
+                    {
+                        if node.address == memberAddress
+                        {
+                        scene.nodeArray.append(node)
+                        }
+                        
+                    }
                 }
 
+                
                 
                 
                 //Add node to array of nodes

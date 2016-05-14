@@ -76,8 +76,7 @@ class SwitchViewController: UIViewController, NSURLSessionDelegate {
     
     @IBAction func onButton(sender: AnyObject)
     {
-        
-        nodeManager.onCommand(node) { (success) -> () in
+        nodeManager.command(node, command: "DFON") { (success) in
             if success
             {
                 self.updateView()
@@ -88,7 +87,7 @@ class SwitchViewController: UIViewController, NSURLSessionDelegate {
     
     @IBAction func offButton(sender: AnyObject)
     {
-        nodeManager.offCommand(node) { (success) -> () in
+        nodeManager.command(node, command: "DFOF") { (success) in
             if success
             {
                 self.updateView()

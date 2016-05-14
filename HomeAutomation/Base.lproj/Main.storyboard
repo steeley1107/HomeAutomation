@@ -1271,7 +1271,7 @@
                                     <outlet property="nodeTitle" destination="0u5-Rd-xlx" id="EZf-wJ-5sD"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ProgramCell" id="IaK-GY-CJn" userLabel="ProgramCell" customClass="NodeTableViewCell" customModule="HomeAutomation" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="NodeCell" id="IaK-GY-CJn" userLabel="ProgramCell" customClass="NodeTableViewCell" customModule="HomeAutomation" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="136" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IaK-GY-CJn" id="vEr-vr-jIk">
