@@ -25,7 +25,7 @@ class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         //Init node controller
-        self.nodeManager = NodeManager()
+        self.nodeManager = NodeManager.sharedInstance
         
         userNameLabel.text = NSUserDefaults.standardUserDefaults().objectForKey("userName") as? String
         passwordLabel.text = NSUserDefaults.standardUserDefaults().objectForKey("password") as? String

@@ -29,6 +29,7 @@ class SceneControlTableViewController: UITableViewController {
         //Init node controller
         self.sceneManager = SceneManager()
         
+        
         //reload()
         
     }
@@ -43,96 +44,105 @@ class SceneControlTableViewController: UITableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        let count = 1
+        let count = 2
         return count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        let count = scene.nodeArray.count
-        return count
+        if section == 0 {
+            let count = sceneManager.sceneControl.count
+            return count
+        }
+        else
+        {
+            let count = scene.nodeArray.count
+            return count
+        }
+        
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("NodeCell", forIndexPath: indexPath)
         
-        // Configure the cell...
-        let element = scene.nodeArray[indexPath.row]
-        
-        if let node = element as? Node
+        if indexPath.section == 0
         {
-            let cell:NodeTableViewCell = tableView.dequeueReusableCellWithIdentifier("NodeCell", forIndexPath: indexPath) as! NodeTableViewCell
-            
-            cell.nodeTitle.text = node.name
-            cell.nodeStatus.text = node.status
-            
-            //Change the color of the status to red or green.
-            if cell.nodeStatus.text == "On"
-            {
-                cell.nodeStatus.textColor = UIColor.greenColor()
-                //adding icon ending
-                cell.nodeImage.image = UIImage(named: node.imageName + "-on")
-            }
-            else
-            {
-                cell.nodeStatus.textColor = UIColor.redColor()
-                //add icon ending
-                cell.nodeImage.image = UIImage(named: node.imageName + "-off")
-            }
+            let cell:SceneControlTableViewCell = tableView.dequeueReusableCellWithIdentifier("SceneControlCell", forIndexPath: indexPath) as! SceneControlTableViewCell
+            let element = sceneManager.sceneControl[indexPath.row]
+            cell.title.text = element
             return cell
-
+        }
+        else
+        {
+            let element = scene.nodeArray[indexPath.row]
             
+            if let node = element as? Node
+            {
+                let cell:NodeTableViewCell = tableView.dequeueReusableCellWithIdentifier("SceneCell", forIndexPath: indexPath) as! NodeTableViewCell
+                
+                cell.nodeTitle.text = node.name
+                cell.nodeStatus.text = node.status
+                
+                //Change the color of the status to red or green.
+                if cell.nodeStatus.text == "On"
+                {
+                    cell.nodeStatus.textColor = UIColor.greenColor()
+                    //adding icon ending
+                    cell.nodeImage.image = UIImage(named: node.imageName + "-on")
+                }
+                else
+                {
+                    cell.nodeStatus.textColor = UIColor.redColor()
+                    //add icon ending
+                    cell.nodeImage.image = UIImage(named: node.imageName + "-off")
+                }
+                return cell
+                
+            }
         }
     }
     
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-     if editingStyle == .Delete {
-     // Delete the row from the data source
-     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-     } else if editingStyle == .Insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
-    
-    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        if indexPath.section == 0
+        {
+            //select which program to run.
+            switch indexPath.row {
+            case 0:
+                sceneManager.sceneCommand(scene, command: "DFON", completionHandler: { (success) in
+                    if success {
+                        print("on")
+                        self.reload()
+                    }
+                })
+            case 1:
+                sceneManager.sceneCommand(scene, command: "DFOF", completionHandler: { (success) in
+                    if success {
+                        print("off")
+                        self.reload()
+                    }
+                })
+            default:
+                print("unknown command")
+            }
+        }
+    }
+
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        //Create label and autoresize it
+        let headerLabel = UILabel(frame: CGRectMake(10, 20, tableView.frame.width, 2000))
+        headerLabel.textColor = UIColor.whiteColor()
+        headerLabel.text = "Settings"
+        headerLabel.sizeToFit()
+        
+        //Adding Label to existing headerView
+        let headerView = UIView()
+        headerView.addSubview(headerLabel)
+        headerView.backgroundColor = UIColor.blackColor()
+        return headerView
+    }
+
     
     func reload()
     {

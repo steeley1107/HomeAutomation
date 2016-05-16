@@ -35,7 +35,7 @@ class ClimateViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         //Init node controller
-        self.nodeManager = NodeManager()
+        self.nodeManager = NodeManager.sharedInstance
         
         if let baseURLString = NSUserDefaults.standardUserDefaults().objectForKey("baseURLString") as? String
         {

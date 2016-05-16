@@ -36,7 +36,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         
         //Init node controller
-        nodeManager = NodeManager()
+        nodeManager = NodeManager.sharedInstance
         
         //Check to see if values are loaded in the settings screen
         checkSettings()

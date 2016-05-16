@@ -38,6 +38,8 @@ enum DeviceCat : Int {
 
 
 class NodeManager: NSObject, NSURLSessionDelegate {
+    static let sharedInstance = NodeManager()
+
     
     //Mark: Properties
     
@@ -58,7 +60,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     //Mark: Functions
     
     
-    override init()
+    override private init()
     {
         if let baseURLString = NSUserDefaults.standardUserDefaults().objectForKey("baseURLString") as? String
         {

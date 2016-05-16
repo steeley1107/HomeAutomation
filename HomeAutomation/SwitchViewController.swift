@@ -48,7 +48,7 @@ class SwitchViewController: UIViewController, NSURLSessionDelegate {
         
         
         //Init node controller
-        self.nodeManager = NodeManager()
+        self.nodeManager = NodeManager.sharedInstance
         
         if let baseURLString = NSUserDefaults.standardUserDefaults().objectForKey("baseURLString") as? String
         {

@@ -22,7 +22,8 @@ class SceneManager: NSObject, NSURLSessionDelegate {
     var baseURLString = ""
     var rootfolder = Folder()
     var subfolders = [Folder]()
-    var nodeManager = NodeManager()
+    var nodeManager: NodeManager!
+    var sceneControl = [String]()
     
     
     
@@ -37,6 +38,10 @@ class SceneManager: NSObject, NSURLSessionDelegate {
         {
             self.baseURLString = baseURLString
         }
+        self.nodeManager = NodeManager.sharedInstance
+        
+        sceneControl = ["Hi", "Bye"]
+
     }
     
     
