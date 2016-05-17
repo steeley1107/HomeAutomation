@@ -40,7 +40,7 @@ class SceneManager: NSObject, NSURLSessionDelegate {
         }
         self.nodeManager = NodeManager.sharedInstance
         
-        sceneControl = ["Hi", "Bye"]
+        sceneControl = ["On", "Off"]
 
     }
     

@@ -15,6 +15,9 @@
 		DA1B8A8C1CDD43DB002E0234 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B8A8B1CDD43DB002E0234 /* Scene.swift */; };
 		DA1B8A8E1CE132DF002E0234 /* SceneControlTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B8A8D1CE132DF002E0234 /* SceneControlTableViewController.swift */; };
 		DA1B8A921CEA49E4002E0234 /* SceneControlTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B8A911CEA49E4002E0234 /* SceneControlTableViewCell.swift */; };
+		DA1B8A941CEA6A34002E0234 /* 218-star-full.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1B8A931CEA6A34002E0234 /* 218-star-full.png */; };
+		DA1B8A961CEA6C04002E0234 /* DashboardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B8A951CEA6C04002E0234 /* DashboardCollectionViewCell.swift */; };
+		DA1B8A981CEA6C24002E0234 /* DashboardCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B8A971CEA6C24002E0234 /* DashboardCollectionViewController.swift */; };
 		DA21C5211C77E87300F41A83 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5201C77E87300F41A83 /* Node.swift */; };
 		DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */; };
 		DA21C5251C7D4D9B00F41A83 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5241C7D4D9B00F41A83 /* Folder.swift */; };
@@ -98,6 +101,9 @@
 		DA1B8A8B1CDD43DB002E0234 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		DA1B8A8D1CE132DF002E0234 /* SceneControlTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneControlTableViewController.swift; sourceTree = "<group>"; };
 		DA1B8A911CEA49E4002E0234 /* SceneControlTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneControlTableViewCell.swift; sourceTree = "<group>"; };
+		DA1B8A931CEA6A34002E0234 /* 218-star-full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "218-star-full.png"; sourceTree = "<group>"; };
+		DA1B8A951CEA6C04002E0234 /* DashboardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardCollectionViewCell.swift; sourceTree = "<group>"; };
+		DA1B8A971CEA6C24002E0234 /* DashboardCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardCollectionViewController.swift; sourceTree = "<group>"; };
 		DA21C5201C77E87300F41A83 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
 		DA21C5241C7D4D9B00F41A83 /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
@@ -227,6 +233,7 @@
 				DA1B8A831CD3B3BB002E0234 /* ProgramControlTableViewController.swift */,
 				DA1B8A871CDD3DD5002E0234 /* SceneTableViewController.swift */,
 				DA1B8A8D1CE132DF002E0234 /* SceneControlTableViewController.swift */,
+				DA1B8A971CEA6C24002E0234 /* DashboardCollectionViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -244,6 +251,7 @@
 		DA8FE8AF1C93747700991FB4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DA1B8A931CEA6A34002E0234 /* 218-star-full.png */,
 				DA1B8A851CDD3C3C002E0234 /* 020-film.png */,
 				DAD43B091CC13E0400DE99F5 /* 048-folder.png */,
 				DAD43B0B1CCA7ABC00DE99F5 /* 049-folder-open.png */,
@@ -344,6 +352,7 @@
 				DAFA7B981C93858D002CF894 /* NodeTableViewCell.swift */,
 				DAD43B071CC13C0F00DE99F5 /* FolderTableViewCell.swift */,
 				DA1B8A911CEA49E4002E0234 /* SceneControlTableViewCell.swift */,
+				DA1B8A951CEA6C04002E0234 /* DashboardCollectionViewCell.swift */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -476,6 +485,7 @@
 				DA993F8C1CA20F8900D93654 /* blue-down-arrow.png in Resources */,
 				DAD43B0A1CC13E0400DE99F5 /* 048-folder.png in Resources */,
 				DA993F8D1CA20F8900D93654 /* blue-up-arrow.png in Resources */,
+				DA1B8A941CEA6A34002E0234 /* 218-star-full.png in Resources */,
 				DA5446861CB1BA7000873C74 /* remote-off.png in Resources */,
 				DA3C3A801C9C471900494CEB /* settings.png in Resources */,
 				DA993F891CA0DC6D00D93654 /* upArrow.png in Resources */,
@@ -581,8 +591,10 @@
 				DA3C3A761C97259B00494CEB /* SettingsTableViewController.swift in Sources */,
 				DAE7D37E1CB31EE1007F4FD4 /* ProgramManager.swift in Sources */,
 				DA1B8A8A1CDD3E13002E0234 /* SceneManager.swift in Sources */,
+				DA1B8A961CEA6C04002E0234 /* DashboardCollectionViewCell.swift in Sources */,
 				DA912FE91C32F38A0082F91A /* SwitchViewController.swift in Sources */,
 				DAE7D3761CB2F78B007F4FD4 /* Program.swift in Sources */,
+				DA1B8A981CEA6C24002E0234 /* DashboardCollectionViewController.swift in Sources */,
 				DA912FE71C32F38A0082F91A /* AppDelegate.swift in Sources */,
 				DA21C5251C7D4D9B00F41A83 /* Folder.swift in Sources */,
 			);

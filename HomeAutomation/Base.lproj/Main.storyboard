@@ -926,6 +926,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <segue destination="XZd-e5-7pN" kind="relationship" relationship="viewControllers" id="RB7-TO-Psn"/>
                         <segue destination="Cjp-KF-XGl" kind="relationship" relationship="viewControllers" id="mfx-M8-qKm"/>
                         <segue destination="PyT-Jj-8ir" kind="relationship" relationship="viewControllers" id="m5a-Lm-Q1c"/>
                         <segue destination="7qu-7b-O7e" kind="relationship" relationship="viewControllers" id="Z9c-fM-6yw"/>
@@ -1238,6 +1239,64 @@
             </objects>
             <point key="canvasLocation" x="1156" y="3140"/>
         </scene>
+        <!--Dashboard-->
+        <scene sceneID="GxR-QH-gOV">
+            <objects>
+                <collectionViewController id="XZd-e5-7pN" customClass="DashboardCollectionViewController" customModule="HomeAutomation" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="gj3-P2-bvl">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FrP-39-oyi">
+                            <size key="itemSize" width="114" height="107"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DeviceCell" id="RUZ-FN-wjP" customClass="DashboardCollectionViewCell" customModule="HomeAutomation" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="114" height="107"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="114" height="107"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJw-LH-ap3">
+                                            <rect key="frame" x="36" y="8" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="001-home.png" translatesAutoresizingMaskIntoConstraints="NO" id="Sw1-rn-Gy5">
+                                            <rect key="frame" x="32" y="28" width="50" height="51"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsE-DH-Al0">
+                                            <rect key="frame" x="36" y="78" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" red="0.080160741800000004" green="1" blue="0.053159360609999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="image" destination="Sw1-rn-Gy5" id="Vir-aC-tjz"/>
+                                    <outlet property="status" destination="lsE-DH-Al0" id="jF1-7D-WTm"/>
+                                    <outlet property="title" destination="aJw-LH-ap3" id="yxJ-mD-sNA"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="XZd-e5-7pN" id="Rv7-Vd-L4r"/>
+                            <outlet property="delegate" destination="XZd-e5-7pN" id="9o6-zw-6GN"/>
+                        </connections>
+                    </collectionView>
+                    <tabBarItem key="tabBarItem" title="Dashboard" image="218-star-full.png" id="WwT-YX-Y3A"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oa8-3X-Mha" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="302" y="2592"/>
+        </scene>
         <!--Scene Control Table View Controller-->
         <scene sceneID="XGz-4o-lSt">
             <objects>
@@ -1317,6 +1376,7 @@
         <image name="020-film.png" width="32" height="32"/>
         <image name="049-folder-open.png" width="32" height="32"/>
         <image name="185-clipboard.png" width="32" height="32"/>
+        <image name="218-star-full.png" width="32" height="32"/>
         <image name="blue-down-arrow.png" width="256" height="256"/>
         <image name="blue-up-arrow.png" width="256" height="256"/>
         <image name="flameIcon.png" width="44" height="48"/>
