@@ -53,11 +53,13 @@ class SettingsTableViewController: UITableViewController {
         NSUserDefaults.standardUserDefaults().setObject(securePortLabel.text, forKey: "securePort")
         
         //create url from user defaults
-        var baseString = "https://"
+        var baseString = "http://"
         baseString += userNameLabel.text! + ":" + passwordLabel.text! + "@" + secureIPLabel.text!
-        baseString += "/rest/"
+        baseString += ":" + securePortLabel.text! + "/rest/"
         //Save to user defaults
         NSUserDefaults.standardUserDefaults().setObject(baseString, forKey: "baseURLString")
+        
+        print(baseString)
         
         self.view.endEditing(true)
     }

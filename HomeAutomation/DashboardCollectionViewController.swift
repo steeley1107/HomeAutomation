@@ -11,10 +11,22 @@ import UIKit
 private let reuseIdentifier = "DeviceCell"
 
 class DashboardCollectionViewController: UICollectionViewController {
+    
+    //Mark - Properties
+    var dashboardArray = [Any]()
+    var nodeManager: NodeManager!
+    
+    
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.methodOfReceivedNotification(_:)), name:"NodesReady", object: nil)
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -22,6 +34,12 @@ class DashboardCollectionViewController: UICollectionViewController {
         self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+        
+        //Init node controller
+        nodeManager = NodeManager.sharedInstance
+        
+        dashboardArray = nodeManager.array
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,13 +67,28 @@ class DashboardCollectionViewController: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 5
+        let count = dashboardArray.count
+        return count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        let element = dashboardArray[indexPath.row]
+        
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
     
-        // Configure the cell
+
+        
+        
+        if let node = element as? Node
+        {
+            let cell:DashboardCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("DeviceCell", forIndexPath: indexPath) as! DashboardCollectionViewCell
+            cell.title.text = node.name
+            cell.status.text = node.status
+            
+        }
+
+        
     
         return cell
     }
@@ -90,5 +123,34 @@ class DashboardCollectionViewController: UICollectionViewController {
     
     }
     */
+    
+    
+    
+    func methodOfReceivedNotification(notification: NSNotification){
+        //Take Action on Notification
+        refresh(self)
+    }
+    
+    //call this function to update tableview
+    func refresh(sender:AnyObject)
+    {
+        if let baseURLString = NSUserDefaults.standardUserDefaults().objectForKey("baseURLString") as? String
+        {
+            nodeManager.baseURLString = baseURLString
+        }
+        
+        nodeManager.addNodes { (success) -> () in
+            if success {
+                self.dashboardArray = []
+                self.dashboardArray = self.nodeManager.array
+                self.collectionView!.reloadData()
+               // self.refreshControl!.endRefreshing()
+            }
+        }
+    }
+
+    
+    
+    
 
 }

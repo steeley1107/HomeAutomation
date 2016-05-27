@@ -205,7 +205,7 @@ class SceneManager: NSObject, NSURLSessionDelegate {
         ///rest/programs/0032/run|runThen|runElse|stop|enable|disable|enableRunAtStartup|disableRunAtStartup
         
         //Create url for on command
-        var commandURLString = baseURLString + "programs/" + scene.address + "/" + command
+        var commandURLString = baseURLString + "nodes/" + scene.address + "/cmd/" + command
         commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
         
         print("\(commandURLString)")

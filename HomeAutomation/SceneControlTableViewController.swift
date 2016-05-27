@@ -131,15 +131,26 @@ class SceneControlTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         //Create label and autoresize it
-        let headerLabel = UILabel(frame: CGRectMake(10, 20, tableView.frame.width, 2000))
+        let headerLabel = UILabel(frame: CGRectMake(10, 5, tableView.frame.width, 2000))
         headerLabel.textColor = UIColor.whiteColor()
-        headerLabel.text = "Settings"
+//        headerLabel.text = "Settings"
+//        headerLabel.sizeToFit()
+        if section == 0
+        {
+            headerLabel.text = "Controls"
+        }
+        else if section == 1
+        {
+            headerLabel.text = "Memebers"
+        }
         headerLabel.sizeToFit()
         
         //Adding Label to existing headerView
         let headerView = UIView()
         headerView.addSubview(headerLabel)
         headerView.backgroundColor = UIColor.blackColor()
+        
+        
         return headerView
     }
 
@@ -151,7 +162,7 @@ class SceneControlTableViewController: UITableViewController {
         //            {
         //                self.statusLabel.text = scene.status
         //                self.enabledLabel.text = scene.enabled
-        self.statusLabel.text = scene.name
+        //self.statusLabel.text = scene.name
         //
         //            }
         //
