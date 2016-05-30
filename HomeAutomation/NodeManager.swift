@@ -395,6 +395,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
         let commandURL = NSURL(string: commandURLString)
         
+        
         requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
             
             if let status = response["RestResponse"].element?.attributes["succeeded"]
