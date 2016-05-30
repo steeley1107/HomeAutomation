@@ -31,14 +31,12 @@ class DashboardCollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        //self.collectionView!.registerClass(DashboardCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
         
         //Init node controller
         nodeManager = NodeManager.sharedInstance
-        
-        dashboardArray = nodeManager.array
         
     }
 
@@ -84,6 +82,7 @@ class DashboardCollectionViewController: UICollectionViewController {
         {
             let cell:DashboardCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("DeviceCell", forIndexPath: indexPath) as! DashboardCollectionViewCell
             cell.title.text = node.name
+//             cell.title.text = "hello"
             cell.status.text = node.status
             
         }
