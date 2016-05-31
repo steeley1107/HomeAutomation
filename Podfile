@@ -7,3 +7,5 @@ use_frameworks!
 source 'https://github.com/CocoaPods/Specs.git'
 
 pod 'SWXMLHash', '~> 2.1.0'
+
+pod 'RealmSwift'

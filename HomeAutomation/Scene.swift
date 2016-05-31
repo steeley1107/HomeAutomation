@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import RealmSwift
 
-class Scene: NSObject {
+class Scene: Object {
     
     
 //    <group flag="132">

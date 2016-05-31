@@ -97,9 +97,7 @@ class DashboardCollectionViewController: UICollectionViewController {
             if node.status == "On"
             {
                 nodeManager.command(node, command: "DFOF", completionHandler: { (success) in
-                    print("off?")
                     self.nodeManager.nodeStatus(node, completionHandler: { (success) in
-                        print("status \(node.status)")
                         self.collectionView?.reloadItemsAtIndexPaths(indexPathArray)
                     })
                 })
@@ -107,9 +105,7 @@ class DashboardCollectionViewController: UICollectionViewController {
             else if node.status == "Off"
             {
                 nodeManager.command(node, command: "DFON", completionHandler: { (success) in
-                    print("on?")
                     self.nodeManager.nodeStatus(node, completionHandler: { (success) in
-                        print("status \(node.status)")
                         self.collectionView?.reloadItemsAtIndexPaths(indexPathArray)
                     })
                 })
