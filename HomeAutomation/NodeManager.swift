@@ -8,6 +8,7 @@
 
 import UIKit
 import SWXMLHash
+import RealmSwift
 
 enum DeviceCat : Int {
     case RemoteLinc = 0     //0x00 Generalized Controllers ControLinc, RemoteLinc, SignaLinc, etc.
@@ -39,7 +40,7 @@ enum DeviceCat : Int {
 
 class NodeManager: NSObject, NSURLSessionDelegate {
     static let sharedInstance = NodeManager()
-
+    
     
     //Mark: Properties
     
@@ -55,6 +56,8 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     var programs = [Program]()
     var programFolders = [ProgramFolder]()
+    
+    var realmDataArray = [NodeRealm]()
     
     
     //Mark: Functions
@@ -98,56 +101,58 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     //grab data from xml and place nodes in a custom class
     func getNodes(completionHandler: (success: Bool) -> ())
     {
+        let realm = try! Realm()
+        try! realm.write {
+            realm.deleteAll()
+        }
         
         let baseURL = NSURL(string: baseURLString + "nodes")
         requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
             
             self.nodes = []
             for elem in response["nodes"]["node"] {
-                let node = Node()
+                let nodeRealm = NodeRealm()
                 
                 //Get the name of the node
                 if let name = elem["name"].element?.text!
                 {
-                    node.name = name
+                    nodeRealm.name = name
                 }
                 
                 //Get the current folder the node
                 if let parent = elem["parent"].element?.text!
                 {
-                    node.parent = parent
+                    nodeRealm.parent = parent
                 }
                 
                 //Get the status of the node
                 if let status = elem["property"].element?.attributes["formatted"]
                 {
-                    node.status = status
+                    nodeRealm.status = status
                 }
                 
                 //Get the status of the node
                 if let value = elem["property"].element?.attributes["value"]
                 {
-                    node.value = value
+                    nodeRealm.value = value
                 }
                 
                 //Get the address of the node
                 if let address = elem["address"].element?.text!
                 {
-                    node.address = address
+                    nodeRealm.address = address
                 }
                 
                 //Get the flag of the node
                 if let flag = elem.element?.attributes["flag"]
                 {
-                    node.flag = flag
+                    nodeRealm.flag = flag
                 }
                 
                 //Get the address of the node
                 if let type = elem["type"].element?.text!
                 {
-                    node.type = type
-                    self.nodeType(node)
-                    self.iconSelect(node)
+                    nodeRealm.type = type
                 }
                 
                 
@@ -160,27 +165,33 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                     let thermostatHeatSP = try elem["property"].withAttr("id", "CLISPH").element?.attributes["formatted"]
                     let thermostatHumidity = try elem["property"].withAttr("id", "CLIHUM").element?.attributes["formatted"]
                     
-                    node.thermostatPV = String(thermostatPV!.characters.dropLast(3))
-                    node.thermostatMode = thermostatMode!
-                    node.thermostatCoolSP = String(thermostatCoolSP!.characters.dropLast(3))
-                    node.thermostatHeatSP = String(thermostatHeatSP!.characters.dropLast(3))
-                    node.thermostatHumidity = String(thermostatHumidity!.characters.dropLast(3))
+                    nodeRealm.thermostatPV = String(thermostatPV!.characters.dropLast(3))
+                    nodeRealm.thermostatMode = thermostatMode!
+                    nodeRealm.thermostatCoolSP = String(thermostatCoolSP!.characters.dropLast(3))
+                    nodeRealm.thermostatHeatSP = String(thermostatHeatSP!.characters.dropLast(3))
+                    nodeRealm.thermostatHumidity = String(thermostatHumidity!.characters.dropLast(3))
                     
                 }
                 catch
                 {
                 }
                 
-                //Add node to array of nodes
-                if node.flag == "0"
-                {
-                    self.subnodes += [node]
-                }
-                else
-                {
-                    self.nodes += [node]
-                }
+                
+                //Save nodes to Realm
+                
+                try! realm.write({
+                    realm.add(nodeRealm)
+                })
             }
+            
+            self.getRealmNodes({ (success) in
+                //completionHandler(success: true)
+                
+                
+            })
+            
+            
+            
             completionHandler(success: true)
         })
     }
@@ -350,7 +361,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         
         return displayArray
     }
-
+    
     
     //Mark: node commands
     
@@ -540,6 +551,51 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         }
         
     }
+    
+    
+    
+    
+    //grab data from xml and place nodes in a custom class
+    func getRealmNodes(completionHandler: (success: Bool) -> ())
+    {
+        let realm = try! Realm()
+        let elements = realm.objects(NodeRealm.self)
+        
+        self.nodes = []
+        for elem in elements {
+            let node = Node()
+            
+            node.name = elem.name
+            node.parent = elem.parent
+            node.status = elem.status
+            node.value = elem.value
+            node.address = elem.address
+            node.flag = elem.flag
+            node.type = elem.type
+            
+            self.nodeType(node)
+            self.iconSelect(node)
+            
+            //Get information from thermostat
+            node.thermostatPV = String(elem.thermostatPV.characters.dropLast(3))
+            node.thermostatMode = elem.thermostatMode
+            node.thermostatCoolSP = String(elem.thermostatCoolSP.characters.dropLast(3))
+            node.thermostatHeatSP = String(elem.thermostatHeatSP.characters.dropLast(3))
+            node.thermostatHumidity = String(elem.thermostatHumidity.characters.dropLast(3))
+            
+            //Add node to array of nodes
+            if node.flag == "0"
+            {
+                self.subnodes += [node]
+            }
+            else
+            {
+                self.nodes += [node]
+            }
+        }
+        completionHandler(success: true)
+    }
+    
     
     
 }

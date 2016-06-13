@@ -9,7 +9,7 @@
 import UIKit
 
 class SceneTableViewController: UITableViewController {
-
+    
     
     
     //Mark: Properties
@@ -23,7 +23,7 @@ class SceneTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.methodOfReceivedNotification(_:)), name:"ScenesReady", object: nil)
         
@@ -34,6 +34,8 @@ class SceneTableViewController: UITableViewController {
         
         //Init node controller
         self.sceneManager = SceneManager()
+        
+        
         
     }
     
@@ -121,25 +123,25 @@ class SceneTableViewController: UITableViewController {
     }
     
     
-//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-//    {
-//        let selectedElement = array[indexPath.row]
-//        
-//        if let program = selectedElement as? Program
-//        {
-//            if program.folder == "true"
-//            {
-//                performSegueWithIdentifier("Folder", sender: nil)
-//            }
-//            else
-//            {
-//                //                if node.deviceCat.rawValue == 1 || node.deviceCat.rawValue == 2
-//                //                {
-//                //                    performSegueWithIdentifier("Switch", sender: nil)
-//                //                }
-//            }
-//        }
-//    }
+    //    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    //    {
+    //        let selectedElement = array[indexPath.row]
+    //
+    //        if let program = selectedElement as? Program
+    //        {
+    //            if program.folder == "true"
+    //            {
+    //                performSegueWithIdentifier("Folder", sender: nil)
+    //            }
+    //            else
+    //            {
+    //                //                if node.deviceCat.rawValue == 1 || node.deviceCat.rawValue == 2
+    //                //                {
+    //                //                    performSegueWithIdentifier("Switch", sender: nil)
+    //                //                }
+    //            }
+    //        }
+    //    }
     
     
     
@@ -164,6 +166,6 @@ class SceneTableViewController: UITableViewController {
         }
     }
     
-
-
+    
+    
 }

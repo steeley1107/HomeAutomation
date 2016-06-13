@@ -18,17 +18,13 @@ class DashboardCollectionViewController: UICollectionViewController {
     
     
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.methodOfReceivedNotification(_:)), name:"NodesReady", object: nil)
         
         //Init node controller
         nodeManager = NodeManager.sharedInstance
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -169,7 +165,23 @@ class DashboardCollectionViewController: UICollectionViewController {
     }
     
     
-    
+//    func addToRealm() {
+//        
+//        try! realm.write() {
+//            
+//            for element in self.dashboardArray
+//            {
+//                self.realm.add(element)
+//                
+//            }
+//            
+//            //var scene = []
+//            var scene: Results<Scene> = { self.realm.objects(Scene) }()
+//            scene = realm.objects(Scene)
+//            
+//            print("bla \(scene)")
+//        }
+//    }
     
     
 }

@@ -7,20 +7,21 @@
 //
 
 import UIKit
-import RealmSwift
 
-class Scene: Object {
+
+
+class Scene: NSObject {
     
     
-//    <group flag="132">
-//    <address>22625</address>
-//    <name>WoodStoveFan</name>
-//    <deviceGroup>19</deviceGroup>
-//    <ELK_ID>F03</ELK_ID>
-//    <members>
-//    <link type="32">2E 9B 42 1</link>
-//    </members>
-//    </group>
+    //    <group flag="132">
+    //    <address>22625</address>
+    //    <name>WoodStoveFan</name>
+    //    <deviceGroup>19</deviceGroup>
+    //    <ELK_ID>F03</ELK_ID>
+    //    <members>
+    //    <link type="32">2E 9B 42 1</link>
+    //    </members>
+    //    </group>
     
     var name = ""
     var address = ""

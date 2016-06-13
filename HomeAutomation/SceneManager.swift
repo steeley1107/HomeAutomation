@@ -25,7 +25,7 @@ class SceneManager: NSObject, NSURLSessionDelegate {
     var nodeManager: NodeManager!
     var sceneControl = [String]()
     
-    
+ 
     
     
     //Mark: Functions
@@ -160,7 +160,7 @@ class SceneManager: NSObject, NSURLSessionDelegate {
                     {
                         if node.address == memberAddress
                         {
-                        scene.nodeArray.append(node)
+                        //scene.nodeArray.append(node)
                         }
                         
                     }
@@ -292,6 +292,6 @@ class SceneManager: NSObject, NSURLSessionDelegate {
         }
     }
     
-    
+
     
 }

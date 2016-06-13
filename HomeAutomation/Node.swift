@@ -46,7 +46,7 @@ class Node: NSObject, NSCopying {
     var thermostatHeatSP: String = ""
     var thermostatHumidity: String = ""
     
-    var deviceCat:DeviceCat
+    var deviceCat:DeviceCat = DeviceCat.x16
 
 
     required override init()
