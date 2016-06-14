@@ -57,11 +57,8 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     var programs = [Program]()
     var programFolders = [ProgramFolder]()
     
-    var realmDataArray = [NodeRealm]()
-    
     
     //Mark: Functions
-    
     
     override private init()
     {
@@ -98,18 +95,15 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     }
     
     
-    //grab data from xml and place nodes in a custom class
+    //grab data from xml and place nodes in Rrealm
     func getNodes(completionHandler: (success: Bool) -> ())
     {
         let realm = try! Realm()
-        try! realm.write {
-            realm.deleteAll()
-        }
         
         let baseURL = NSURL(string: baseURLString + "nodes")
         requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
             
-            self.nodes = []
+            //self.nodes = []
             for elem in response["nodes"]["node"] {
                 let nodeRealm = NodeRealm()
                 
@@ -176,21 +170,15 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 {
                 }
                 
-                
                 //Save nodes to Realm
-                
                 try! realm.write({
-                    realm.add(nodeRealm)
+                    realm.add(nodeRealm, update: true)
                 })
             }
             
-            self.getRealmNodes({ (success) in
-                //completionHandler(success: true)
-                
-                
+            self.getNodesFromRealm({ (success) in
+                //
             })
-            
-            
             
             completionHandler(success: true)
         })
@@ -200,50 +188,41 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     //create all folders and place them in an array
     func createFolders(completionHandler: (success: Bool) -> ())
     {
+        let realm = try! Realm()
+        
         let baseURL = NSURL(string: baseURLString + "nodes")
         requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
             self.rootfolder = Folder()
             for elem in response["nodes"]["folder"]
             {
-                let folder = Folder()
+                let folderRealm = FolderRealm()
                 
                 //Get the name of the folder
                 if let name = elem["name"].element?.text!
                 {
-                    folder.name = name
+                    folderRealm.name = name
                 }
                 //Get the address of the folder
                 if let address = elem["address"].element?.text!
                 {
-                    folder.address = address
+                    folderRealm.address = address
                 }
                 //Get the parent folder
                 if let parent = elem["parent"].element?.text!
                 {
-                    folder.parent = parent
+                    folderRealm.parent = parent
                 }
                 
-                //determine if the folder is a root or a sub folder.
-                if folder.parent == ""
-                {
-                    self.rootfolder.subfolderArray += [folder]
-                }
-                else
-                {
-                    self.subfolders += [folder]
-                }
+                //Save nodes to Realm
+                try! realm.write({
+                    realm.add(folderRealm, update: true)
+                })
             }
             
-            for rootfolder in self.rootfolder.subfolderArray
-            {
-                for subfolder in self.subfolders
-                {
-                    if subfolder.parent == rootfolder.address
-                    {
-                        rootfolder.subfolderArray += [subfolder]
-                    }
-                }
-            }
+            self.createFoldersFromRealm({ (success) in
+                
+                
+            })
             
             completionHandler(success: true)
         })
@@ -254,10 +233,10 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     //add nodes to the proper folder array
     func addNodes(completionHandler: (success: Bool) -> ())
     {
-        createFolders { (success) -> () in
+        createFoldersFromRealm { (success) -> () in
             if success
             {
-                self.getNodes { (success) -> () in
+                self.getNodesFromRealm { (success) -> () in
                     if success
                     {
                         //add nodes into sub folders
@@ -500,6 +479,21 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             {
             }
         })
+        
+        // Creating a book with the same primary key as a previously saved book
+         let realm = try! Realm()
+        let nodeRealm = NodeRealm()
+        nodeRealm.address = node.status
+        nodeRealm.status = node.status
+        nodeRealm.value = node.value
+        
+        // Updating book with id = 1
+        try! realm.write {
+            realm.add(nodeRealm, update: true)
+        }
+        
+        
+        
     }
     
     //function to determine the type of node, so it can just to the right screen
@@ -509,12 +503,12 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         let nodeType = node.type
         let nodeTypeArray = nodeType.componentsSeparatedByString(".")
         
-        let deviceCategory: String = nodeTypeArray[0]
-        let subCategory: String = nodeTypeArray[1]
-        let productKey: String = nodeTypeArray[2]
-        
-        node.deviceCat = DeviceCat(rawValue: Int(deviceCategory)!)!
-        
+        if nodeTypeArray.count > 3 {
+            let deviceCategory: String = nodeTypeArray[0]
+            let subCategory: String = nodeTypeArray[1]
+            let productKey: String = nodeTypeArray[2]
+            node.deviceCat = DeviceCat(rawValue: Int(deviceCategory)!)!
+        }
         
     }
     
@@ -553,16 +547,15 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     }
     
     
-    
-    
-    //grab data from xml and place nodes in a custom class
-    func getRealmNodes(completionHandler: (success: Bool) -> ())
+    //grab data from realm and place nodes in a custom class
+    func getNodesFromRealm(completionHandler: (success: Bool) -> ())
     {
         let realm = try! Realm()
         let elements = realm.objects(NodeRealm.self)
         
         self.nodes = []
-        for elem in elements {
+        for elem in elements
+        {
             let node = Node()
             
             node.name = elem.name
@@ -577,11 +570,11 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             self.iconSelect(node)
             
             //Get information from thermostat
-            node.thermostatPV = String(elem.thermostatPV.characters.dropLast(3))
+            node.thermostatPV = elem.thermostatPV
             node.thermostatMode = elem.thermostatMode
-            node.thermostatCoolSP = String(elem.thermostatCoolSP.characters.dropLast(3))
-            node.thermostatHeatSP = String(elem.thermostatHeatSP.characters.dropLast(3))
-            node.thermostatHumidity = String(elem.thermostatHumidity.characters.dropLast(3))
+            node.thermostatCoolSP = elem.thermostatCoolSP
+            node.thermostatHeatSP = elem.thermostatHeatSP
+            node.thermostatHumidity = elem.thermostatHumidity
             
             //Add node to array of nodes
             if node.flag == "0"
@@ -597,5 +590,111 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     }
     
     
+    //create all folders and place them in an array
+    func createFoldersFromRealm(completionHandler: (success: Bool) -> ())
+    {
+        let realm = try! Realm()
+        let folders = realm.objects(FolderRealm.self)
+        
+        self.rootfolder = Folder()
+        
+        for folderRealm in folders
+        {
+            let folder = Folder()
+            
+            //Get the name of the folder
+            folder.name = folderRealm.name
+            folder.address = folderRealm.address
+            folder.parent = folderRealm.parent
+            
+            //determine if the folder is a root or a sub folder.
+            if folder.parent == ""
+            {
+                self.rootfolder.subfolderArray += [folder]
+            }
+            else
+            {
+                self.subfolders += [folder]
+            }
+        }
+        
+        for rootfolder in self.rootfolder.subfolderArray
+        {
+            for subfolder in self.subfolders
+            {
+                if subfolder.parent == rootfolder.address
+                {
+                    rootfolder.subfolderArray += [subfolder]
+                }
+            }
+        }
+        
+        completionHandler(success: true)
+        
+    }
+    
+    func getStatusAllNodes(completionHandler: (success: Bool) -> ())
+    {
+        
+        let realm = try! Realm()
+        
+        //Create url to get the status of a node
+        var commandURLString = baseURLString + "status"
+        commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let commandURL = NSURL(string: commandURLString)
+        
+        requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
+            
+            
+            for elem in response["nodes"]["node"] {
+                let nodeRealm = NodeRealm()
+                
+                //Get the current folder the node
+                if let address = elem["id"].element?.text!
+                {
+                    nodeRealm.address = address
+                }
+                
+                //Get the status of the node
+                if let status = elem["property"].element?.attributes["formatted"]
+                {
+                    nodeRealm.status = status
+                }
+                
+                //Get the status of the node
+                if let value = elem["property"].element?.attributes["value"]
+                {
+                    nodeRealm.value = value
+                }
+                
+                //Get information from thermostat
+                do
+                {
+                    let thermostatPV = try elem["property"].withAttr("id", "ST").element?.attributes["formatted"]
+                    let thermostatMode = try elem["property"].withAttr("id", "CLIMD").element?.attributes["formatted"]
+                    let thermostatCoolSP = try elem["property"].withAttr("id", "CLISPC").element?.attributes["formatted"]
+                    let thermostatHeatSP = try elem["property"].withAttr("id", "CLISPH").element?.attributes["formatted"]
+                    let thermostatHumidity = try elem["property"].withAttr("id", "CLIHUM").element?.attributes["formatted"]
+                    
+                    nodeRealm.thermostatPV = String(thermostatPV!.characters.dropLast(3))
+                    nodeRealm.thermostatMode = thermostatMode!
+                    nodeRealm.thermostatCoolSP = String(thermostatCoolSP!.characters.dropLast(3))
+                    nodeRealm.thermostatHeatSP = String(thermostatHeatSP!.characters.dropLast(3))
+                    nodeRealm.thermostatHumidity = String(thermostatHumidity!.characters.dropLast(3))
+                    
+                }
+                catch
+                {
+                }
+                
+                //Save nodes to Realm
+                try! realm.write({
+                    realm.add(nodeRealm, update: true)
+                })
+            }
+            
+            completionHandler(success: true)
+        })
+    }
     
 }

@@ -47,7 +47,11 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         
-        self.tableView.reloadData()
+        nodeManager.getStatusAllNodes { (success) in
+            self.tableView.reloadData()
+        }
+        
+
     }
     
     

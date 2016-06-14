@@ -18,7 +18,6 @@
 		DA1B8A941CEA6A34002E0234 /* 218-star-full.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1B8A931CEA6A34002E0234 /* 218-star-full.png */; };
 		DA1B8A961CEA6C04002E0234 /* DashboardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B8A951CEA6C04002E0234 /* DashboardCollectionViewCell.swift */; };
 		DA1B8A981CEA6C24002E0234 /* DashboardCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B8A971CEA6C24002E0234 /* DashboardCollectionViewController.swift */; };
-		DA1C82781CFD10E5005F166D /* testRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1C82771CFD10E5005F166D /* testRealm.swift */; };
 		DA21C5211C77E87300F41A83 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5201C77E87300F41A83 /* Node.swift */; };
 		DA21C5231C77F0C000F41A83 /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */; };
 		DA21C5251C7D4D9B00F41A83 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA21C5241C7D4D9B00F41A83 /* Folder.swift */; };
@@ -39,7 +38,7 @@
 		DA54468A1CB1BDD900873C74 /* energy-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446881CB1BDD900873C74 /* energy-off.png */; };
 		DA54468B1CB1BDD900873C74 /* energy-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446891CB1BDD900873C74 /* energy-on.png */; };
 		DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */; };
-		DA8AD1FF1D0B517300696943 /* NodeRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD1FE1D0B517300696943 /* NodeRealm.swift */; };
+		DA8AD1FF1D0B517300696943 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD1FE1D0B517300696943 /* Realm.swift */; };
 		DA8FE8B11C93749200991FB4 /* lightbulb-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8FE8B01C93749200991FB4 /* lightbulb-on.png */; };
 		DA8FE8B31C93749900991FB4 /* lightbulb-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8FE8B21C93749900991FB4 /* lightbulb-off.png */; };
 		DA912FE71C32F38A0082F91A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA912FE61C32F38A0082F91A /* AppDelegate.swift */; };
@@ -106,7 +105,6 @@
 		DA1B8A931CEA6A34002E0234 /* 218-star-full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "218-star-full.png"; sourceTree = "<group>"; };
 		DA1B8A951CEA6C04002E0234 /* DashboardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardCollectionViewCell.swift; sourceTree = "<group>"; };
 		DA1B8A971CEA6C24002E0234 /* DashboardCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardCollectionViewController.swift; sourceTree = "<group>"; };
-		DA1C82771CFD10E5005F166D /* testRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testRealm.swift; sourceTree = "<group>"; };
 		DA21C5201C77E87300F41A83 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		DA21C5221C77F0C000F41A83 /* DeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
 		DA21C5241C7D4D9B00F41A83 /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
@@ -127,7 +125,7 @@
 		DA5446881CB1BDD900873C74 /* energy-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "energy-off.png"; sourceTree = "<group>"; };
 		DA5446891CB1BDD900873C74 /* energy-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "energy-on.png"; sourceTree = "<group>"; };
 		DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
-		DA8AD1FE1D0B517300696943 /* NodeRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeRealm.swift; sourceTree = "<group>"; };
+		DA8AD1FE1D0B517300696943 /* Realm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
 		DA8FE8B01C93749200991FB4 /* lightbulb-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightbulb-on.png"; sourceTree = "<group>"; };
 		DA8FE8B21C93749900991FB4 /* lightbulb-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightbulb-off.png"; sourceTree = "<group>"; };
 		DA912FE31C32F38A0082F91A /* HomeAutomation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeAutomation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -221,8 +219,7 @@
 				DA21C5201C77E87300F41A83 /* Node.swift */,
 				DA993F7E1CA04B4A00D93654 /* NodeType.swift */,
 				DA1B8A8B1CDD43DB002E0234 /* Scene.swift */,
-				DA1C82771CFD10E5005F166D /* testRealm.swift */,
-				DA8AD1FE1D0B517300696943 /* NodeRealm.swift */,
+				DA8AD1FE1D0B517300696943 /* Realm.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -581,14 +578,13 @@
 			files = (
 				DA1B8A921CEA49E4002E0234 /* SceneControlTableViewCell.swift in Sources */,
 				DA1B8A881CDD3DD5002E0234 /* SceneTableViewController.swift in Sources */,
-				DA1C82781CFD10E5005F166D /* testRealm.swift in Sources */,
 				DAE7D36D1CB2E64B007F4FD4 /* ProgramTableViewController.swift in Sources */,
 				DA21C5211C77E87300F41A83 /* Node.swift in Sources */,
 				DA993F851CA0A89500D93654 /* EnergyViewController.swift in Sources */,
 				DA1B8A8E1CE132DF002E0234 /* SceneControlTableViewController.swift in Sources */,
 				DAD43B081CC13C0F00DE99F5 /* FolderTableViewCell.swift in Sources */,
 				DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */,
-				DA8AD1FF1D0B517300696943 /* NodeRealm.swift in Sources */,
+				DA8AD1FF1D0B517300696943 /* Realm.swift in Sources */,
 				DA1B8A841CD3B3BB002E0234 /* ProgramControlTableViewController.swift in Sources */,
 				DA993F831CA0A87900D93654 /* ClimateViewController.swift in Sources */,
 				DAFA7B991C93858D002CF894 /* NodeTableViewCell.swift in Sources */,

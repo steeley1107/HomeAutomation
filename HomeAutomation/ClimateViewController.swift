@@ -60,26 +60,12 @@ class ClimateViewController: UIViewController {
     }
     
     
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
-    
-    
-    
     @IBAction func upTempButton(sender: AnyObject)
     {
         if firstTime == true
         {
             currentNumber = 0
         }
-        
         currentNumber += 2
         let requestedSP = Int(node.thermostatHeatSP)! + currentNumber / 2
         setpointTempLabel.text = String(requestedSP)
@@ -95,9 +81,8 @@ class ClimateViewController: UIViewController {
                 
                 if self.previousNumber == self.currentNumber
                 {
-                    print("done inc \(self.currentNumber)")
                     self.nodeManager.temperatureChangeCommand(self.node, tempSP: self.currentNumber, completionHandler: { (success) -> () in
-                        //
+        
                         self.updateView()
                         self.activitySpinner.stopAnimating()
                     })
