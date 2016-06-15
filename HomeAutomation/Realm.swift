@@ -27,6 +27,7 @@ class NodeRealm: Object {
     dynamic  var value: String = ""
     dynamic  var imageName: String = ""
     dynamic  var flag: String = ""
+    dynamic var dashboardItem: Bool = false
     
     //Thermostat features
     dynamic var thermostatPV: String = ""

@@ -227,6 +227,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
     {
         let userSettings = Array(NSUserDefaults.standardUserDefaults().dictionaryRepresentation().keys).count
         
+        print("")
         if userSettings < 10
         {
             showAlert("Error", message: "Please add information in the settings")

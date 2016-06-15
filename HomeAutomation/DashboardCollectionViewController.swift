@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 private let reuseIdentifier = "DeviceCell"
 
@@ -25,6 +26,8 @@ class DashboardCollectionViewController: UICollectionViewController {
         
         //Init node controller
         nodeManager = NodeManager.sharedInstance
+        
+        refresh(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -150,6 +153,7 @@ class DashboardCollectionViewController: UICollectionViewController {
     //call this function to update tableview
     func refresh(sender:AnyObject)
     {
+        
         if let baseURLString = NSUserDefaults.standardUserDefaults().objectForKey("baseURLString") as? String
         {
             nodeManager.baseURLString = baseURLString
@@ -158,30 +162,13 @@ class DashboardCollectionViewController: UICollectionViewController {
         nodeManager.addNodes { (success) -> () in
             if success {
                 self.dashboardArray = []
-                self.dashboardArray = self.nodeManager.array
+                let dashboardRealm:[Node] = self.nodeManager.quaryNodesFromRealm()
+                self.dashboardArray = dashboardRealm //self.nodeManager.array
                 self.collectionView!.reloadData()
             }
         }
     }
     
-    
-//    func addToRealm() {
-//        
-//        try! realm.write() {
-//            
-//            for element in self.dashboardArray
-//            {
-//                self.realm.add(element)
-//                
-//            }
-//            
-//            //var scene = []
-//            var scene: Results<Scene> = { self.realm.objects(Scene) }()
-//            scene = realm.objects(Scene)
-//            
-//            print("bla \(scene)")
-//        }
-//    }
-    
+
     
 }

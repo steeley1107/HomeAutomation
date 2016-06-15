@@ -234,9 +234,12 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     func addNodes(completionHandler: (success: Bool) -> ())
     {
         createFoldersFromRealm { (success) -> () in
+       
+        //createFolders { (success) -> () in
             if success
             {
                 self.getNodesFromRealm { (success) -> () in
+                //self.getNodes { (success) -> () in
                     if success
                     {
                         //add nodes into sub folders
@@ -696,5 +699,43 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             completionHandler(success: true)
         })
     }
+    
+    
+    func quaryNodesFromRealm() -> [Node]
+    {
+        let realm = try! Realm()
+        let elements = realm.objects(NodeRealm.self)
+        
+        var nodes = [Node]()
+        for elem in elements
+        {
+            let node = Node()
+            
+            node.name = elem.name
+            node.parent = elem.parent
+            node.status = elem.status
+            node.value = elem.value
+            node.address = elem.address
+            node.flag = elem.flag
+            node.type = elem.type
+            
+            self.nodeType(node)
+            self.iconSelect(node)
+            
+            //Get information from thermostat
+            node.thermostatPV = elem.thermostatPV
+            node.thermostatMode = elem.thermostatMode
+            node.thermostatCoolSP = elem.thermostatCoolSP
+            node.thermostatHeatSP = elem.thermostatHeatSP
+            node.thermostatHumidity = elem.thermostatHumidity
+            
+            nodes.append(node)
+        }
+        return nodes
+    }
+
+    
+    
+    
     
 }

@@ -57,13 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HomeAutomation/DashboardCollectionViewController.swift"
-            timestampString = "487562324.411881"
+            filePath = "HomeAutomation/NodeManager.swift"
+            timestampString = "487631630.374768"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "refresh(_:)"
+            startingLineNumber = "714"
+            endingLineNumber = "714"
+            landmarkName = "quaryNodesFromRealm()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
