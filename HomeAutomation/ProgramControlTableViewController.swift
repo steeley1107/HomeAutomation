@@ -19,7 +19,7 @@ class ProgramControlTableViewController: UITableViewController {
     @IBOutlet weak var lastRunLabel: UILabel!
     @IBOutlet weak var lastFinishLabel: UILabel!
     @IBOutlet weak var nextRunLabel: UILabel!
-    
+   
     var program = Program()
     var programManager: ProgramManager!
     
@@ -120,10 +120,11 @@ class ProgramControlTableViewController: UITableViewController {
                 self.lastFinishLabel.text = program.lastFinishTime
                 self.nextRunLabel.text = program.lastRunTime
             }
-            
         }
+    }
+    
+    @IBAction func dashboardItem(sender: UISwitch) {
         
         
     }
-    
 }

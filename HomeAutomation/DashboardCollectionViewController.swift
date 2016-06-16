@@ -16,6 +16,7 @@ class DashboardCollectionViewController: UICollectionViewController {
     //Mark - Properties
     var dashboardArray = [Any]()
     var nodeManager: NodeManager!
+    var updating = false
     
     
     
@@ -28,6 +29,13 @@ class DashboardCollectionViewController: UICollectionViewController {
         nodeManager = NodeManager.sharedInstance
         
         refresh(self)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        nodeManager.getStatusAllNodes { (success) in
+           self.refresh(self)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -63,6 +71,17 @@ class DashboardCollectionViewController: UICollectionViewController {
         let element = dashboardArray[indexPath.row]
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DeviceCell", forIndexPath: indexPath) as! DashboardCollectionViewCell
         
+        //Setup and Control Activity Spinner
+        cell.activitySpinner.hidesWhenStopped = true
+        if self.updating == true
+        {
+            cell.activitySpinner.startAnimating()
+        }
+        else
+        {
+            cell.activitySpinner.stopAnimating()
+        }
+        
         if let node = element as? Node
         {
             cell.title.text = node.name
@@ -82,21 +101,27 @@ class DashboardCollectionViewController: UICollectionViewController {
                 cell.image.image = UIImage(named: node.imageName + "-off")
             }
         }
-        
         return cell
     }
     
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
+        updating = true
+        
+        var indexPathArray = [NSIndexPath]()
+        indexPathArray.append(indexPath)
+        self.collectionView?.reloadItemsAtIndexPaths(indexPathArray)
+        
         if let node = dashboardArray[indexPath.row] as? Node
         {
             var indexPathArray = [NSIndexPath]()
-                indexPathArray.append(indexPath)
+            indexPathArray.append(indexPath)
             if node.status == "On"
             {
                 nodeManager.command(node, command: "DFOF", completionHandler: { (success) in
                     self.nodeManager.nodeStatus(node, completionHandler: { (success) in
+                        self.updating = false
                         self.collectionView?.reloadItemsAtIndexPaths(indexPathArray)
                     })
                 })
@@ -105,6 +130,7 @@ class DashboardCollectionViewController: UICollectionViewController {
             {
                 nodeManager.command(node, command: "DFON", completionHandler: { (success) in
                     self.nodeManager.nodeStatus(node, completionHandler: { (success) in
+                        self.updating = false
                         self.collectionView?.reloadItemsAtIndexPaths(indexPathArray)
                     })
                 })
@@ -153,22 +179,13 @@ class DashboardCollectionViewController: UICollectionViewController {
     //call this function to update tableview
     func refresh(sender:AnyObject)
     {
+        self.dashboardArray = []
+        let dashboardRealm:[Any] = self.nodeManager.queryNodesFromRealm()
+        self.dashboardArray = dashboardRealm
+        self.collectionView!.reloadData()
         
-        if let baseURLString = NSUserDefaults.standardUserDefaults().objectForKey("baseURLString") as? String
-        {
-            nodeManager.baseURLString = baseURLString
-        }
-        
-        nodeManager.addNodes { (success) -> () in
-            if success {
-                self.dashboardArray = []
-                let dashboardRealm:[Node] = self.nodeManager.quaryNodesFromRealm()
-                self.dashboardArray = dashboardRealm //self.nodeManager.array
-                self.collectionView!.reloadData()
-            }
-        }
     }
     
-
+    
     
 }

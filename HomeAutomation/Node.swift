@@ -36,6 +36,7 @@ class Node: NSObject, NSCopying {
     var value: String = ""
     var imageName: String = ""
     var flag: String = ""
+    var dashboardItem = false
     
     var subnodeArray = [Node]()
     

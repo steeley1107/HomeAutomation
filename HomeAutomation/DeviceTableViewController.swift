@@ -27,8 +27,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
         super.viewDidLoad()
         
         
-          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.methodOfReceivedNotification(_:)), name:"NodesReady", object: nil)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.methodOfReceivedNotification(_:)), name:"NodesReady", object: nil)
         
         //Reload tableView
         self.refreshControl = UIRefreshControl()
@@ -48,10 +47,11 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
         super.viewWillAppear(true)
         
         nodeManager.getStatusAllNodes { (success) in
-            self.tableView.reloadData()
+            if success
+            {
+                self.tableView.reloadData()
+            }
         }
-        
-
     }
     
     
@@ -201,7 +201,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
             let deviceTableVC:DeviceTableViewController = segue.destinationViewController as! DeviceTableViewController
             let indexPath = tableView.indexPathForSelectedRow
             //array = []
-           deviceTableVC.array = nodeManager.loadArray(indexPath!, array: array)
+            deviceTableVC.array = nodeManager.loadArray(indexPath!, array: array)
             
         }
     }

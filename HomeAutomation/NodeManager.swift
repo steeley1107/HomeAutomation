@@ -103,7 +103,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         let baseURL = NSURL(string: baseURLString + "nodes")
         requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
             
-            //self.nodes = []
             for elem in response["nodes"]["node"] {
                 let nodeRealm = NodeRealm()
                 
@@ -234,12 +233,12 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     func addNodes(completionHandler: (success: Bool) -> ())
     {
         createFoldersFromRealm { (success) -> () in
-       
-        //createFolders { (success) -> () in
+            
+            //createFolders { (success) -> () in
             if success
             {
                 self.getNodesFromRealm { (success) -> () in
-                //self.getNodes { (success) -> () in
+                    //self.getNodes { (success) -> () in
                     if success
                     {
                         //add nodes into sub folders
@@ -484,27 +483,103 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         })
         
         // Creating a book with the same primary key as a previously saved book
-         let realm = try! Realm()
-        let nodeRealm = NodeRealm()
-        nodeRealm.address = node.status
-        nodeRealm.status = node.status
-        nodeRealm.value = node.value
+        let realm = try! Realm()
         
-        // Updating book with id = 1
+        //Update nodes in Realm
+        let predicate = NSPredicate(format: "address = %@", node.address)
+        let nodeRealm = realm.objects(NodeRealm.self).filter(predicate)
+        
         try! realm.write {
-            realm.add(nodeRealm, update: true)
+            nodeRealm.setValue(node.status, forKey: "status")
+            nodeRealm.setValue(node.value, forKey: "value")
+            
+            nodeRealm.setValue(node.thermostatPV, forKey: "thermostatPV")
+            nodeRealm.setValue(node.thermostatMode, forKey: "thermostatMode")
+            nodeRealm.setValue(node.thermostatCoolSP, forKey: "thermostatCoolSP")
+            nodeRealm.setValue(node.thermostatHeatSP, forKey: "thermostatHeatSP")
+            nodeRealm.setValue(node.thermostatHumidity, forKey: "thermostatHumidity")
         }
-        
-        
-        
     }
+    
+    //Get the status of all nodes
+    func getStatusAllNodes(completionHandler: (success: Bool) -> ())
+    {
+        let realm = try! Realm()
+        
+        //Create url to get the status of a node
+        var commandURLString = baseURLString + "status"
+        commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let commandURL = NSURL(string: commandURLString)
+        
+        requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
+            
+            for elem in response["nodes"]["node"] {
+                let node = NodeRealm()
+                
+                //Get the current folder the node
+                if let address = elem["id"].element?.text!
+                {
+                    node.address = address
+                }
+                
+                //Get the status of the node
+                if let status = elem["property"].element?.attributes["formatted"]
+                {
+                    node.status = status
+                }
+                
+                //Get the status of the node
+                if let value = elem["property"].element?.attributes["value"]
+                {
+                    node.value = value
+                }
+                
+                //Get information from thermostat
+                do
+                {
+                    let thermostatPV = try elem["property"].withAttr("id", "ST").element?.attributes["formatted"]
+                    let thermostatMode = try elem["property"].withAttr("id", "CLIMD").element?.attributes["formatted"]
+                    let thermostatCoolSP = try elem["property"].withAttr("id", "CLISPC").element?.attributes["formatted"]
+                    let thermostatHeatSP = try elem["property"].withAttr("id", "CLISPH").element?.attributes["formatted"]
+                    let thermostatHumidity = try elem["property"].withAttr("id", "CLIHUM").element?.attributes["formatted"]
+                    
+                    node.thermostatPV = String(thermostatPV!.characters.dropLast(3))
+                    node.thermostatMode = thermostatMode!
+                    node.thermostatCoolSP = String(thermostatCoolSP!.characters.dropLast(3))
+                    node.thermostatHeatSP = String(thermostatHeatSP!.characters.dropLast(3))
+                    node.thermostatHumidity = String(thermostatHumidity!.characters.dropLast(3))
+                    
+                }
+                catch
+                {
+                }
+                
+                //Update nodes in Realm
+                let predicate = NSPredicate(format: "address = %@", node.address)
+                let nodeRealm = realm.objects(NodeRealm.self).filter(predicate)
+                
+                try! realm.write {
+                    nodeRealm.setValue(node.status, forKey: "status")
+                    nodeRealm.setValue(node.value, forKey: "value")
+                    
+                    nodeRealm.setValue(node.thermostatPV, forKey: "thermostatPV")
+                    nodeRealm.setValue(node.thermostatMode, forKey: "thermostatMode")
+                    nodeRealm.setValue(node.thermostatCoolSP, forKey: "thermostatCoolSP")
+                    nodeRealm.setValue(node.thermostatHeatSP, forKey: "thermostatHeatSP")
+                    nodeRealm.setValue(node.thermostatHumidity, forKey: "thermostatHumidity")
+                }
+            }
+            completionHandler(success: true)
+        })
+    }
+    
     
     //function to determine the type of node, so it can just to the right screen
     //ie. thermostat can go to climate screen.
     func nodeType(node: Node)
     {
-        let nodeType = node.type
-        let nodeTypeArray = nodeType.componentsSeparatedByString(".")
+        //let nodeType = node.type
+        let nodeTypeArray = node.type.componentsSeparatedByString(".")
         
         if nodeTypeArray.count > 3 {
             let deviceCategory: String = nodeTypeArray[0]
@@ -568,6 +643,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             node.address = elem.address
             node.flag = elem.flag
             node.type = elem.type
+            node.dashboardItem = elem.dashboardItem
             
             self.nodeType(node)
             self.iconSelect(node)
@@ -636,77 +712,17 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         
     }
     
-    func getStatusAllNodes(completionHandler: (success: Bool) -> ())
-    {
-        
-        let realm = try! Realm()
-        
-        //Create url to get the status of a node
-        var commandURLString = baseURLString + "status"
-        commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
-        let commandURL = NSURL(string: commandURLString)
-        
-        requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
-            
-            
-            for elem in response["nodes"]["node"] {
-                let nodeRealm = NodeRealm()
-                
-                //Get the current folder the node
-                if let address = elem["id"].element?.text!
-                {
-                    nodeRealm.address = address
-                }
-                
-                //Get the status of the node
-                if let status = elem["property"].element?.attributes["formatted"]
-                {
-                    nodeRealm.status = status
-                }
-                
-                //Get the status of the node
-                if let value = elem["property"].element?.attributes["value"]
-                {
-                    nodeRealm.value = value
-                }
-                
-                //Get information from thermostat
-                do
-                {
-                    let thermostatPV = try elem["property"].withAttr("id", "ST").element?.attributes["formatted"]
-                    let thermostatMode = try elem["property"].withAttr("id", "CLIMD").element?.attributes["formatted"]
-                    let thermostatCoolSP = try elem["property"].withAttr("id", "CLISPC").element?.attributes["formatted"]
-                    let thermostatHeatSP = try elem["property"].withAttr("id", "CLISPH").element?.attributes["formatted"]
-                    let thermostatHumidity = try elem["property"].withAttr("id", "CLIHUM").element?.attributes["formatted"]
-                    
-                    nodeRealm.thermostatPV = String(thermostatPV!.characters.dropLast(3))
-                    nodeRealm.thermostatMode = thermostatMode!
-                    nodeRealm.thermostatCoolSP = String(thermostatCoolSP!.characters.dropLast(3))
-                    nodeRealm.thermostatHeatSP = String(thermostatHeatSP!.characters.dropLast(3))
-                    nodeRealm.thermostatHumidity = String(thermostatHumidity!.characters.dropLast(3))
-                    
-                }
-                catch
-                {
-                }
-                
-                //Save nodes to Realm
-                try! realm.write({
-                    realm.add(nodeRealm, update: true)
-                })
-            }
-            
-            completionHandler(success: true)
-        })
-    }
     
-    
-    func quaryNodesFromRealm() -> [Node]
+    //Need to add perameters to allow for queries of different types
+    func queryNodesFromRealm() -> [Any]
     {
         let realm = try! Realm()
-        let elements = realm.objects(NodeRealm.self)
         
-        var nodes = [Node]()
+        // Query using an NSPredicate
+        let predicate = NSPredicate(format: "dashboardItem = %@", true)
+        let elements = realm.objects(NodeRealm.self).filter(predicate)
+
+        var nodes = [Any]()
         for elem in elements
         {
             let node = Node()
@@ -733,9 +749,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         }
         return nodes
     }
-
-    
-    
     
     
 }

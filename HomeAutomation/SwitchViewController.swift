@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SwitchViewController: UIViewController, NSURLSessionDelegate {
     
@@ -22,29 +23,31 @@ class SwitchViewController: UIViewController, NSURLSessionDelegate {
     @IBOutlet weak var statusIcon: UIImageView!
     @IBOutlet weak var dimSlider: UISlider!
     
+    @IBOutlet weak var dashboardItemStatus: UISwitch!
+    
     
     //Mark: Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//                // 1
-//                self.view.backgroundColor = UIColor.init(red: 0.431, green: 0.573, blue: 0.631, alpha: 1) //UIColor.greenColor()
-//        
-//                // 2
-//                gradientLayer.frame = self.view.bounds
-//        
-//                // 3
-//                let color1 = UIColor(red: 17/255, green: 60/255, blue: 81/255, alpha: 0.9).CGColor as CGColorRef
-//                let color2 = UIColor.init(red: 110/255, green: 146/255, blue: 161/255, alpha: 0.9)
-//                //let color3 = UIColor.clearColor().CGColor as CGColorRef
-//                //let color4 = UIColor(white: 0.0, alpha: 0.7).CGColor as CGColorRef
-//                gradientLayer.colors = [color1, color2]
-//        
-//                // 4
-//                gradientLayer.locations = [0.0, 0.80]
-//        
-//                // 5
-//                self.view.layer.addSublayer(gradientLayer)
+        //                // 1
+        //                self.view.backgroundColor = UIColor.init(red: 0.431, green: 0.573, blue: 0.631, alpha: 1) //UIColor.greenColor()
+        //
+        //                // 2
+        //                gradientLayer.frame = self.view.bounds
+        //
+        //                // 3
+        //                let color1 = UIColor(red: 17/255, green: 60/255, blue: 81/255, alpha: 0.9).CGColor as CGColorRef
+        //                let color2 = UIColor.init(red: 110/255, green: 146/255, blue: 161/255, alpha: 0.9)
+        //                //let color3 = UIColor.clearColor().CGColor as CGColorRef
+        //                //let color4 = UIColor(white: 0.0, alpha: 0.7).CGColor as CGColorRef
+        //                gradientLayer.colors = [color1, color2]
+        //
+        //                // 4
+        //                gradientLayer.locations = [0.0, 0.80]
+        //
+        //                // 5
+        //                self.view.layer.addSublayer(gradientLayer)
         
         
         //Init node controller
@@ -121,7 +124,6 @@ class SwitchViewController: UIViewController, NSURLSessionDelegate {
         {
             statusLabel.text = node.status
         }
-        
         if node.status == "Off"
         {
             statusLabel.textColor = UIColor.redColor()
@@ -133,8 +135,33 @@ class SwitchViewController: UIViewController, NSURLSessionDelegate {
             statusIcon.image = UIImage(named: "Lightbulb-on-icon")
         }
         
+        dashboardItemStatus.on = node.dashboardItem
+        
     }
     
+    
+    @IBAction func dashboardItemSwitch(sender: UISwitch)
+    {
+        let realm = try! Realm()
+        
+        let predicate = NSPredicate(format: "address = %@", self.node.address)
+        let nodeRealm = realm.objects(NodeRealm.self).filter(predicate)
+        
+        
+        if sender.on
+        {
+            try! realm.write {
+                nodeRealm.setValue(true, forKey: "dashboardItem")
+            }
+        }
+        else
+        {
+            try! realm.write {
+                nodeRealm.setValue(false, forKey: "dashboardItem")
+                
+            }
+        }
+    }
     
 }
 
