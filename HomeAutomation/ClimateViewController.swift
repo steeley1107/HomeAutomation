@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ClimateViewController: UIViewController {
     
@@ -23,6 +24,7 @@ class ClimateViewController: UIViewController {
     @IBOutlet weak var currentTempLabel: UILabel!
     @IBOutlet weak var currentHumidityLabel: UILabel!
     @IBOutlet weak var activitySpinner: UIActivityIndicatorView!
+    @IBOutlet weak var dashboardItemStatus: UISwitch!
     
     var timer = NSTimer()
     var currentNumber = 0
@@ -46,7 +48,7 @@ class ClimateViewController: UIViewController {
         
         //Update view
         updateView()
-
+        
         //Setup Activity Spinner
         activitySpinner.hidesWhenStopped = true
         
@@ -82,7 +84,7 @@ class ClimateViewController: UIViewController {
                 if self.previousNumber == self.currentNumber
                 {
                     self.nodeManager.temperatureChangeCommand(self.node, tempSP: self.currentNumber, completionHandler: { (success) -> () in
-        
+                        
                         self.updateView()
                         self.activitySpinner.stopAnimating()
                     })
@@ -125,13 +127,12 @@ class ClimateViewController: UIViewController {
             }
         }
     }
-
+    
     
     func incControl()
     {
         previousNumber = currentNumber
     }
-    
     
     
     func updateView()
@@ -143,23 +144,34 @@ class ClimateViewController: UIViewController {
         currentTempLabel.text = node.thermostatPV
         setpointTempLabel.text = node.thermostatHeatSP
         
-        
         //Change the color of the status to red or green.
         if node.thermostatMode == "Heat"
         {
-
             statusIcon.image = UIImage(named: "flameIcon")
         }
-
-
-    
+        dashboardItemStatus.on = node.dashboardItem
     }
     
-    
-    
-    
-    
-    
+    @IBAction func dashboardItemSwitch(sender: UISwitch)
+    {
+        let realm = try! Realm()
+        
+        let predicate = NSPredicate(format: "address = %@", self.node.address)
+        let nodeRealm = realm.objects(NodeRealm.self).filter(predicate)
+        
+        if sender.on
+        {
+            try! realm.write {
+                nodeRealm.setValue(true, forKey: "dashboardItem")
+            }
+        }
+        else
+        {
+            try! realm.write {
+                nodeRealm.setValue(false, forKey: "dashboardItem")
+            }
+        }
+    }
     
     
     

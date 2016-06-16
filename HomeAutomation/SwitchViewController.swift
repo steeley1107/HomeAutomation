@@ -15,6 +15,7 @@ class SwitchViewController: UIViewController, NSURLSessionDelegate {
     //Mark: Properties
     var node = Node()
     var nodeManager: NodeManager!
+    let realm = try! Realm()
     let gradientLayer = CAGradientLayer()
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -22,7 +23,6 @@ class SwitchViewController: UIViewController, NSURLSessionDelegate {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var statusIcon: UIImageView!
     @IBOutlet weak var dimSlider: UISlider!
-    
     @IBOutlet weak var dashboardItemStatus: UISwitch!
     
     
@@ -135,6 +135,9 @@ class SwitchViewController: UIViewController, NSURLSessionDelegate {
             statusIcon.image = UIImage(named: "Lightbulb-on-icon")
         }
         
+        let predicate = NSPredicate(format: "address = %@", self.node.address)
+        let nodeRealm = realm.objects(NodeRealm.self).filter(predicate)
+        node.dashboardItem = nodeRealm[0].dashboardItem
         dashboardItemStatus.on = node.dashboardItem
         
     }
@@ -142,24 +145,23 @@ class SwitchViewController: UIViewController, NSURLSessionDelegate {
     
     @IBAction func dashboardItemSwitch(sender: UISwitch)
     {
-        let realm = try! Realm()
         
         let predicate = NSPredicate(format: "address = %@", self.node.address)
         let nodeRealm = realm.objects(NodeRealm.self).filter(predicate)
-        
         
         if sender.on
         {
             try! realm.write {
                 nodeRealm.setValue(true, forKey: "dashboardItem")
             }
+            node.dashboardItem = true
         }
         else
         {
             try! realm.write {
                 nodeRealm.setValue(false, forKey: "dashboardItem")
-                
             }
+            node.dashboardItem = false
         }
     }
     

@@ -26,7 +26,6 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.methodOfReceivedNotification(_:)), name:"NodesReady", object: nil)
         
         //Reload tableView
@@ -78,6 +77,18 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
             }
         }
     }
+    
+    
+    @IBAction func updateRealm(sender: UIBarButtonItem) {
+       
+        nodeManager.getNodes { (success) in
+            self.nodeManager.addNodes({ (success) in
+          
+            })
+        }
+        
+    }
+    
     
     func methodOfReceivedNotification(notification: NSNotification){
         //Take Action on Notification

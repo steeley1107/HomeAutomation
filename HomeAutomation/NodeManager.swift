@@ -57,7 +57,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     var programs = [Program]()
     var programFolders = [ProgramFolder]()
     
-    
     //Mark: Functions
     
     override private init()
@@ -169,16 +168,16 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 {
                 }
                 
+                //Check to see if the node is a dashboard item
+                let predicate = NSPredicate(format: "address = %@", nodeRealm.address)
+                let nodeRealmDashboard = realm.objects(NodeRealm.self).filter(predicate)
+                nodeRealm.dashboardItem = nodeRealmDashboard[0].dashboardItem
+                
                 //Save nodes to Realm
                 try! realm.write({
                     realm.add(nodeRealm, update: true)
                 })
             }
-            
-            self.getNodesFromRealm({ (success) in
-                //
-            })
-            
             completionHandler(success: true)
         })
     }
@@ -234,11 +233,11 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     {
         createFoldersFromRealm { (success) -> () in
             
-            //createFolders { (success) -> () in
+            //            createFolders { (success) -> () in
             if success
             {
                 self.getNodesFromRealm { (success) -> () in
-                    //self.getNodes { (success) -> () in
+                    //                    self.getNodes { (success) -> () in
                     if success
                     {
                         //add nodes into sub folders
@@ -309,7 +308,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     
     
-    
+    //Loads the display array
     func loadArray(indexPath: NSIndexPath, array: [Any]) ->([Any])
     {
         displayArray = []
@@ -721,7 +720,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         // Query using an NSPredicate
         let predicate = NSPredicate(format: "dashboardItem = %@", true)
         let elements = realm.objects(NodeRealm.self).filter(predicate)
-
+        
         var nodes = [Any]()
         for elem in elements
         {

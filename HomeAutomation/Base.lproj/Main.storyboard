@@ -244,7 +244,13 @@
                             <outlet property="delegate" destination="i9F-u3-KXK" id="L6e-w0-9cm"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="fIh-ZY-VoX"/>
+                    <navigationItem key="navigationItem" id="fIh-ZY-VoX">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="v34-eH-9Zs">
+                            <connections>
+                                <action selector="updateRealm:" destination="i9F-u3-KXK" id="WXx-bc-J0Y"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="Switch" id="Drj-WJ-ela"/>
                         <segue destination="A0W-jC-FLR" kind="show" identifier="Climate" id="Ck6-Zn-0P2"/>
@@ -904,7 +910,7 @@
                                         <rect key="frame" x="0.0" y="764" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4GY-RR-X3U" id="frQ-0E-BsN">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ext-iY-weR">
@@ -1144,7 +1150,7 @@
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lWg-dB-Sku">
                                                 <rect key="frame" x="138" y="0.0" width="51" height="31"/>
                                                 <connections>
-                                                    <action selector="dashboardItemSwitch:" destination="BYZ-38-t0r" eventType="valueChanged" id="Lm9-kC-JDX"/>
+                                                    <action selector="dashboardItemSwitch:" destination="A0W-jC-FLR" eventType="valueChanged" id="1wY-bc-8w8"/>
                                                 </connections>
                                             </switch>
                                         </subviews>
@@ -1182,6 +1188,7 @@
                         <outlet property="addressLabel" destination="Qx5-85-tgw" id="rfk-Ua-Ec3"/>
                         <outlet property="currentHumidityLabel" destination="Vdv-34-qzA" id="PkW-Nz-w1O"/>
                         <outlet property="currentTempLabel" destination="4FQ-Ec-HSj" id="vY5-oG-5Ob"/>
+                        <outlet property="dashboardItemStatus" destination="lWg-dB-Sku" id="P0S-vW-gkj"/>
                         <outlet property="nameLabel" destination="VOv-X7-SAh" id="gSw-rz-JoF"/>
                         <outlet property="setpointTempLabel" destination="nUR-kR-tW2" id="Fvo-R9-zH2"/>
                         <outlet property="statusIcon" destination="mVL-fP-rix" id="nfT-f4-pgi"/>
