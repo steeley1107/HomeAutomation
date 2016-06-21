@@ -202,15 +202,9 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
         {
             let deviceTableVC:DeviceTableViewController = segue.destinationViewController as! DeviceTableViewController
             let indexPath = tableView.indexPathForSelectedRow
-            //array = []
-            //deviceTableVC.array = nodeManager.loadArray(indexPath!, array: array)
-            
-            //add realm way
-            
             let folder = array[(indexPath?.row)!] as! FolderRealm
             
             deviceTableVC.array = nodeManager.loadArrayRealm(folder.address)
-            
         }
     }
     
