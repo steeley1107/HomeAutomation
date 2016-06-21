@@ -82,7 +82,7 @@ class DashboardCollectionViewController: UICollectionViewController {
             cell.activitySpinner.stopAnimating()
         }
         
-        if let node = element as? Node
+        if let node = element as? NodeRealm
         {
             cell.title.text = node.name
             cell.status.text = node.status
@@ -113,7 +113,7 @@ class DashboardCollectionViewController: UICollectionViewController {
         indexPathArray.append(indexPath)
         self.collectionView?.reloadItemsAtIndexPaths(indexPathArray)
         
-        if let node = dashboardArray[indexPath.row] as? Node
+        if let node = dashboardArray[indexPath.row] as? NodeRealm
         {
             var indexPathArray = [NSIndexPath]()
             indexPathArray.append(indexPath)

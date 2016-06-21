@@ -13,7 +13,7 @@ class SwitchViewController: UIViewController, NSURLSessionDelegate {
     
     
     //Mark: Properties
-    var node = Node()
+    var node = NodeRealm()
     var nodeManager: NodeManager!
     let realm = try! Realm()
     let gradientLayer = CAGradientLayer()
@@ -64,10 +64,6 @@ class SwitchViewController: UIViewController, NSURLSessionDelegate {
         updateView()
         
         dimSlider.continuous = false
-        
-        nodeManager.nodeType(node)
-        
-        
     }
     
     
@@ -137,8 +133,7 @@ class SwitchViewController: UIViewController, NSURLSessionDelegate {
         
         let predicate = NSPredicate(format: "address = %@", self.node.address)
         let nodeRealm = realm.objects(NodeRealm.self).filter(predicate)
-        node.dashboardItem = nodeRealm[0].dashboardItem
-        dashboardItemStatus.on = node.dashboardItem
+        dashboardItemStatus.on = nodeRealm[0].dashboardItem
         
     }
     
@@ -154,14 +149,12 @@ class SwitchViewController: UIViewController, NSURLSessionDelegate {
             try! realm.write {
                 nodeRealm.setValue(true, forKey: "dashboardItem")
             }
-            node.dashboardItem = true
         }
         else
         {
             try! realm.write {
                 nodeRealm.setValue(false, forKey: "dashboardItem")
             }
-            node.dashboardItem = false
         }
     }
     

@@ -13,7 +13,7 @@ class ClimateViewController: UIViewController {
     
     
     //Mark: Properties
-    var node = Node()
+    var node = NodeRealm()
     var nodeManager: NodeManager!
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -44,7 +44,7 @@ class ClimateViewController: UIViewController {
             nodeManager.baseURLString = baseURLString
         }
         
-        nodeManager.nodeType(node)
+        //nodeManager.nodeType(node)
         
         //Update view
         updateView()

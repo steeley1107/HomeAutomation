@@ -29,6 +29,8 @@ class NodeRealm: Object {
     dynamic  var flag: String = ""
     dynamic var dashboardItem: Bool = false
     
+    dynamic var deviceCat = 0
+    
     //Thermostat features
     dynamic var thermostatPV: String = ""
     dynamic  var thermostatMode: String = ""

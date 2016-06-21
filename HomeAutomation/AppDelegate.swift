@@ -58,11 +58,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             programManager.baseURLString = baseURLString
         }
         
-        nodeManager.addNodes { (success) -> () in
-            if success {
-                NSNotificationCenter.defaultCenter().postNotificationName("NodesReady", object: nil)
-            }
-        }
+//        nodeManager.addNodes { (success) -> () in
+//            if success {
+//                NSNotificationCenter.defaultCenter().postNotificationName("NodesReady", object: nil)
+//            }
+//        }
         
         programManager.addPrograms { (success) -> () in
             if success {
