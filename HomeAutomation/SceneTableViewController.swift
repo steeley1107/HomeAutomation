@@ -48,19 +48,12 @@ class SceneTableViewController: UITableViewController {
     //call this function to update tableview
     func refresh(sender:AnyObject)
     {
-        if let baseURLString = NSUserDefaults.standardUserDefaults().objectForKey("baseURLString") as? String
-        {
-            sceneManager.baseURLString = baseURLString
-        }
         
-        sceneManager.addScenes({ (success) in
-            if success {
-                self.array = []
-                self.array = self.sceneManager.array
-                self.tableView.reloadData()
-                self.refreshControl!.endRefreshing()
-            }
-        })
+        self.array = []
+        self.array = self.sceneManager.loadArray("")
+        self.tableView.reloadData()
+        self.refreshControl!.endRefreshing()
+      
     }
     
     func methodOfReceivedNotification(notification: NSNotification){
@@ -86,7 +79,7 @@ class SceneTableViewController: UITableViewController {
     {
         let element = array[indexPath.row]
         
-        if let scene = element as? Scene
+        if let scene = element as? SceneRealm
         {
             let cell:NodeTableViewCell = tableView.dequeueReusableCellWithIdentifier("ProgramCell", forIndexPath: indexPath) as! NodeTableViewCell
             
@@ -154,7 +147,7 @@ class SceneTableViewController: UITableViewController {
         {
             let sceneVC:SceneControlTableViewController = segue.destinationViewController as! SceneControlTableViewController
             let indexPath = tableView.indexPathForSelectedRow
-            let selectedScene = array[indexPath!.row] as! Scene
+            let selectedScene = array[indexPath!.row] as! SceneRealm
             sceneVC.scene = selectedScene
         }
         
@@ -162,8 +155,18 @@ class SceneTableViewController: UITableViewController {
         {
             let sceneTableVC:SceneTableViewController = segue.destinationViewController as! SceneTableViewController
             let indexPath = tableView.indexPathForSelectedRow
-            sceneTableVC.array = sceneManager.loadArray(indexPath!, array: array)
+        
+            if let folder = array[(indexPath?.row)!] as? FolderRealm
+            {
+                sceneTableVC.array = sceneManager.loadArray(folder.address)
+            }
+            if let scene = array[(indexPath?.row)!] as? SceneRealm
+            {
+                sceneTableVC.array = sceneManager.loadArray(scene.address)
+            }
+            
         }
+
     }
     
     

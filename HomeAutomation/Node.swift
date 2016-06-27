@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import RealmSwift
 
-class Node: NSObject, NSCopying {
+class Node: Object {
     
     
 //    <node flag="0">
@@ -25,56 +26,53 @@ class Node: NSObject, NSCopying {
 //    <property id="ST" value=" " formatted=" " uom="on/off"/>
 //    </node>
     
-    var address: String = ""
-    var name: String = ""
-    var type: String = ""
-    var enabled: String =  ""
-    var deviceClass: String = ""
-    var wattage: String = ""
-    var status: String = ""
-    var parent: String = ""
-    var value: String = ""
-    var imageName: String = ""
-    var flag: String = ""
-    var dashboardItem = false
     
-    var subnodeArray = [Node]()
+    dynamic var address: String = ""
+    dynamic var name: String = ""
+    dynamic var type: String = ""
+    dynamic var enabled: String =  ""
+    dynamic var deviceClass: String = ""
+    dynamic var wattage: String = ""
+    dynamic var status: String = ""
+    dynamic var parent: String = ""
+    dynamic  var value: String = ""
+    dynamic  var imageName: String = ""
+    dynamic  var flag: String = ""
+    dynamic var dashboardItem: Bool = false
+    
+    dynamic var deviceCat = 0
+    dynamic var hasChildren = false
     
     //Thermostat features
-    var thermostatPV: String = ""
-    var thermostatMode: String = ""
-    var thermostatCoolSP: String = ""
-    var thermostatHeatSP: String = ""
-    var thermostatHumidity: String = ""
+    dynamic var thermostatPV: String = ""
+    dynamic  var thermostatMode: String = ""
+    dynamic  var thermostatCoolSP: String = ""
+    dynamic var thermostatHeatSP: String = ""
+    dynamic  var thermostatHumidity: String = ""
     
-    var deviceCat:DeviceCat = DeviceCat.x16
-
-
-    required override init()
-    {
-        deviceCat = DeviceCat.x16
-
+    override static func primaryKey() -> String? {
+        return "address"
     }
 
     
-    func copyWithZone(zone: NSZone) -> AnyObject {
-        //let copy = Node()
-        let copy = self.dynamicType.init()
-        copy.address = address
-        copy.name = name
-        copy.address = address
-        copy.type = type
-        copy.enabled =  enabled
-        copy.deviceClass = deviceClass
-        copy.wattage = wattage
-        copy.status = status
-        copy.parent = parent
-        copy.value = value
-        copy.imageName = imageName
-        copy.flag = flag
-        copy.deviceCat = deviceCat
-
-        return copy
-    }
-
+//    func copyWithZone(zone: NSZone) -> AnyObject {
+//        //let copy = Node()
+//        let copy = self.dynamicType.init()
+//        copy.address = address
+//        copy.name = name
+//        copy.address = address
+//        copy.type = type
+//        copy.enabled =  enabled
+//        copy.deviceClass = deviceClass
+//        copy.wattage = wattage
+//        copy.status = status
+//        copy.parent = parent
+//        copy.value = value
+//        copy.imageName = imageName
+//        copy.flag = flag
+//        copy.deviceCat = deviceCat
+//
+//        return copy
+//    }
+//
 }

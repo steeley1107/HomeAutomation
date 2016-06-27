@@ -37,8 +37,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
         nodeManager = NodeManager.sharedInstance
         
         //Check to see if values are loaded in the settings screen
-        checkSettings()
-        
+        checkSettings()        
     }
     
     
@@ -108,7 +107,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
         // Configure the cell...
         let element = array[indexPath.row]
         
-        if let node = element as? NodeRealm
+        if let node = element as? Node
         {
             let cell:NodeTableViewCell = tableView.dequeueReusableCellWithIdentifier("NodeCell", forIndexPath: indexPath) as! NodeTableViewCell
             
@@ -149,14 +148,14 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
     {
         let selectedElement = array[indexPath.row]
         
-        if let node = selectedElement as? NodeRealm
+        if let node = selectedElement as? Node
         {
-//            if node.subnodeArray.count != 0
-//            {
-//                performSegueWithIdentifier("Folder", sender: nil)
-//            }
-//            else
-//            {
+            if node.hasChildren
+            {
+                performSegueWithIdentifier("Folder", sender: nil)
+            }
+            else
+            {
                 if node.deviceCat == 1 || node.deviceCat == 2
                 {
                     performSegueWithIdentifier("Switch", sender: nil)
@@ -165,7 +164,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
                 {
                     performSegueWithIdentifier("Climate", sender: nil)
                 }
-//            }
+            }
         }
     }
     
@@ -179,14 +178,14 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
         {
             let switchVC:SwitchViewController = segue.destinationViewController as! SwitchViewController
             let indexPath = tableView.indexPathForSelectedRow
-            let selectedNode = array[indexPath!.row] as! NodeRealm
+            let selectedNode = array[indexPath!.row] as! Node
             switchVC.node = selectedNode
         }
         if (segue.identifier == "Climate")
         {
             let climateVC:ClimateViewController = segue.destinationViewController as! ClimateViewController
             let indexPath = tableView.indexPathForSelectedRow
-            let selectedNode = array[indexPath!.row] as! NodeRealm
+            let selectedNode = array[indexPath!.row] as! Node
             climateVC.node = selectedNode
         }
         
@@ -194,7 +193,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
         {
             let switchVC:SwitchViewController = segue.destinationViewController as! SwitchViewController
             let indexPath = tableView.indexPathForSelectedRow
-            let selectedNode = array[indexPath!.row] as! NodeRealm
+            let selectedNode = array[indexPath!.row] as! Node
             switchVC.node = selectedNode
         }
         
@@ -202,9 +201,15 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
         {
             let deviceTableVC:DeviceTableViewController = segue.destinationViewController as! DeviceTableViewController
             let indexPath = tableView.indexPathForSelectedRow
-            let folder = array[(indexPath?.row)!] as! FolderRealm
-            
-            deviceTableVC.array = nodeManager.loadArrayRealm(folder.address)
+            if let folder = array[(indexPath?.row)!] as? FolderRealm
+            {
+                deviceTableVC.array = nodeManager.loadArrayRealm(folder.address)
+            }
+            if let node = array[(indexPath?.row)!] as? Node
+            {
+                deviceTableVC.array = nodeManager.loadArrayRealm(node.address)
+            }
+
         }
     }
     

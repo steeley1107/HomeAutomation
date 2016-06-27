@@ -8,6 +8,7 @@
 
 import UIKit
 import SWXMLHash
+import RealmSwift
 
 class SceneManager: NSObject, NSURLSessionDelegate {
     
@@ -25,7 +26,7 @@ class SceneManager: NSObject, NSURLSessionDelegate {
     var nodeManager: NodeManager!
     var sceneControl = [String]()
     
- 
+    
     
     
     //Mark: Functions
@@ -41,7 +42,7 @@ class SceneManager: NSObject, NSURLSessionDelegate {
         self.nodeManager = NodeManager.sharedInstance
         
         sceneControl = ["On", "Off"]
-
+        
     }
     
     
@@ -70,66 +71,74 @@ class SceneManager: NSObject, NSURLSessionDelegate {
         completionHandler(NSURLSessionAuthChallengeDisposition.UseCredential, NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!))
     }
     
-    //create all folders and place them in an array
-    func createFolders(completionHandler: (success: Bool) -> ())
-    {
-        let baseURL = NSURL(string: baseURLString + "nodes")
-        requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
-            self.rootfolder = Folder()
-            for elem in response["nodes"]["folder"]
-            {
-                let folder = Folder()
-                
-                //Get the name of the folder
-                if let name = elem["name"].element?.text!
-                {
-                    folder.name = name
-                }
-                //Get the address of the folder
-                if let address = elem["address"].element?.text!
-                {
-                    folder.address = address
-                }
-                //Get the parent folder
-                if let parent = elem["parent"].element?.text!
-                {
-                    folder.parent = parent
-                }
-                //determine if the folder is a root or a sub folder.
-                if folder.parent == ""
-                {
-                    self.rootfolder.subfolderArray += [folder]
-                }
-                else
-                {
-                    self.subfolders += [folder]
-                }
-            }
-            
-            for rootfolder in self.rootfolder.subfolderArray
-            {
-                for subfolder in self.subfolders
-                {
-                    if subfolder.parent == rootfolder.address
-                    {
-                        rootfolder.subfolderArray += [subfolder]
-                    }
-                }
-            }
-            completionHandler(success: true)
-        })
-    }
+//    //create all folders and place them in an array
+//    func createFolders(completionHandler: (success: Bool) -> ())
+//    {
+//        let baseURL = NSURL(string: baseURLString + "nodes")
+//        requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
+//            self.rootfolder = Folder()
+//            for elem in response["nodes"]["folder"]
+//            {
+//                let folder = Folder()
+//                
+//                //Get the name of the folder
+//                if let name = elem["name"].element?.text!
+//                {
+//                    folder.name = name
+//                }
+//                //Get the address of the folder
+//                if let address = elem["address"].element?.text!
+//                {
+//                    folder.address = address
+//                }
+//                //Get the parent folder
+//                if let parent = elem["parent"].element?.text!
+//                {
+//                    folder.parent = parent
+//                }
+//                //determine if the folder is a root or a sub folder.
+//                if folder.parent == ""
+//                {
+//                    self.rootfolder.subfolderArray += [folder]
+//                }
+//                else
+//                {
+//                    self.subfolders += [folder]
+//                }
+//            }
+//            
+//            for rootfolder in self.rootfolder.subfolderArray
+//            {
+//                for subfolder in self.subfolders
+//                {
+//                    if subfolder.parent == rootfolder.address
+//                    {
+//                        rootfolder.subfolderArray += [subfolder]
+//                    }
+//                }
+//            }
+//            
+//            
+//            
+//            
+//            
+//            
+//            
+//            completionHandler(success: true)
+//        })
+//    }
     
     
     //grab data from xml and place scenes in a scene array
     func getScenes(completionHandler: (success: Bool) -> ())
     {
+        let realm = try! Realm()
+        
         let baseURL = NSURL(string: baseURLString + "nodes/scenes")
         requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
             
-            self.scenes = []
             for elem in response["nodes"]["group"] {
-                let scene = Scene()
+                let scene = SceneRealm()
                 
                 //Get the name of the node
                 if let name = elem["name"].element?.text!
@@ -154,45 +163,53 @@ class SceneManager: NSObject, NSURLSessionDelegate {
                 for member in elem["members"]["link"]
                 {
                     let memberAddress = member.element?.text!
-                    //scene.members.append((member.element?.text)!)
-                    
-                    for node in self.nodeManager.nodes
-                    {
-                        if node.address == memberAddress
-                        {
-                        //scene.nodeArray.append(node)
-                        }
-                        
-                    }
+                    let predicate = NSPredicate(format: "address = %@", memberAddress!)
+                    let members = realm.objects(Node.self).filter(predicate)
+                    scene.members.appendContentsOf(members)
                 }
-
                 
+                //Check to see if the node is a dashboard item
+                let predicate = NSPredicate(format: "address = %@", scene.address)
+                let sceneRealmDashboard = realm.objects(SceneRealm.self).filter(predicate)
+                if sceneRealmDashboard.count != 0
+                {
+                    scene.dashboardItem = sceneRealmDashboard[0].dashboardItem
+                }
                 
-                
-                //Add node to array of nodes
-                self.scenes += [scene]
+                //Save nodes to Realm
+                try! realm.write({
+                    realm.add(scene, update: true)
+                })
             }
             completionHandler(success: true)
         })
     }
     
     
-    
-    func loadArray(indexPath: NSIndexPath, array: [Any]) ->([Any])
+    //Loads the display array
+    func loadArray(address: String) ->([Any])
     {
         displayArray = []
-        //Check to see if the cell is a folder
-        if let selectedFolder = array[indexPath.row] as? Folder
+        let realm = try! Realm()
+        
+        // Query for all subfolders
+        var predicate = NSPredicate(format: "parent = %@", address)
+        let folders = realm.objects(FolderRealm.self).filter(predicate)
+        print("folder \(folders)")
+        for folder in folders
         {
-            for folder in selectedFolder.subfolderArray
-            {
-                displayArray.append(folder)
-            }
-            for scene in selectedFolder.sceneArray
-            {
-                displayArray.append(scene)
-            }
+            displayArray.append(folder)
         }
+        
+        // Query all nodes using
+        predicate = NSPredicate(format: "parent = %@", address)
+        let scenes = realm.objects(SceneRealm.self).filter(predicate)
+        print("scenes \(scenes)")
+        for scene in scenes
+        {
+            displayArray.append(scene)
+        }
+        
         return displayArray
     }
     
@@ -200,7 +217,7 @@ class SceneManager: NSObject, NSURLSessionDelegate {
     //Mark: node commands
     
     //runs the if portion of the program.
-    func sceneCommand(scene: Scene, command: String, completionHandler: (success: Bool) -> ())
+    func sceneCommand(scene: SceneRealm, command: String, completionHandler: (success: Bool) -> ())
     {
         ///rest/programs/0032/run|runThen|runElse|stop|enable|disable|enableRunAtStartup|disableRunAtStartup
         
@@ -224,74 +241,74 @@ class SceneManager: NSObject, NSURLSessionDelegate {
     }
     
     
-    //add nodes to the proper folder array
-    func addScenes(completionHandler: (success: Bool) -> ())
-    {
-        self.createFolders { (success) in
-            if success
-            {
-                self.getScenes { (success) -> () in
-                    if success
-                    {
-                        //add scenes into sub folders
-                        for rootfolder in self.rootfolder.subfolderArray
-                        {
-                            for subfolder in rootfolder.subfolderArray
-                            {
-                                for scene in self.scenes
-                                {
-                                    if scene.parent == subfolder.address
-                                    {
-                                        subfolder.sceneArray += [scene]
-                                        subfolder.containsScene = true
-                                        rootfolder.containsScene = true
-                                        
-                                    }
-                                }
-                            }
-                        }
-                        
-                        //add scenes into root folder
-                        for rootfolder in self.rootfolder.subfolderArray
-                        {
-                            for scene in self.scenes
-                            {
-                                if scene.parent == rootfolder.address
-                                {
-                                    rootfolder.sceneArray += [scene]
-                                }
-                            }
-                        }
-                        
-                        
-                        //add nodes into root folder
-                        for scene in self.scenes
-                        {
-                            if scene.parent == ""
-                            {
-                                self.rootfolder.sceneArray += [scene]
-                            }
-                        }
-                        
-                        self.array = []
-                        for folder in self.rootfolder.subfolderArray
-                        {
-                            if folder.containsScene
-                            {
-                                self.array.append(folder)
-                            }
-                        }
-                        for scene in self.rootfolder.sceneArray
-                        {
-                            self.array.append(scene)
-                        }
-                    }
-                    completionHandler(success: true)
-                }
-            }
-        }
-    }
+//    //add nodes to the proper folder array
+//    func addScenes(completionHandler: (success: Bool) -> ())
+//    {
+//        self.createFolders { (success) in
+//            if success
+//            {
+//                self.getScenes { (success) -> () in
+//                    if success
+//                    {
+//                        //add scenes into sub folders
+//                        for rootfolder in self.rootfolder.subfolderArray
+//                        {
+//                            for subfolder in rootfolder.subfolderArray
+//                            {
+//                                for scene in self.scenes
+//                                {
+//                                    if scene.parent == subfolder.address
+//                                    {
+//                                        subfolder.sceneArray += [scene]
+//                                        subfolder.containsScene = true
+//                                        rootfolder.containsScene = true
+//                                        
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        
+//                        //add scenes into root folder
+//                        for rootfolder in self.rootfolder.subfolderArray
+//                        {
+//                            for scene in self.scenes
+//                            {
+//                                if scene.parent == rootfolder.address
+//                                {
+//                                    rootfolder.sceneArray += [scene]
+//                                }
+//                            }
+//                        }
+//                        
+//                        
+//                        //add nodes into root folder
+//                        for scene in self.scenes
+//                        {
+//                            if scene.parent == ""
+//                            {
+//                                self.rootfolder.sceneArray += [scene]
+//                            }
+//                        }
+//                        
+//                        self.array = []
+//                        for folder in self.rootfolder.subfolderArray
+//                        {
+//                            if folder.containsScene
+//                            {
+//                                self.array.append(folder)
+//                            }
+//                        }
+//                        for scene in self.rootfolder.sceneArray
+//                        {
+//                            self.array.append(scene)
+//                        }
+//                    }
+//                    completionHandler(success: true)
+//                }
+//            }
+//        }
+//    }
     
-
+    
     
 }

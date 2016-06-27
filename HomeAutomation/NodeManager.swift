@@ -46,7 +46,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     var array = [Any]()
     var displayArray = [Any]()
-    var nodes = [NodeRealm]()
+    var nodes = [Node]()
     var xml: XMLIndexer?
     var baseURLString = ""
     
@@ -99,48 +99,48 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
             
             for elem in response["nodes"]["node"] {
-                let nodeRealm = NodeRealm()
+                let node = Node()
                 
                 //Get the name of the node
                 if let name = elem["name"].element?.text!
                 {
-                    nodeRealm.name = name
+                    node.name = name
                 }
                 
                 //Get the current folder the node
                 if let parent = elem["parent"].element?.text!
                 {
-                    nodeRealm.parent = parent
+                    node.parent = parent
                 }
                 
                 //Get the status of the node
                 if let status = elem["property"].element?.attributes["formatted"]
                 {
-                    nodeRealm.status = status
+                    node.status = status
                 }
                 
                 //Get the status of the node
                 if let value = elem["property"].element?.attributes["value"]
                 {
-                    nodeRealm.value = value
+                    node.value = value
                 }
                 
                 //Get the address of the node
                 if let address = elem["address"].element?.text!
                 {
-                    nodeRealm.address = address
+                    node.address = address
                 }
                 
                 //Get the flag of the node
                 if let flag = elem.element?.attributes["flag"]
                 {
-                    nodeRealm.flag = flag
+                    node.flag = flag
                 }
                 
                 //Get the address of the node
                 if let type = elem["type"].element?.text!
                 {
-                    nodeRealm.type = type
+                    node.type = type
                 }
                 
                 
@@ -153,30 +153,32 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                     let thermostatHeatSP = try elem["property"].withAttr("id", "CLISPH").element?.attributes["formatted"]
                     let thermostatHumidity = try elem["property"].withAttr("id", "CLIHUM").element?.attributes["formatted"]
                     
-                    nodeRealm.thermostatPV = String(thermostatPV!.characters.dropLast(3))
-                    nodeRealm.thermostatMode = thermostatMode!
-                    nodeRealm.thermostatCoolSP = String(thermostatCoolSP!.characters.dropLast(3))
-                    nodeRealm.thermostatHeatSP = String(thermostatHeatSP!.characters.dropLast(3))
-                    nodeRealm.thermostatHumidity = String(thermostatHumidity!.characters.dropLast(3))
+                    node.thermostatPV = String(thermostatPV!.characters.dropLast(3))
+                    node.thermostatMode = thermostatMode!
+                    node.thermostatCoolSP = String(thermostatCoolSP!.characters.dropLast(3))
+                    node.thermostatHeatSP = String(thermostatHeatSP!.characters.dropLast(3))
+                    node.thermostatHumidity = String(thermostatHumidity!.characters.dropLast(3))
                     
                 }
                 catch
                 {
                 }
+                //additional items that are not in the xml file
                 
                 //Check to see if the node is a dashboard item
-                let predicate = NSPredicate(format: "address = %@", nodeRealm.address)
-                let nodeRealmDashboard = realm.objects(NodeRealm.self).filter(predicate)
+                let predicate = NSPredicate(format: "address = %@", node.address)
+                let nodeRealmDashboard = realm.objects(Node.self).filter(predicate)
                 if nodeRealmDashboard.count != 0
                 {
-                    nodeRealm.dashboardItem = nodeRealmDashboard[0].dashboardItem
+                    node.dashboardItem = nodeRealmDashboard[0].dashboardItem
                 }
                 
-                self.iconSelect(nodeRealm)
+                self.iconSelect(node)
+                node.hasChildren = self.subCheck(node)
                 
                 //Save nodes to Realm
                 try! realm.write({
-                    realm.add(nodeRealm, update: true)
+                    realm.add(node, update: true)
                 })
             }
             completionHandler(success: true)
@@ -240,7 +242,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         
         // Query all nodes using
         predicate = NSPredicate(format: "parent = %@", address)
-        let nodes = realm.objects(NodeRealm.self).filter(predicate)
+        let nodes = realm.objects(Node.self).filter(predicate)
         
         for node in nodes
         {
@@ -255,7 +257,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     
     //turn on node funtion
-    func onPercentageCommand(node: NodeRealm, percent: Int, completionHandler: (success: Bool) -> ())
+    func onPercentageCommand(node: Node, percent: Int, completionHandler: (success: Bool) -> ())
     {
         ///rest/nodes/<node>/cmd/DFON/255
         
@@ -285,7 +287,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     
     //turn on and off node funtion
-    func command(node: NodeRealm, command: String, completionHandler: (success: Bool) -> ())
+    func command(node: Node, command: String, completionHandler: (success: Bool) -> ())
     {
         ///rest/nodes/<node>/cmd/DFON|DFOF
         
@@ -314,7 +316,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     
     //control the temperature
-    func temperatureChangeCommand(node: NodeRealm, tempSP: Int, completionHandler: (success: Bool) -> ())
+    func temperatureChangeCommand(node: Node, tempSP: Int, completionHandler: (success: Bool) -> ())
     {
         ///rest/nodes/<node>/cmd/CLISPH/heatsetpoint
         
@@ -348,7 +350,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     
     //get the status of a node
-    func nodeStatus(node: NodeRealm, completionHandler: (success: Bool) -> ())
+    func nodeStatus(node: Node, completionHandler: (success: Bool) -> ())
     {
         ///rest/status/<node>
         let realm = try! Realm()
@@ -406,7 +408,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
             
             for elem in response["nodes"]["node"] {
-                let node = NodeRealm()
+                let node = Node()
                 
                 //Get the current folder the node
                 if let address = elem["id"].element?.text!
@@ -448,7 +450,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 
                 //Update nodes in Realm
                 let predicate = NSPredicate(format: "address = %@", node.address)
-                let nodeRealm = realm.objects(NodeRealm.self).filter(predicate)
+                let nodeRealm = realm.objects(Node.self).filter(predicate)
                 
                 try! realm.write {
                     nodeRealm.setValue(node.status, forKey: "status")
@@ -468,19 +470,19 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     //function to determine the type of node, so it can just to the right screen
     //ie. thermostat can go to climate screen.
-    func nodeType(node: Node)
-    {
-        //let nodeType = node.type
-        let nodeTypeArray = node.type.componentsSeparatedByString(".")
-        
-        if nodeTypeArray.count > 3 {
-            let deviceCategory: String = nodeTypeArray[0]
-            let subCategory: String = nodeTypeArray[1]
-            let productKey: String = nodeTypeArray[2]
-            node.deviceCat = DeviceCat(rawValue: Int(deviceCategory)!)!
-        }
-        
-    }
+//    func nodeType(node: Node)
+//    {
+//        //let nodeType = node.type
+//        let nodeTypeArray = node.type.componentsSeparatedByString(".")
+//        
+//        if nodeTypeArray.count > 3 {
+//            let deviceCategory: String = nodeTypeArray[0]
+//            let subCategory: String = nodeTypeArray[1]
+//            let productKey: String = nodeTypeArray[2]
+//            node.deviceCat = DeviceCat(rawValue: Int(deviceCategory)!)!
+//        }
+//        
+//    }
     
     //function to call delays in the program.
     func delay(delay:Double, closure:()->()) {
@@ -493,7 +495,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     }
     
     //select icon based on device catagory
-    func iconSelect(node: NodeRealm)
+    func iconSelect(node: Node)
     {
         //let nodeType = node.type
         let nodeTypeArray = node.type.componentsSeparatedByString(".")
@@ -533,7 +535,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         
         // Query using an NSPredicate
         let predicate = NSPredicate(format: "dashboardItem = %@", true)
-        let elements = realm.objects(NodeRealm.self).filter(predicate)
+        let elements = realm.objects(Node.self).filter(predicate)
         
         var nodes = [Any]()
         for elem in elements
@@ -543,5 +545,22 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         return nodes
     }
     
+    func subCheck(node: Node) -> Bool
+    {
+        let realm = try! Realm()
+        //Check to see if the node is a dashboard item
+        let predicate = NSPredicate(format: "parent = %@", node.address)
+        let hasChildrenArray = realm.objects(Node.self).filter(predicate)
+        print("has children \(hasChildrenArray)")
+        if hasChildrenArray.count != 0
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+
     
+    }
 }

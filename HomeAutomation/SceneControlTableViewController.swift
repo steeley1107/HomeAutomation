@@ -19,7 +19,7 @@ class SceneControlTableViewController: UITableViewController {
     @IBOutlet weak var lastFinishLabel: UILabel!
     @IBOutlet weak var nextRunLabel: UILabel!
     
-    var scene = Scene()
+    var scene = SceneRealm()
     var sceneManager: SceneManager!
     
     
@@ -56,7 +56,9 @@ class SceneControlTableViewController: UITableViewController {
         }
         else
         {
-            let count = scene.nodeArray.count
+            let count = scene.members.count
+            
+            
             return count
         }
         
@@ -74,7 +76,7 @@ class SceneControlTableViewController: UITableViewController {
         }
         else
         {
-            let element = scene.nodeArray[indexPath.row]
+            let element = scene.members[indexPath.row]
             
             if let node = element as? Node
             {

@@ -13,7 +13,7 @@ class ClimateViewController: UIViewController {
     
     
     //Mark: Properties
-    var node = NodeRealm()
+    var node = Node()
     var nodeManager: NodeManager!
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -157,7 +157,7 @@ class ClimateViewController: UIViewController {
         let realm = try! Realm()
         
         let predicate = NSPredicate(format: "address = %@", self.node.address)
-        let nodeRealm = realm.objects(NodeRealm.self).filter(predicate)
+        let nodeRealm = realm.objects(Node.self).filter(predicate)
         
         if sender.on
         {
