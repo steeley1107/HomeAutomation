@@ -19,7 +19,7 @@ class SceneControlTableViewController: UITableViewController {
     @IBOutlet weak var lastFinishLabel: UILabel!
     @IBOutlet weak var nextRunLabel: UILabel!
     
-    var scene = SceneRealm()
+    var scene = Scene()
     var sceneManager: SceneManager!
     
     
@@ -128,15 +128,28 @@ class SceneControlTableViewController: UITableViewController {
                 print("unknown command")
             }
         }
+        else if indexPath.section == 1
+        {
+            let node = scene.members[indexPath.row]
+            
+            if node.deviceCat == 1 || node.deviceCat == 2
+            {
+                performSegueWithIdentifier("Switch", sender: nil)
+            }
+            if node.deviceCat == 5
+            {
+                performSegueWithIdentifier("Climate", sender: nil)
+            }
+        }
     }
-
+    
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         //Create label and autoresize it
         let headerLabel = UILabel(frame: CGRectMake(10, 5, tableView.frame.width, 2000))
         headerLabel.textColor = UIColor.whiteColor()
-//        headerLabel.text = "Settings"
-//        headerLabel.sizeToFit()
+        //        headerLabel.text = "Settings"
+        //        headerLabel.sizeToFit()
         if section == 0
         {
             headerLabel.text = "Controls"
@@ -155,10 +168,15 @@ class SceneControlTableViewController: UITableViewController {
         
         return headerView
     }
-
+    
     
     func reload()
     {
+        
+        self.tableView.reloadData()
+        
+        
+        
         //        sceneManager.getScene(self.scene) { (success, program) in
         //            if success == true
         //            {
@@ -172,4 +190,53 @@ class SceneControlTableViewController: UITableViewController {
         
         
     }
+    
+    
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if (segue.identifier == "Switch")
+        {
+            let switchVC:SwitchViewController = segue.destinationViewController as! SwitchViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            let selectedNode = scene.members[indexPath!.row] //as! Node
+            switchVC.node = selectedNode
+        }
+        if (segue.identifier == "Climate")
+        {
+            let climateVC:ClimateViewController = segue.destinationViewController as! ClimateViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            let selectedNode = scene.members[indexPath!.row] //as! Node
+            climateVC.node = selectedNode
+        }
+        
+        if (segue.identifier == "Energy")
+        {
+            let switchVC:SwitchViewController = segue.destinationViewController as! SwitchViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            let selectedNode = scene.members[indexPath!.row] //as! Node
+            switchVC.node = selectedNode
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

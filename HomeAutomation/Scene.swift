@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 
 
-class Scene: NSObject {
+class Scene: Object {
     
     
     //    <group flag="132">
@@ -23,17 +24,23 @@ class Scene: NSObject {
     //    </members>
     //    </group>
     
-    var name = ""
-    var address = ""
-    var group = ""
-    var deviceGroup = ""
-    var elkId = ""
-    var link = ""
-    var members = [String]()
-    var imageName = ""
-    var enabled = ""
-    var parent = ""
-    var nodeArray = [Node]()
+    dynamic var name = ""
+    dynamic var address = ""
+    dynamic var group = ""
+    dynamic var deviceGroup = ""
+    dynamic var elkId = ""
+    dynamic var link = ""
+    dynamic var imageName = ""
+    dynamic var enabled = ""
+    dynamic var parent = ""
+    dynamic var dashboardItem: Bool = false
+    
+    var members = List<Node>()
+    
+    override static func primaryKey() -> String? {
+        return "address"
+    }
+
     
     
 }

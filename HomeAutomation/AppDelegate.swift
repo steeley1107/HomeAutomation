@@ -12,6 +12,7 @@ import UIKit
 
 var nodeManager: NodeManager!
 var programManager: ProgramManager!
+var sceneManager: SceneManager!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         nodeManager = NodeManager.sharedInstance
+        sceneManager = SceneManager()
         programManager = ProgramManager()
         refresh(self)
         return true
@@ -56,6 +58,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             nodeManager.baseURLString = baseURLString
             programManager.baseURLString = baseURLString
+        }
+        
+        sceneManager.getScenes { (success) in
+            if success {
+                NSNotificationCenter.defaultCenter().postNotificationName("NodesReady", object: nil)
+            }
         }
         
 //        nodeManager.addNodes { (success) -> () in

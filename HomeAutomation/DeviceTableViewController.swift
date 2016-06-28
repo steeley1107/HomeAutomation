@@ -129,7 +129,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
             }
             return cell
         }
-        else if let element = element as? FolderRealm
+        else if let element = element as? Folder
         {
             let cell:FolderTableViewCell = tableView.dequeueReusableCellWithIdentifier("FolderCell", forIndexPath: indexPath) as! FolderTableViewCell
             cell.nodeTitle.text = element.name
@@ -201,7 +201,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
         {
             let deviceTableVC:DeviceTableViewController = segue.destinationViewController as! DeviceTableViewController
             let indexPath = tableView.indexPathForSelectedRow
-            if let folder = array[(indexPath?.row)!] as? FolderRealm
+            if let folder = array[(indexPath?.row)!] as? Folder
             {
                 deviceTableVC.array = nodeManager.loadArrayRealm(folder.address)
             }

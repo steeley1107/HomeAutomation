@@ -1474,6 +1474,10 @@
                             <outlet property="delegate" destination="inG-Lo-yFN" id="VYo-5z-gr5"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="Switch" id="vP0-rc-GbX"/>
+                        <segue destination="A0W-jC-FLR" kind="show" identifier="Climate" id="njO-J6-7oL"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AtE-0k-YEY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1512,8 +1516,10 @@
         <image name="settings.png" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SjP-FI-zkw"/>
-        <segue reference="AUm-1f-Bfs"/>
         <segue reference="13K-Rg-q05"/>
+        <segue reference="AUm-1f-Bfs"/>
+        <segue reference="SjP-FI-zkw"/>
+        <segue reference="vP0-rc-GbX"/>
+        <segue reference="njO-J6-7oL"/>
     </inferredMetricsTieBreakers>
 </document>

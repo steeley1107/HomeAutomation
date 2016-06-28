@@ -44,14 +44,14 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     //Mark: Properties
     
-    var array = [Any]()
+    //var array = [Any]()
     var displayArray = [Any]()
-    var nodes = [Node]()
+    //var nodes = [Node]()
     var xml: XMLIndexer?
     var baseURLString = ""
     
-    var programs = [Program]()
-    var programFolders = [ProgramFolder]()
+    //var programs = [Program]()
+    //var programFolders = [ProgramFolder]()
     
     //Mark: Functions
     
@@ -143,7 +143,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                     node.type = type
                 }
                 
-                
                 //Get information from thermostat
                 do
                 {
@@ -158,7 +157,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                     node.thermostatCoolSP = String(thermostatCoolSP!.characters.dropLast(3))
                     node.thermostatHeatSP = String(thermostatHeatSP!.characters.dropLast(3))
                     node.thermostatHumidity = String(thermostatHumidity!.characters.dropLast(3))
-                    
                 }
                 catch
                 {
@@ -193,10 +191,10 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         
         let baseURL = NSURL(string: baseURLString + "nodes")
         requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
-          
+            
             for elem in response["nodes"]["folder"]
             {
-                let folderRealm = FolderRealm()
+                let folderRealm = Folder()
                 
                 //Get the name of the folder
                 if let name = elem["name"].element?.text!
@@ -214,13 +212,16 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                     folderRealm.parent = parent
                 }
                 
+                folderRealm.containsNode = self.nodeCheck(folderRealm)
+                
+                
                 //Save nodes to Realm
                 try! realm.write({
                     realm.add(folderRealm, update: true)
                 })
             }
-            
             completionHandler(success: true)
+            self.sceneCheck()
         })
     }
     
@@ -233,7 +234,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         
         // Query for all subfolders
         var predicate = NSPredicate(format: "parent = %@", address)
-        let folders = realm.objects(FolderRealm.self).filter(predicate)
+        let folders = realm.objects(Folder.self).filter(predicate)
         
         for folder in folders
         {
@@ -295,7 +296,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         var commandURLString = baseURLString + "nodes/" + node.address + "/cmd/" + command
         commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
         let commandURL = NSURL(string: commandURLString)
-        
         
         requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
             
@@ -470,19 +470,19 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     //function to determine the type of node, so it can just to the right screen
     //ie. thermostat can go to climate screen.
-//    func nodeType(node: Node)
-//    {
-//        //let nodeType = node.type
-//        let nodeTypeArray = node.type.componentsSeparatedByString(".")
-//        
-//        if nodeTypeArray.count > 3 {
-//            let deviceCategory: String = nodeTypeArray[0]
-//            let subCategory: String = nodeTypeArray[1]
-//            let productKey: String = nodeTypeArray[2]
-//            node.deviceCat = DeviceCat(rawValue: Int(deviceCategory)!)!
-//        }
-//        
-//    }
+    //    func nodeType(node: Node)
+    //    {
+    //        //let nodeType = node.type
+    //        let nodeTypeArray = node.type.componentsSeparatedByString(".")
+    //
+    //        if nodeTypeArray.count > 3 {
+    //            let deviceCategory: String = nodeTypeArray[0]
+    //            let subCategory: String = nodeTypeArray[1]
+    //            let productKey: String = nodeTypeArray[2]
+    //            node.deviceCat = DeviceCat(rawValue: Int(deviceCategory)!)!
+    //        }
+    //
+    //    }
     
     //function to call delays in the program.
     func delay(delay:Double, closure:()->()) {
@@ -551,7 +551,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         //Check to see if the node is a dashboard item
         let predicate = NSPredicate(format: "parent = %@", node.address)
         let hasChildrenArray = realm.objects(Node.self).filter(predicate)
-        print("has children \(hasChildrenArray)")
+        
         if hasChildrenArray.count != 0
         {
             return true
@@ -560,7 +560,61 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         {
             return false
         }
-
-    
     }
+    
+    
+    //Check to see if the folder contains a node
+    func nodeCheck(folder: Folder) -> Bool
+    {
+        let realm = try! Realm()
+        
+        let predicate = NSPredicate(format: "parent = %@", folder.address)
+        let containsNodes = realm.objects(Node.self).filter(predicate)
+        print("contains Nodes \(containsNodes)")
+        if containsNodes.count != 0
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
+    
+    
+    //Check to see if the folder contains a node
+    func sceneCheck()
+    {
+        let realm = try! Realm()
+        //get all folders
+        let folders = realm.objects(Folder.self)
+        
+        //go through all folders to see if they contain a scene
+        for testFolder in folders
+        {
+            let predicate = NSPredicate(format: "parent = %@", testFolder.address)
+            let folderContainsScenes = realm.objects(Scene.self).filter(predicate)
+            
+            //found folder that contains scene
+            if folderContainsScenes.count != 0
+            {
+                //mark folder that contains the scene
+                try! realm.write {
+                    testFolder.containsScene = true
+                }
+                
+                let predicate = NSPredicate(format: "address = %@", testFolder.parent)
+                let parentFolderContainsScenes = realm.objects(Folder.self).filter(predicate)
+                if parentFolderContainsScenes.count != 0
+                {
+                    try! realm.write {
+                        parentFolderContainsScenes[0].containsScene = true
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
 }

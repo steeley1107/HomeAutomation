@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import RealmSwift
 
-class Program: NSObject {
+class Program: Object {
     //      folder
     //    <program id="0022" parentId="0001" status="true" folder="true">
     //    <name>Email</name>
@@ -25,22 +26,22 @@ class Program: NSObject {
     //    </program>
     
     
-    var name: String = ""
-    var id: String = ""
-    var parentId: String = ""
-    var status: String = ""
-    var folder: String = ""
-    var imageName: String = ""
-    var lastRunTime: String = ""
-    var lastFinishTime: String = ""
-    var nextScheduledRunTime: String = ""
-    var enabled: String = ""
-    var runAtStartup: String = ""
+    dynamic var name: String = ""
+    dynamic var id: String = ""
+    dynamic var parentId: String = ""
+    dynamic var status: String = ""
+    dynamic var folder: String = ""
+    dynamic var imageName: String = ""
+    dynamic var lastRunTime: String = ""
+    dynamic var lastFinishTime: String = ""
+    dynamic var nextScheduledRunTime: String = ""
+    dynamic var enabled: String = ""
+    dynamic var runAtStartup: String = ""
+    dynamic var dashboardItem: Bool = false
     
     
-    
-    override init() {
-        
+    override static func primaryKey() -> String? {
+        return "id"
     }
     
     

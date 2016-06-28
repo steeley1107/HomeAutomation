@@ -8,16 +8,34 @@
 
 import UIKit
 
-class Folder: NSObject {
+import RealmSwift
+
+
+
+class Folder: Object {
     
-    var name = ""
-    var address = ""
-    var parent = ""
-    var nodeArray = [Node]()
-    var sceneArray = [Scene]()
-    var subfolderArray = [Folder]()
-    var array = [Any]()
-    var containsScene = false
-    var containsNode = false
+    dynamic var name = ""
+    dynamic var address = ""
+    dynamic var parent = ""
+    dynamic var containsScene = false
+    dynamic var containsNode = false
+    
+    override static func primaryKey() -> String? {
+        return "address"
+    }
     
 }
+
+//class Folder: NSObject {
+//    
+//    var name = ""
+//    var address = ""
+//    var parent = ""
+//    var nodeArray = [Node]()
+//    var sceneArray = [Scene]()
+//    var subfolderArray = [Folder]()
+//    var array = [Any]()
+//    var containsScene = false
+//    var containsNode = false
+//    
+//}

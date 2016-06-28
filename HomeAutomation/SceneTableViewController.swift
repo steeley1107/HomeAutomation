@@ -48,13 +48,12 @@ class SceneTableViewController: UITableViewController {
     //call this function to update tableview
     func refresh(sender:AnyObject)
     {
-        
         self.array = []
         self.array = self.sceneManager.loadArray("")
         self.tableView.reloadData()
         self.refreshControl!.endRefreshing()
-      
     }
+    
     
     func methodOfReceivedNotification(notification: NSNotification){
         //Take Action on Notification
@@ -79,7 +78,7 @@ class SceneTableViewController: UITableViewController {
     {
         let element = array[indexPath.row]
         
-        if let scene = element as? SceneRealm
+        if let scene = element as? Scene
         {
             let cell:NodeTableViewCell = tableView.dequeueReusableCellWithIdentifier("ProgramCell", forIndexPath: indexPath) as! NodeTableViewCell
             
@@ -116,28 +115,6 @@ class SceneTableViewController: UITableViewController {
     }
     
     
-    //    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    //    {
-    //        let selectedElement = array[indexPath.row]
-    //
-    //        if let program = selectedElement as? Program
-    //        {
-    //            if program.folder == "true"
-    //            {
-    //                performSegueWithIdentifier("Folder", sender: nil)
-    //            }
-    //            else
-    //            {
-    //                //                if node.deviceCat.rawValue == 1 || node.deviceCat.rawValue == 2
-    //                //                {
-    //                //                    performSegueWithIdentifier("Switch", sender: nil)
-    //                //                }
-    //            }
-    //        }
-    //    }
-    
-    
-    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -147,7 +124,7 @@ class SceneTableViewController: UITableViewController {
         {
             let sceneVC:SceneControlTableViewController = segue.destinationViewController as! SceneControlTableViewController
             let indexPath = tableView.indexPathForSelectedRow
-            let selectedScene = array[indexPath!.row] as! SceneRealm
+            let selectedScene = array[indexPath!.row] as! Scene
             sceneVC.scene = selectedScene
         }
         
@@ -156,17 +133,15 @@ class SceneTableViewController: UITableViewController {
             let sceneTableVC:SceneTableViewController = segue.destinationViewController as! SceneTableViewController
             let indexPath = tableView.indexPathForSelectedRow
         
-            if let folder = array[(indexPath?.row)!] as? FolderRealm
+            if let folder = array[(indexPath?.row)!] as? Folder
             {
                 sceneTableVC.array = sceneManager.loadArray(folder.address)
             }
-            if let scene = array[(indexPath?.row)!] as? SceneRealm
+            if let scene = array[(indexPath?.row)!] as? Scene
             {
                 sceneTableVC.array = sceneManager.loadArray(scene.address)
             }
-            
         }
-
     }
     
     
