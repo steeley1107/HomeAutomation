@@ -16,8 +16,9 @@ class DashboardCollectionViewController: UICollectionViewController {
     //Mark - Properties
     var dashboardArray = [Any]()
     var nodeManager: NodeManager!
+    var programManager: ProgramManager!
+    var sceneManager: SceneManager!
     var updating = false
-    
     
     
     override func viewDidLoad() {
@@ -27,6 +28,8 @@ class DashboardCollectionViewController: UICollectionViewController {
         
         //Init node controller
         nodeManager = NodeManager.sharedInstance
+        programManager = ProgramManager.sharedInstance
+        sceneManager = SceneManager.sharedInstance
         
         refresh(self)
     }
@@ -34,7 +37,7 @@ class DashboardCollectionViewController: UICollectionViewController {
     override func viewWillAppear(animated: Bool) {
         
         nodeManager.getStatusAllNodes { (success) in
-           self.refresh(self)
+            self.refresh(self)
         }
     }
     
@@ -101,6 +104,50 @@ class DashboardCollectionViewController: UICollectionViewController {
                 cell.image.image = UIImage(named: node.imageName + "-off")
             }
         }
+        else if let program = element as? Program
+        {
+            cell.title.text = program.name
+            cell.status.text = program.status
+            
+            //Change the color of the status to red or green.
+            if program.status == "true"
+            {
+                cell.status.textColor = UIColor.greenColor()
+                //adding icon ending
+                cell.image.image = UIImage(named: "program" + "-on")
+            }
+            else
+            {
+                cell.status.textColor = UIColor.redColor()
+                //add icon ending
+                cell.image.image = UIImage(named: "program" + "-off")
+            }
+            
+            
+        }
+        else if let scene = element as? Scene
+        {
+            cell.title.text = scene.name
+            cell.status.text = sceneManager.sceneStatus(scene)
+            
+            //cell.status.text = scene.status
+            
+            //Change the color of the status to red or green.
+            //            if scene.status == "true"
+            //            {
+            //                cell.status.textColor = UIColor.greenColor()
+            //                //adding icon ending
+            //                cell.image.image = UIImage(named: "program" + "-on")
+            //            }
+            //            else
+            //            {
+            //                cell.status.textColor = UIColor.redColor()
+            //                //add icon ending
+            //                cell.image.image = UIImage(named: "program" + "-off")
+            //            }
+            
+        }
+        
         return cell
     }
     
@@ -137,7 +184,29 @@ class DashboardCollectionViewController: UICollectionViewController {
             }
         }
         
+        if let scene = dashboardArray[indexPath.row] as? Scene
+        {
+            self.updating = false
+            self.collectionView?.reloadItemsAtIndexPaths(indexPathArray)
+        }
+        
+        
+        if let program = dashboardArray[indexPath.row] as? Program
+        {
+            var indexPathArray = [NSIndexPath]()
+            indexPathArray.append(indexPath)
+            
+            programManager.programCommand(program, command: "run", completionHandler: { (success) in
+                self.programManager.getProgram(program, completionHandler: { (success, program) in
+                    self.updating = false
+                    self.collectionView?.reloadItemsAtIndexPaths(indexPathArray)
+                })
+            })
+        }
+        
     }
+    
+    
     // MARK: UICollectionViewDelegate
     
     /*
@@ -180,8 +249,11 @@ class DashboardCollectionViewController: UICollectionViewController {
     func refresh(sender:AnyObject)
     {
         self.dashboardArray = []
-        let dashboardRealm:[Any] = self.nodeManager.queryNodesFromRealm()
+        var dashboardRealm:[Any] = self.nodeManager.queryNodesFromRealm()
+        dashboardRealm.appendContentsOf(self.programManager.queryNodesFromRealm())
+        dashboardRealm.appendContentsOf(self.sceneManager.queryNodesFromRealm())
         self.dashboardArray = dashboardRealm
+        
         self.collectionView!.reloadData()
         
     }

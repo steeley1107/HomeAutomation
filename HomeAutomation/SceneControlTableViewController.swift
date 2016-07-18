@@ -29,10 +29,10 @@ class SceneControlTableViewController: UITableViewController {
         //Init node controller
         self.sceneManager = SceneManager()
         
-        
         //reload()
         
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -44,7 +44,7 @@ class SceneControlTableViewController: UITableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        let count = 2
+        let count = 3
         return count
     }
     
@@ -54,14 +54,16 @@ class SceneControlTableViewController: UITableViewController {
             let count = sceneManager.sceneControl.count
             return count
         }
-        else
+        else if section == 1
         {
             let count = scene.members.count
-            
-            
+            return count
+        }else if section == 2
+        {
+            let count = 1
             return count
         }
-        
+        return 0
     }
     
     
@@ -74,7 +76,7 @@ class SceneControlTableViewController: UITableViewController {
             cell.title.text = element
             return cell
         }
-        else
+        else if indexPath.section == 1
         {
             let element = scene.members[indexPath.row]
             
@@ -99,8 +101,17 @@ class SceneControlTableViewController: UITableViewController {
                     cell.nodeImage.image = UIImage(named: node.imageName + "-off")
                 }
                 return cell
-                
             }
+        }else
+        {
+            let cell:DashboardTableViewCell = tableView.dequeueReusableCellWithIdentifier("DashboardCell", forIndexPath: indexPath) as! DashboardTableViewCell
+            
+            cell.dashboardItemStatus.on = scene.dashboardItem
+            
+            //let element = sceneManager.sceneControl[indexPath.row]
+            //cell.title.text = element
+            
+            return cell
         }
     }
     
@@ -141,6 +152,11 @@ class SceneControlTableViewController: UITableViewController {
                 performSegueWithIdentifier("Climate", sender: nil)
             }
         }
+        else if indexPath.section == 2
+        {
+            let cell:DashboardTableViewCell = tableView.dequeueReusableCellWithIdentifier("DashboardCell", forIndexPath: indexPath) as! DashboardTableViewCell
+            cell.dashboardItemStatus.on = scene.dashboardItem 
+        }
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -148,15 +164,18 @@ class SceneControlTableViewController: UITableViewController {
         //Create label and autoresize it
         let headerLabel = UILabel(frame: CGRectMake(10, 5, tableView.frame.width, 2000))
         headerLabel.textColor = UIColor.whiteColor()
-        //        headerLabel.text = "Settings"
-        //        headerLabel.sizeToFit()
+   
         if section == 0
         {
             headerLabel.text = "Controls"
         }
         else if section == 1
         {
-            headerLabel.text = "Memebers"
+            headerLabel.text = "Members"
+        }
+        else if section == 2
+        {
+            headerLabel.text = "Dashboard"
         }
         headerLabel.sizeToFit()
         
@@ -172,10 +191,7 @@ class SceneControlTableViewController: UITableViewController {
     
     func reload()
     {
-        
         self.tableView.reloadData()
-        
-        
         
         //        sceneManager.getScene(self.scene) { (success, program) in
         //            if success == true
@@ -220,21 +236,7 @@ class SceneControlTableViewController: UITableViewController {
             let selectedNode = scene.members[indexPath!.row] //as! Node
             switchVC.node = selectedNode
         }
-        
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     

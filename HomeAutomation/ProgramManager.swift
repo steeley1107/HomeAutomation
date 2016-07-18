@@ -8,18 +8,15 @@
 
 import UIKit
 import SWXMLHash
+import RealmSwift
 
 class ProgramManager: NSObject, NSURLSessionDelegate {
+    static let sharedInstance = ProgramManager()
     
     
     //Mark: Properties
     
     var baseURLString = ""
-    var programs = [Program]()
-    var programFolders = [ProgramFolder]()
-    var rootfolder = ProgramFolder()
-    var program = Program()
-    var array = [Any]()
     var displayArray = [Any]()
     
     
@@ -58,14 +55,13 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
         completionHandler(NSURLSessionAuthChallengeDisposition.UseCredential, NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!))
     }
     
-    
     //grab data from xml and place programs in a custom class
     func getPrograms(completionHandler: (success: Bool) -> ())
     {
+        let realm = try! Realm()
         let baseURL = NSURL(string: baseURLString + "programs?subfolders=true")
         requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
-            
-            self.programs = []
+
             for elem in response["programs"]["program"] {
                 let program = Program()
                 
@@ -114,17 +110,18 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                 {
                     program.lastFinishTime = lastFinishTime
                 }
-                
                 //Get the status of the program
                 if let nextScheduledRunTime = elem["nextScheduledRunTime"].element?.text
                 {
                     program.nextScheduledRunTime = nextScheduledRunTime
                 }
                 
-                //Add node to array of nodes
+                //Save nodes to Realm
                 if program.folder == "false"
                 {
-                    self.programs += [program]
+                    try! realm.write({
+                        realm.add(program, update: true)
+                    })
                 }
             }
             completionHandler(success: true)
@@ -133,11 +130,13 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
     
     
     //create all folders and place them in an array
-    func createProgramFolders(completionHandler: (success: Bool) -> ())
+    func getProgramFolders(completionHandler: (success: Bool) -> ())
     {
+        let realm = try! Realm()
+        
         let baseURL = NSURL(string: baseURLString + "programs?subfolders=true")
         requestData(NSMutableURLRequest(URL: baseURL!), completionHandler: { (response: XMLIndexer) -> () in
-            self.programFolders = []
+            
             for elem in response["programs"]["program"]
             {
                 let folderStatus = elem.element!.attributes["folder"]
@@ -162,37 +161,10 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                         folder.parent = parent
                     }
                     
-                    
-                    //determine if the folder is a root or a sub folder.
-                    if folder.parent == ""
-                    {
-                        self.rootfolder = folder
-                    }
-                    else
-                    {
-                        self.programFolders += [folder]
-                    }
-                }
-            }
-            
-            //Add root folders
-            for folder in self.programFolders
-            {
-                if self.rootfolder.id == folder.parent
-                {
-                    self.rootfolder.subfolderArray.append(folder)
-                }
-            }
-            
-            //Add sub folders
-            for rootfolder in self.rootfolder.subfolderArray
-            {
-                for subfolder in self.programFolders
-                {
-                    if subfolder.parent == rootfolder.id
-                    {
-                        rootfolder.subfolderArray += [subfolder]
-                    }
+                    //Save nodes to Realm
+                    try! realm.write({
+                        realm.add(folder, update: true)
+                    })
                 }
             }
             completionHandler(success: true)
@@ -200,74 +172,32 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
     }
     
     
-    //add nodes to the proper folder array
-    func addPrograms(completionHandler: (success: Bool) -> ())
-    {
-        createProgramFolders { (success) -> () in
-            if success
-            {
-                self.getPrograms { (success) -> () in
-                    if success
-                    {
-                        //Add programs to root
-                        for program in self.programs
-                        {
-                            if program.parentId == self.rootfolder.id
-                            {
-                                self.rootfolder.programArray += [program]
-                            }
-                        }
-                        
-                        //Add programs to root
-                        for folder in self.programFolders
-                        {
-                            for program in self.programs
-                            {
-                                if program.parentId == folder.id
-                                {
-                                    folder.programArray += [program]
-                                }
-                            }
-                        }
-                        
-                        //Add folders and programs to the array for the table view
-                        self.array = []
-                        for folder in self.rootfolder.subfolderArray
-                        {
-                            self.array.append(folder)
-                        }
-                        
-                        for node in self.rootfolder.programArray
-                        {
-                            self.array.append(node)
-                        }
-                    }
-                    completionHandler(success: true)
-                }
-            }
-        }
-    }
-    
-    
-    //Loads the proper array to allow drill down function
-    func loadArray(indexPath: NSIndexPath, array: [Any]) ->([Any])
+    //Loads the display array
+    func loadArray(address: String) ->([Any])
     {
         displayArray = []
-        //Check to see if the cell is a folder
-        if let selectedFolder = array[indexPath.row] as? ProgramFolder
+        let realm = try! Realm()
+        
+        // Query for all subfolders
+        var predicate = NSPredicate(format: "parent = %@", address)
+        let folders = realm.objects(ProgramFolder.self).filter(predicate)
+        
+        for folder in folders
         {
-            for folder in selectedFolder.subfolderArray
-            {
-                displayArray.append(folder)
-            }
-            for node in selectedFolder.programArray
-            {
-                displayArray.append(node)
-            }
+            displayArray.append(folder)
         }
+        
+        // Query all nodes using
+        predicate = NSPredicate(format: "parentId = %@", address)
+        let programs = realm.objects(Program.self).filter(predicate)
+        
+        for program in programs
+        {
+            displayArray.append(program)
+        }
+        
         return displayArray
     }
-    
     
     
     //runs the if portion of the program.
@@ -293,8 +223,6 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
             }
         })
     }
-    
-    
     
     
     //grab data from xml and place programs in a custom class
@@ -359,23 +287,28 @@ class ProgramManager: NSObject, NSURLSessionDelegate {
                 {
                     program.nextScheduledRunTime = nextScheduledRunTime
                 }
-                
             }
             completionHandler(success: true, program: program)
         })
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    //Need to add perameters to allow for queries of different types
+    func queryNodesFromRealm() -> [Any]
+    {
+        let realm = try! Realm()
+        
+        // Query using an NSPredicate
+        let predicate = NSPredicate(format: "dashboardItem = %@", true)
+        let elements = realm.objects(Program.self).filter(predicate)
+        
+        var programs = [Any]()
+        for elem in elements
+        {
+            programs.append(elem)
+        }
+        return programs
+    }
     
     
 }

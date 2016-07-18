@@ -54,25 +54,4 @@ class Node: Object {
         return "address"
     }
 
-    
-//    func copyWithZone(zone: NSZone) -> AnyObject {
-//        //let copy = Node()
-//        let copy = self.dynamicType.init()
-//        copy.address = address
-//        copy.name = name
-//        copy.address = address
-//        copy.type = type
-//        copy.enabled =  enabled
-//        copy.deviceClass = deviceClass
-//        copy.wattage = wattage
-//        copy.status = status
-//        copy.parent = parent
-//        copy.value = value
-//        copy.imageName = imageName
-//        copy.flag = flag
-//        copy.deviceCat = deviceCat
-//
-//        return copy
-//    }
-//
 }

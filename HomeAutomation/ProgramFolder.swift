@@ -7,16 +7,16 @@
 //
 
 import UIKit
+import RealmSwift
 
-class ProgramFolder: NSObject {
+class ProgramFolder: Object {
     
-    var name = ""
-    var id = ""
-    var parent = ""
-    var programArray = [Program]()
+    dynamic var name = ""
+    dynamic var id = ""
+    dynamic var parent = ""
     
-    var subfolderArray = [ProgramFolder]()
-    var array = [Any]()
-    
-    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+
 }

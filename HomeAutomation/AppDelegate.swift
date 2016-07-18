@@ -72,11 +72,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            }
 //        }
         
-        programManager.addPrograms { (success) -> () in
-            if success {
-                NSNotificationCenter.defaultCenter().postNotificationName("ProgramsReady", object: nil)
-            }
-        }
+//        programManager.addPrograms { (success) -> () in
+//            if success {
+//                NSNotificationCenter.defaultCenter().postNotificationName("ProgramsReady", object: nil)
+//            }
+//        }
     }
     
     

@@ -17,7 +17,6 @@ class ProgramTableViewController: UITableViewController {
     var tableRefreshControl: UIRefreshControl!
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,26 +41,27 @@ class ProgramTableViewController: UITableViewController {
     //call this function to update tableview
     func refresh(sender:AnyObject)
     {
-        if let baseURLString = NSUserDefaults.standardUserDefaults().objectForKey("baseURLString") as? String
-        {
-            programManager.baseURLString = baseURLString
-        }
-        
-        programManager.addPrograms { (success) -> () in
-            if success {
-                self.array = []
-                self.array = self.programManager.array
-                self.tableView.reloadData()
-                self.refreshControl!.endRefreshing()
-            }
-        }
+        self.array = []
+        self.array = self.programManager.loadArray("0001")
+        self.tableView.reloadData()
+        self.refreshControl!.endRefreshing()
     }
+    
     
     func methodOfReceivedNotification(notification: NSNotification){
         //Take Action on Notification
         refresh(self)
     }
     
+    @IBAction func updateRealm(sender: AnyObject)
+    {
+        programManager.getProgramFolders { (success) in
+            self.refresh(self)
+        }
+        programManager.getPrograms { (success) in
+            self.refresh(self)
+        }
+    }
     
     // MARK: - Table view data source
     
@@ -79,6 +79,8 @@ class ProgramTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let element = array[indexPath.row]
+        
+        
         
         if let program = element as? Program
         {
@@ -102,10 +104,10 @@ class ProgramTableViewController: UITableViewController {
             }
             return cell
         }
-        else if let element = element as? ProgramFolder
+        else if let programFolder = element as? ProgramFolder
         {
             let cell:FolderTableViewCell = tableView.dequeueReusableCellWithIdentifier("FolderCell", forIndexPath: indexPath) as! FolderTableViewCell
-            cell.nodeTitle.text = element.name
+            cell.nodeTitle.text = programFolder.name
             return cell
         }
         else
@@ -156,7 +158,12 @@ class ProgramTableViewController: UITableViewController {
         {
             let programTableVC:ProgramTableViewController = segue.destinationViewController as! ProgramTableViewController
             let indexPath = tableView.indexPathForSelectedRow
-            programTableVC.array = programManager.loadArray(indexPath!, array: array)
+            
+            if let programFolder = array[(indexPath?.row)!] as? ProgramFolder
+            {
+                print("folder id \(programFolder.id)")
+                programTableVC.array = programManager.loadArray(programFolder.id)
+            }
         }
     }
     

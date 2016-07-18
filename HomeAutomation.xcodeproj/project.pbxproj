@@ -38,7 +38,6 @@
 		DA54468A1CB1BDD900873C74 /* energy-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446881CB1BDD900873C74 /* energy-off.png */; };
 		DA54468B1CB1BDD900873C74 /* energy-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5446891CB1BDD900873C74 /* energy-on.png */; };
 		DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */; };
-		DA8AD1FF1D0B517300696943 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD1FE1D0B517300696943 /* Realm.swift */; };
 		DA8FE8B11C93749200991FB4 /* lightbulb-on.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8FE8B01C93749200991FB4 /* lightbulb-on.png */; };
 		DA8FE8B31C93749900991FB4 /* lightbulb-off.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8FE8B21C93749900991FB4 /* lightbulb-off.png */; };
 		DA912FE71C32F38A0082F91A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA912FE61C32F38A0082F91A /* AppDelegate.swift */; };
@@ -58,6 +57,7 @@
 		DA993F891CA0DC6D00D93654 /* upArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F881CA0DC6D00D93654 /* upArrow.png */; };
 		DA993F8C1CA20F8900D93654 /* blue-down-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F8A1CA20F8900D93654 /* blue-down-arrow.png */; };
 		DA993F8D1CA20F8900D93654 /* blue-up-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DA993F8B1CA20F8900D93654 /* blue-up-arrow.png */; };
+		DAC8AC271D305C7A00EFBB1D /* DashboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC8AC261D305C7A00EFBB1D /* DashboardTableViewCell.swift */; };
 		DAD43B081CC13C0F00DE99F5 /* FolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD43B071CC13C0F00DE99F5 /* FolderTableViewCell.swift */; };
 		DAD43B0A1CC13E0400DE99F5 /* 048-folder.png in Resources */ = {isa = PBXBuildFile; fileRef = DAD43B091CC13E0400DE99F5 /* 048-folder.png */; };
 		DAD43B0C1CCA7ABC00DE99F5 /* 049-folder-open.png in Resources */ = {isa = PBXBuildFile; fileRef = DAD43B0B1CCA7ABC00DE99F5 /* 049-folder-open.png */; };
@@ -125,7 +125,6 @@
 		DA5446881CB1BDD900873C74 /* energy-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "energy-off.png"; sourceTree = "<group>"; };
 		DA5446891CB1BDD900873C74 /* energy-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "energy-on.png"; sourceTree = "<group>"; };
 		DA88C92B1C8B3A5200EA5B20 /* NodeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
-		DA8AD1FE1D0B517300696943 /* Realm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
 		DA8FE8B01C93749200991FB4 /* lightbulb-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightbulb-on.png"; sourceTree = "<group>"; };
 		DA8FE8B21C93749900991FB4 /* lightbulb-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightbulb-off.png"; sourceTree = "<group>"; };
 		DA912FE31C32F38A0082F91A /* HomeAutomation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeAutomation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +150,7 @@
 		DA993F881CA0DC6D00D93654 /* upArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upArrow.png; sourceTree = "<group>"; };
 		DA993F8A1CA20F8900D93654 /* blue-down-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-down-arrow.png"; sourceTree = "<group>"; };
 		DA993F8B1CA20F8900D93654 /* blue-up-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-up-arrow.png"; sourceTree = "<group>"; };
+		DAC8AC261D305C7A00EFBB1D /* DashboardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardTableViewCell.swift; sourceTree = "<group>"; };
 		DAD43B071CC13C0F00DE99F5 /* FolderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderTableViewCell.swift; sourceTree = "<group>"; };
 		DAD43B091CC13E0400DE99F5 /* 048-folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "048-folder.png"; sourceTree = "<group>"; };
 		DAD43B0B1CCA7ABC00DE99F5 /* 049-folder-open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "049-folder-open.png"; sourceTree = "<group>"; };
@@ -219,7 +219,6 @@
 				DA21C5201C77E87300F41A83 /* Node.swift */,
 				DA993F7E1CA04B4A00D93654 /* NodeType.swift */,
 				DA1B8A8B1CDD43DB002E0234 /* Scene.swift */,
-				DA8AD1FE1D0B517300696943 /* Realm.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -356,6 +355,7 @@
 				DAD43B071CC13C0F00DE99F5 /* FolderTableViewCell.swift */,
 				DA1B8A911CEA49E4002E0234 /* SceneControlTableViewCell.swift */,
 				DA1B8A951CEA6C04002E0234 /* DashboardCollectionViewCell.swift */,
+				DAC8AC261D305C7A00EFBB1D /* DashboardTableViewCell.swift */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -584,8 +584,8 @@
 				DA1B8A8E1CE132DF002E0234 /* SceneControlTableViewController.swift in Sources */,
 				DAD43B081CC13C0F00DE99F5 /* FolderTableViewCell.swift in Sources */,
 				DA88C92C1C8B3A5200EA5B20 /* NodeManager.swift in Sources */,
-				DA8AD1FF1D0B517300696943 /* Realm.swift in Sources */,
 				DA1B8A841CD3B3BB002E0234 /* ProgramControlTableViewController.swift in Sources */,
+				DAC8AC271D305C7A00EFBB1D /* DashboardTableViewCell.swift in Sources */,
 				DA993F831CA0A87900D93654 /* ClimateViewController.swift in Sources */,
 				DAFA7B991C93858D002CF894 /* NodeTableViewCell.swift in Sources */,
 				DA993F7F1CA04B4A00D93654 /* NodeType.swift in Sources */,

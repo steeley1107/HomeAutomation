@@ -11,13 +11,12 @@ import SWXMLHash
 import RealmSwift
 
 class SceneManager: NSObject, NSURLSessionDelegate {
+    static let sharedInstance = SceneManager()
     
     
     
     //Mark: Properties
     
-    //var array = [Any]()
-    //var scenes = [Scene]()
     var displayArray = [Any]()
     var xml: XMLIndexer?
     var baseURLString = ""
@@ -25,10 +24,7 @@ class SceneManager: NSObject, NSURLSessionDelegate {
     var sceneControl = [String]()
     
     
-    
-    
     //Mark: Functions
-    
     
     override init()
     {
@@ -40,7 +36,6 @@ class SceneManager: NSObject, NSURLSessionDelegate {
         self.nodeManager = NodeManager.sharedInstance
         
         sceneControl = ["On", "Off"]
-        
     }
     
     
@@ -156,6 +151,33 @@ class SceneManager: NSObject, NSURLSessionDelegate {
     }
     
     
+    //Reurn the percentage of members that are on in the scene
+    func sceneStatus(scene: Scene) -> String
+    {
+        var onCount = 0
+        var percentOn = 0
+        
+        if scene.members.count > 1
+        {
+            for node in scene.members
+            {
+                if node.status == "ture" || node.status == "On"
+                {
+                    print("true ")
+                    onCount += 1
+                }
+            }
+            
+            percentOn = onCount/scene.members.count * 100
+            return percentOn.description + " %"
+        }
+        else
+        {
+            return scene.members[0].status
+        }
+    }
+    
+    
     //Mark: node commands
     
     //runs the if portion of the program.
@@ -189,6 +211,22 @@ class SceneManager: NSObject, NSURLSessionDelegate {
     }
     
     
+    //Need to add perameters to allow for queries of different types
+    func queryNodesFromRealm() -> [Any]
+    {
+        let realm = try! Realm()
+        
+        // Query using an NSPredicate
+        let predicate = NSPredicate(format: "dashboardItem = %@", true)
+        let elements = realm.objects(Scene.self).filter(predicate)
+        
+        var scenes = [Any]()
+        for elem in elements
+        {
+            scenes.append(elem)
+        }
+        return scenes
+    }
     
     
     

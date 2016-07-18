@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ProgramControlTableViewController: UITableViewController {
     
@@ -19,9 +20,11 @@ class ProgramControlTableViewController: UITableViewController {
     @IBOutlet weak var lastRunLabel: UILabel!
     @IBOutlet weak var lastFinishLabel: UILabel!
     @IBOutlet weak var nextRunLabel: UILabel!
-   
+    @IBOutlet weak var dashboardItemStatus: UISwitch!
+    
     var program = Program()
     var programManager: ProgramManager!
+    let realm = try! Realm()
     
     
     override func viewDidLoad() {
@@ -121,10 +124,28 @@ class ProgramControlTableViewController: UITableViewController {
                 self.nextRunLabel.text = program.lastRunTime
             }
         }
+        
+        dashboardItemStatus.on = program.dashboardItem
     }
     
-    @IBAction func dashboardItem(sender: UISwitch) {
+    @IBAction func dashboardItem(sender: UISwitch)
+    {
+        let predicate = NSPredicate(format: "id = %@", self.program.id)
+        let nodeRealm = realm.objects(Program.self).filter(predicate)
         
-        
+        if sender.on
+        {
+            try! realm.write {
+                nodeRealm.setValue(true, forKey: "dashboardItem")
+            }
+        }
+        else
+        {
+            try! realm.write {
+                nodeRealm.setValue(false, forKey: "dashboardItem")
+            }
+        }
     }
+    
+    
 }

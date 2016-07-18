@@ -23,8 +23,6 @@ class SceneTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.methodOfReceivedNotification(_:)), name:"ScenesReady", object: nil)
         
         //Reload tableView
@@ -34,10 +32,8 @@ class SceneTableViewController: UITableViewController {
         
         //Init node controller
         self.sceneManager = SceneManager()
-        
-        
-        
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -67,6 +63,7 @@ class SceneTableViewController: UITableViewController {
         let count = 1
         return count
     }
+    
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = array.count

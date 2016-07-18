@@ -9,10 +9,7 @@
 import UIKit
 import RealmSwift
 
-
-
 class Scene: Object {
-    
     
     //    <group flag="132">
     //    <address>22625</address>

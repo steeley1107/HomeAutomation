@@ -17,9 +17,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
     var xml: XMLIndexer?
     var nodeManager: NodeManager!
     var array = [Any]()
-    
     var tableRefreshControl: UIRefreshControl!
-    
     
     
     //Mark:  Load ViewController
@@ -30,7 +28,6 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
         
         //Reload tableView
         self.refreshControl = UIRefreshControl()
-        //self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         
         //Init node controller
@@ -212,7 +209,6 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
 
         }
     }
-    
     
     
     //Alert Controller for the errand manager

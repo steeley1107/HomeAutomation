@@ -35,7 +35,6 @@ class ClimateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         //Init node controller
         self.nodeManager = NodeManager.sharedInstance
         
@@ -44,17 +43,13 @@ class ClimateViewController: UIViewController {
             nodeManager.baseURLString = baseURLString
         }
         
-        //nodeManager.nodeType(node)
-        
         //Update view
         updateView()
         
         //Setup Activity Spinner
         activitySpinner.hidesWhenStopped = true
-        
-        
-        
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -118,7 +113,6 @@ class ClimateViewController: UIViewController {
                 if self.previousNumber == self.currentNumber
                 {
                     self.nodeManager.temperatureChangeCommand(self.node, tempSP: self.currentNumber, completionHandler: { (success) -> () in
-                        //
                         self.updateView()
                         self.activitySpinner.stopAnimating()
                     })

@@ -44,14 +44,10 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     //Mark: Properties
     
-    //var array = [Any]()
     var displayArray = [Any]()
-    //var nodes = [Node]()
     var xml: XMLIndexer?
     var baseURLString = ""
-    
-    //var programs = [Program]()
-    //var programFolders = [ProgramFolder]()
+
     
     //Mark: Functions
     
@@ -161,6 +157,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
                 catch
                 {
                 }
+                
                 //additional items that are not in the xml file
                 
                 //Check to see if the node is a dashboard item
@@ -255,7 +252,6 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     
     
     //Mark: node commands
-    
     
     //turn on node funtion
     func onPercentageCommand(node: Node, percent: Int, completionHandler: (success: Bool) -> ())
@@ -466,23 +462,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             completionHandler(success: true)
         })
     }
-    
-    
-    //function to determine the type of node, so it can just to the right screen
-    //ie. thermostat can go to climate screen.
-    //    func nodeType(node: Node)
-    //    {
-    //        //let nodeType = node.type
-    //        let nodeTypeArray = node.type.componentsSeparatedByString(".")
-    //
-    //        if nodeTypeArray.count > 3 {
-    //            let deviceCategory: String = nodeTypeArray[0]
-    //            let subCategory: String = nodeTypeArray[1]
-    //            let productKey: String = nodeTypeArray[2]
-    //            node.deviceCat = DeviceCat(rawValue: Int(deviceCategory)!)!
-    //        }
-    //
-    //    }
+
     
     //function to call delays in the program.
     func delay(delay:Double, closure:()->()) {
