@@ -130,21 +130,19 @@ class DashboardCollectionViewController: UICollectionViewController {
             cell.title.text = scene.name
             cell.status.text = sceneManager.sceneStatus(scene)
             
-            //cell.status.text = scene.status
-            
             //Change the color of the status to red or green.
-            //            if scene.status == "true"
-            //            {
-            //                cell.status.textColor = UIColor.greenColor()
-            //                //adding icon ending
-            //                cell.image.image = UIImage(named: "program" + "-on")
-            //            }
-            //            else
-            //            {
-            //                cell.status.textColor = UIColor.redColor()
-            //                //add icon ending
-            //                cell.image.image = UIImage(named: "program" + "-off")
-            //            }
+            if cell.status.text == "On"
+            {
+                cell.status.textColor = UIColor.greenColor()
+                //adding icon ending
+                cell.image.image = UIImage(named: "program" + "-on")
+            }
+            else
+            {
+                cell.status.textColor = UIColor.redColor()
+                //add icon ending
+                cell.image.image = UIImage(named: "program" + "-off")
+            }
             
         }
         

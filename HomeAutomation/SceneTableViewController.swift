@@ -17,6 +17,7 @@ class SceneTableViewController: UITableViewController {
     var array = [Any]()
     var sceneManager: SceneManager!
     var tableRefreshControl: UIRefreshControl!
+    var folderAddress = ""
     
     
     
@@ -32,6 +33,8 @@ class SceneTableViewController: UITableViewController {
         
         //Init node controller
         self.sceneManager = SceneManager()
+        
+        refresh(self)
     }
     
     
@@ -45,7 +48,7 @@ class SceneTableViewController: UITableViewController {
     func refresh(sender:AnyObject)
     {
         self.array = []
-        self.array = self.sceneManager.loadArray("")
+        self.array = self.sceneManager.loadArray(folderAddress)
         self.tableView.reloadData()
         self.refreshControl!.endRefreshing()
     }
@@ -133,6 +136,7 @@ class SceneTableViewController: UITableViewController {
             if let folder = array[(indexPath?.row)!] as? Folder
             {
                 sceneTableVC.array = sceneManager.loadArray(folder.address)
+                sceneTableVC.folderAddress = folder.address
             }
             if let scene = array[(indexPath?.row)!] as? Scene
             {

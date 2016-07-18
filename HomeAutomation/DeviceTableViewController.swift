@@ -18,6 +18,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
     var nodeManager: NodeManager!
     var array = [Any]()
     var tableRefreshControl: UIRefreshControl!
+    var folderAddress = ""
     
     
     //Mark:  Load ViewController
@@ -34,12 +35,15 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
         nodeManager = NodeManager.sharedInstance
         
         //Check to see if values are loaded in the settings screen
-        checkSettings()        
+        checkSettings()
+        
+        refresh(self)
     }
     
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        
         
         nodeManager.getStatusAllNodes { (success) in
             if success
@@ -59,8 +63,9 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
     //call this function to update tableview
     func refresh(sender:AnyObject)
     {
+        print("address \(folderAddress)")
         self.array = []
-        self.array = self.nodeManager.loadArrayRealm("")
+        self.array = self.nodeManager.loadArrayRealm(folderAddress)
         self.tableView.reloadData()
         self.refreshControl!.endRefreshing()
     }
@@ -201,6 +206,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
             if let folder = array[(indexPath?.row)!] as? Folder
             {
                 deviceTableVC.array = nodeManager.loadArrayRealm(folder.address)
+                deviceTableVC.folderAddress = folder.address
             }
             if let node = array[(indexPath?.row)!] as? Node
             {

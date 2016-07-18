@@ -15,6 +15,7 @@ class ProgramTableViewController: UITableViewController {
     var array = [Any]()
     var programManager: ProgramManager!
     var tableRefreshControl: UIRefreshControl!
+    var programFolderId = "0001"
     
     
     override func viewDidLoad() {
@@ -30,6 +31,8 @@ class ProgramTableViewController: UITableViewController {
         //Init node controller
         self.programManager = ProgramManager()
         
+        refresh(self)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -42,7 +45,7 @@ class ProgramTableViewController: UITableViewController {
     func refresh(sender:AnyObject)
     {
         self.array = []
-        self.array = self.programManager.loadArray("0001")
+        self.array = self.programManager.loadArray(programFolderId)
         self.tableView.reloadData()
         self.refreshControl!.endRefreshing()
     }
@@ -163,6 +166,7 @@ class ProgramTableViewController: UITableViewController {
             {
                 print("folder id \(programFolder.id)")
                 programTableVC.array = programManager.loadArray(programFolder.id)
+                programTableVC.programFolderId = programFolder.id
             }
         }
     }
