@@ -155,6 +155,7 @@ class ProgramTableViewController: UITableViewController {
             let indexPath = tableView.indexPathForSelectedRow
             let selectedProgram = array[indexPath!.row] as! Program
             programVC.program = selectedProgram
+            programVC.title = selectedProgram.name
         }
         
         if (segue.identifier == "Folder")
@@ -167,6 +168,8 @@ class ProgramTableViewController: UITableViewController {
                 print("folder id \(programFolder.id)")
                 programTableVC.array = programManager.loadArray(programFolder.id)
                 programTableVC.programFolderId = programFolder.id
+                programTableVC.title = programFolder.name
+                
             }
         }
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mQO-6b-k2j">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mQO-6b-k2j">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -170,7 +170,7 @@
             </objects>
             <point key="canvasLocation" x="2529" y="1599"/>
         </scene>
-        <!--Device Table View Controller-->
+        <!--Device List-->
         <scene sceneID="o6I-Xs-9eu">
             <objects>
                 <tableViewController id="i9F-u3-KXK" customClass="DeviceTableViewController" customModule="HomeAutomation" customModuleProvider="target" sceneMemberID="viewController">
@@ -244,7 +244,7 @@
                             <outlet property="delegate" destination="i9F-u3-KXK" id="L6e-w0-9cm"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="fIh-ZY-VoX">
+                    <navigationItem key="navigationItem" title="Device List" id="fIh-ZY-VoX">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="v34-eH-9Zs">
                             <connections>
                                 <action selector="updateRealm:" destination="i9F-u3-KXK" id="WXx-bc-J0Y"/>
@@ -481,7 +481,7 @@
             </objects>
             <point key="canvasLocation" x="1156" y="1629"/>
         </scene>
-        <!--Program Table View Controller-->
+        <!--Programs-->
         <scene sceneID="D5T-4T-xaH">
             <objects>
                 <tableViewController id="55A-jR-mP0" customClass="ProgramTableViewController" customModule="HomeAutomation" customModuleProvider="target" sceneMemberID="viewController">
@@ -553,7 +553,7 @@
                             <outlet property="delegate" destination="55A-jR-mP0" id="EW9-jv-sYv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="cu9-ML-T3X">
+                    <navigationItem key="navigationItem" title="Programs" id="cu9-ML-T3X">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="SI5-to-L1N">
                             <connections>
                                 <action selector="updateRealm:" destination="55A-jR-mP0" id="372-Pd-nMv"/>
@@ -1225,7 +1225,7 @@
             </objects>
             <point key="canvasLocation" x="1968" y="2308"/>
         </scene>
-        <!--Scene Table View Controller-->
+        <!--Scenes-->
         <scene sceneID="O6J-Gm-nDL">
             <objects>
                 <tableViewController id="DdY-yW-qfe" customClass="SceneTableViewController" customModule="HomeAutomation" customModuleProvider="target" sceneMemberID="viewController">
@@ -1299,7 +1299,7 @@
                             <outlet property="delegate" destination="DdY-yW-qfe" id="rNz-gG-BgJ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="UCK-Ws-qhz"/>
+                    <navigationItem key="navigationItem" title="Scenes" id="UCK-Ws-qhz"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d1j-PZ-9w6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1324,7 +1324,7 @@
             </objects>
             <point key="canvasLocation" x="1968" y="3140"/>
         </scene>
-        <!--Dashboard Collection View Controller-->
+        <!--Dashboard-->
         <scene sceneID="GxR-QH-gOV">
             <objects>
                 <collectionViewController id="XZd-e5-7pN" customClass="DashboardCollectionViewController" customModule="HomeAutomation" customModuleProvider="target" sceneMemberID="viewController">
@@ -1404,7 +1404,7 @@
                             <outlet property="delegate" destination="XZd-e5-7pN" id="9o6-zw-6GN"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="OEG-7n-zIs"/>
+                    <navigationItem key="navigationItem" title="Dashboard" id="OEG-7n-zIs"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oa8-3X-Mha" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1557,10 +1557,10 @@
         <image name="settings.png" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AUm-1f-Bfs"/>
         <segue reference="SjP-FI-zkw"/>
+        <segue reference="AUm-1f-Bfs"/>
+        <segue reference="Ck6-Zn-0P2"/>
+        <segue reference="Drj-WJ-ela"/>
         <segue reference="13K-Rg-q05"/>
-        <segue reference="vP0-rc-GbX"/>
-        <segue reference="njO-J6-7oL"/>
     </inferredMetricsTieBreakers>
 </document>

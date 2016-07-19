@@ -48,6 +48,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
         nodeManager.getStatusAllNodes { (success) in
             if success
             {
+                self.refresh(self)
                 self.tableView.reloadData()
             }
         }
@@ -207,6 +208,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
             {
                 deviceTableVC.array = nodeManager.loadArrayRealm(folder.address)
                 deviceTableVC.folderAddress = folder.address
+                deviceTableVC.title = folder.name
             }
             if let node = array[(indexPath?.row)!] as? Node
             {
