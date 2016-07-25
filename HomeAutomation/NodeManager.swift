@@ -47,7 +47,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
     var displayArray = [Any]()
     var xml: XMLIndexer?
     var baseURLString = ""
-
+    
     
     //Mark: Functions
     
@@ -238,6 +238,14 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             displayArray.append(folder)
         }
         
+        //Add main node to the sub node list
+        predicate = NSPredicate(format: "address = %@", address)
+        let mainNode = realm.objects(Node.self).filter(predicate)
+        for node in mainNode
+        {
+            displayArray.append(node)
+        }
+        
         // Query all nodes using
         predicate = NSPredicate(format: "parent = %@", address)
         let nodes = realm.objects(Node.self).filter(predicate)
@@ -401,6 +409,8 @@ class NodeManager: NSObject, NSURLSessionDelegate {
         commandURLString = commandURLString.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
         let commandURL = NSURL(string: commandURLString)
         
+        print("\(commandURLString)")
+        
         requestData(NSMutableURLRequest(URL: commandURL!), completionHandler: { (response: XMLIndexer) -> () in
             
             for elem in response["nodes"]["node"] {
@@ -462,7 +472,7 @@ class NodeManager: NSObject, NSURLSessionDelegate {
             completionHandler(success: true)
         })
     }
-
+    
     
     //function to call delays in the program.
     func delay(delay:Double, closure:()->()) {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SceneControlTableViewController: UITableViewController {
     
@@ -69,6 +70,8 @@ class SceneControlTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        let realm = try! Realm()
+        
         if indexPath.section == 0
         {
             let cell:SceneControlTableViewCell = tableView.dequeueReusableCellWithIdentifier("SceneControlCell", forIndexPath: indexPath) as! SceneControlTableViewCell
@@ -108,9 +111,19 @@ class SceneControlTableViewController: UITableViewController {
             
             cell.dashboardItemStatus.on = scene.dashboardItem
             
-            //let element = sceneManager.sceneControl[indexPath.row]
-            //cell.title.text = element
-            
+            if cell.dashboardItemStatus.on
+            {
+                //Save to Realm
+                try! realm.write({
+                    scene.dashboardItem = true
+                })
+            }
+            else
+            {
+                try! realm.write({ 
+                    scene.dashboardItem = false
+                })
+            }
             return cell
         }
     }

@@ -44,7 +44,6 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         
-        
         nodeManager.getStatusAllNodes { (success) in
             if success
             {
@@ -64,7 +63,6 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
     //call this function to update tableview
     func refresh(sender:AnyObject)
     {
-        print("address \(folderAddress)")
         self.array = []
         self.array = self.nodeManager.loadArrayRealm(folderAddress)
         self.tableView.reloadData()
@@ -206,15 +204,14 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
             let indexPath = tableView.indexPathForSelectedRow
             if let folder = array[(indexPath?.row)!] as? Folder
             {
-                deviceTableVC.array = nodeManager.loadArrayRealm(folder.address)
                 deviceTableVC.folderAddress = folder.address
                 deviceTableVC.title = folder.name
             }
             if let node = array[(indexPath?.row)!] as? Node
             {
-                deviceTableVC.array = nodeManager.loadArrayRealm(node.address)
+                deviceTableVC.folderAddress = node.address
+                deviceTableVC.title = node.name
             }
-
         }
     }
     

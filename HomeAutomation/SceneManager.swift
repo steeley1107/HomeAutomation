@@ -171,9 +171,13 @@ class SceneManager: NSObject, NSURLSessionDelegate {
             percentOn = onCount/scene.members.count * 100
             return percentOn.description + " %"
         }
-        else
+        else if scene.members.count == 1
         {
             return scene.members[0].status
+        }
+        else
+        {
+            return ""
         }
     }
     

@@ -43,6 +43,12 @@ class SceneTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func updateRealm(sender: UIBarButtonItem)
+    {
+        sceneManager.getScenes { (success) in
+            self.refresh(self)
+        }
+    }
     
     //call this function to update tableview
     func refresh(sender:AnyObject)
@@ -83,7 +89,7 @@ class SceneTableViewController: UITableViewController {
             let cell:NodeTableViewCell = tableView.dequeueReusableCellWithIdentifier("ProgramCell", forIndexPath: indexPath) as! NodeTableViewCell
             
             cell.nodeTitle.text = scene.name
-            //cell.nodeStatus.text = scene.status
+            cell.nodeStatus.text = sceneManager.sceneStatus(scene)
             
             //Change the color of the status to red or green.
             if cell.nodeStatus.text == "true"
