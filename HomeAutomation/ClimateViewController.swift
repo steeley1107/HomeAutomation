@@ -67,7 +67,7 @@ class ClimateViewController: UIViewController {
         let requestedSP = Int(node.thermostatHeatSP)! + currentNumber / 2
         setpointTempLabel.text = String(requestedSP)
         timer.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "incControl", userInfo: nil, repeats: false)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(ClimateViewController.incControl), userInfo: nil, repeats: false)
         
         if firstTime == true
         {
@@ -101,7 +101,7 @@ class ClimateViewController: UIViewController {
         let requestedSP = Int(node.thermostatHeatSP)! + currentNumber / 2
         setpointTempLabel.text = String(requestedSP)
         timer.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "incControl", userInfo: nil, repeats: false)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: #selector(ClimateViewController.incControl), userInfo: nil, repeats: false)
         
         if firstTime == true
         {

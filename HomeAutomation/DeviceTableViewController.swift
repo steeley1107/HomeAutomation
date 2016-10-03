@@ -29,7 +29,7 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
         
         //Reload tableView
         self.refreshControl = UIRefreshControl()
-        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl!.addTarget(self, action: #selector(DeviceTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         
         //Init node controller
         nodeManager = NodeManager.sharedInstance

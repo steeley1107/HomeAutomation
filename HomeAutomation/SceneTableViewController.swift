@@ -29,7 +29,7 @@ class SceneTableViewController: UITableViewController {
         //Reload tableView
         self.refreshControl = UIRefreshControl()
         //self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl!.addTarget(self, action: #selector(SceneTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         
         //Init node controller
         self.sceneManager = SceneManager()
