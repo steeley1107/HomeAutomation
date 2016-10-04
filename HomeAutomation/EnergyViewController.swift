@@ -10,6 +10,11 @@ import UIKit
 
 class EnergyViewController: UIViewController {
 
+    //Mark: Properties
+    var node = Node()
+    //var nodeManager: NodeManager!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -165,6 +165,10 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
                 {
                     performSegueWithIdentifier("Climate", sender: nil)
                 }
+                if node.deviceCat == 9
+                {
+                    performSegueWithIdentifier("Energy", sender: nil)
+                }
             }
         }
     }
@@ -192,10 +196,10 @@ class DeviceTableViewController: UITableViewController, NSXMLParserDelegate {  /
         
         if (segue.identifier == "Energy")
         {
-            let switchVC:SwitchViewController = segue.destinationViewController as! SwitchViewController
+            let energyVC:EnergyViewController = segue.destinationViewController as! EnergyViewController
             let indexPath = tableView.indexPathForSelectedRow
             let selectedNode = array[indexPath!.row] as! Node
-            switchVC.node = selectedNode
+            energyVC.node = selectedNode
         }
         
         if (segue.identifier == "Folder")
